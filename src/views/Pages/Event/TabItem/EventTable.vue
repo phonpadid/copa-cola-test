@@ -9,28 +9,16 @@
       </a-button>
     </template>
   </TableActionMenu>
-  <a-table
-      :columns="columns"
-      :data-source="data"
-      :pagination="{ pageSize: 50 }"
-      :scroll="{ y: 300 }"
-  >
-    <template #bodyCell="{ column, text, record }">
-      <template v-if="column.dataIndex === 'Action'">
-        <a type="link">
-          <i class="fad fa-pencil-alt"></i>
-        </a>
-        <div class="ant-divider ant-divider-vertical"></div>
-        <a type="link">
-          <i class="far fa-trash"></i>
-        </a>
-      </template>
-    </template>
-  </a-table>
+  <a-row :gutter="[8,8]">
+    <a-col :sm="24" :md="8" :lg="8" v-for="item in 6">
+      <CardEvent/>
+    </a-col>
+  </a-row>
 </template>
 
 <script setup>
 import {useRouter} from "vue-router";
+import CardEvent from "@/components/GobalLayout/CardEvent.vue";
 
 const router = useRouter();
 const columns = [
@@ -62,7 +50,7 @@ const data = [...Array(100)].map((_, i) => ({
 
 function onCreate() {
   router.push({
-    name: "company.profile"
+    name: "event.create"
   }).catch(() => {
   })
 }

@@ -10,7 +10,7 @@
         @apply text-2xl font-black
     }
 
-    .base-color-them {
+    .base-color-theme {
         @apply bg-blue-500
     }
 

@@ -11,6 +11,12 @@
                    <span class="text-sm">Home</span>
                 </a-tag>
           </a-breadcrumb-item>
+          <!--    Event -->
+          <a-breadcrumb-item v-if="$route.meta.name === 'Event'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">Home</span>
+                </a-tag>
+          </a-breadcrumb-item>
         </span>
         <span class="text-black"> / {{ $route.meta.title }}</span>
       </template>

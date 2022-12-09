@@ -22,6 +22,12 @@ const MenuList = reactive([
     icon: "far fa-building",
     route: "company.index"
   },
+  {
+    id: "1",
+    name: "Events",
+    icon: "far fa-calendar-alt",
+    route: "event.index"
+  },
 ]);
 
 /*change menu */
