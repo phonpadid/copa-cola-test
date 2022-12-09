@@ -1,0 +1,25 @@
+/**
+@FontFace
+ */
+@font-face {
+    font-family: Poppins;
+    src: url(../fonts/ttf/Poppins-Light.ttf) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* BoonBan */
+@font-face {
+    font-family: BoonBaan;
+    src: url(../fonts/ttf/BoonBaan-Regular.ttf) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Notosan lao;
+    src: url(../fonts/ttf/NotoSansLao-Regular.ttf) format("truetype");
+    font-weight: normal;
+    font-style: italic;
+}
