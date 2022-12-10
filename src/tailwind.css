@@ -9,6 +9,7 @@
     .base-title-1 {
         @apply text-2xl font-black
     }
+
     .base-title-2 {
         @apply text-xl font-black
     }
@@ -22,6 +23,7 @@
     }
 
 }
+
 
 /*custom css*/
 body {
