@@ -3,7 +3,7 @@
     <a-row>
       <a-col :sm="24" :md="16" :lg="16">
         <div class="w-full flex flex-col justify-center items-center h-screen bg-blue-400">
-          <img class="w-[400px] h-[400px]" :src="registerIcon" alt />
+          <img class="w-[400px] h-[400px]" :src="registerIcon" alt/>
           <div class="w-full flex flex-col justify-center items-center">
             <h1 class="text-4xl m-0 p-0 font-black text-white">Welcome to Joinable !!</h1>
             <p class="mt-4 text-white text-2xl text-justify">Lorem ipsum dolor sit amet.</p>
@@ -13,44 +13,45 @@
       <a-col :sm="24" :md="8" :lg="8">
         <div class="w-full h-screen flex flex-col justify-center shadow pl-8 pr-8">
           <div class="w-[300px] h-[100px] text-4xl flex items-center justify-center">
-            <img :src="logoApp" alt />
+            <img :src="logoApp" alt/>
           </div>
           <div class="w-full h-[40px] border-l-4 border-blue-700 flex mt-4 items-center">
             <h2 class="base-title-1 ml-2 text-gray-600">Register To Joinable</h2>
           </div>
           <a-form
-            class="pt-8"
-            :form="form"
-            :ref="setRef"
-            :model="form"
-            :rules="rules"
-            :wrapper-col="wrapperCol"
+              class="pt-8"
+              :form="form"
+              :ref="setRef"
+              :model="form"
+              :rules="rules"
+              :wrapper-col="wrapperCol"
           >
             <a-form-item name="email">
               <label for="email">Email</label>
-              <a-input v-model:value="form.email" size="large" />
+              <a-input v-model:value="form.email" size="large"/>
             </a-form-item>
             <a-form-item name="password">
               <label for="email">Password</label>
-              <a-input v-model:value="form.password" size="large" />
+              <a-input-password v-model:value="form.password" size="large"/>
             </a-form-item>
             <a-form-item name="password_confirmation">
               <label for="email">Confirm Password</label>
-              <a-input v-model:value="form.password_confirmation" size="large" />
+              <a-input-password v-model:value="form.password_confirmation" size="large"/>
             </a-form-item>
             <a-form-item>
               <a-button
-                :loading="loading"
-                size="large"
-                type="primary"
-                class="bg-blue-500 w-full"
-                @click="onSubmit"
-              >Register</a-button>
+                  :loading="loading"
+                  size="large"
+                  type="primary"
+                  class="bg-blue-500 w-full"
+                  @click="onSubmit"
+              >Register
+              </a-button>
               <div class="text-center mt-4">
                 <p @click="login" class="text-base">
                   Already have an account ?
                   <span
-                    class="text-blue-500 cursor-pointer font-black"
+                      class="text-blue-500 cursor-pointer font-black"
                   >sign in</span>
                 </p>
               </div>
@@ -65,12 +66,12 @@
 <script setup>
 import registerIcon from "@/assets/image/resgister.png";
 import logoApp from "@/assets/image/JOINABLE.svg";
-import { reactive, onMounted, ref } from "vue";
-import { NotEmpty } from "@/utils/validate";
-import { useStore } from "vuex";
-import { useRoute, useRouter } from "vue-router";
+import {reactive, onMounted, ref} from "vue";
+import {NotEmpty} from "@/utils/validate";
+import {useStore} from "vuex";
+import {useRoute, useRouter} from "vue-router";
 import register from "@/store/models/Register";
-import { notificationSuccess } from "@/utils/message";
+import {notificationSuccess, notificationWarning} from "@/utils/message";
 
 const store = useStore();
 const route = useRoute();
@@ -96,13 +97,14 @@ const rules = {
 //function area
 const onSubmit = () => {
   ruleForm.value
-    .validate()
-    .then(res => {
-      if (res) {
-        handleSubmit();
-      }
-    })
-    .catch(error => {});
+      .validate()
+      .then(res => {
+        if (res) {
+          handleSubmit();
+        }
+      })
+      .catch(error => {
+      });
 };
 
 function handleSubmit() {
@@ -125,39 +127,42 @@ function finalSaveItem(body) {
   loading.value = true;
   console.log(98);
   store
-    .dispatch("data-resources/manage", body)
-    .then(res => {
-      console.log(98);
-      if (res.code === 200) {
-        notificationSuccess({
-          title: "Register Successfully",
-          description: "Confirm Login !!",
-          position: "topRight"
-        });
-        loading.value = false;
-        router
-          .push({
+      .dispatch("data-resources/manage", body)
+      .then(res => {
+        console.log(98);
+        if (res.code === 200) {
+          notificationSuccess({
+            title: "Register Successfully",
+            description: "Confirm Login !!",
+            position: "topRight"
+          });
+          loading.value = false;
+          router.push({
             name: "login.index"
-          })
-          .catch(() => {});
-      }
-    })
-    .catch(firstErrorBag => {
-      let error = firstErrorBag;
-      console.log(error, 77);
-      loading.value = false;
-    })
-    .finally(() => {
-      loading.value = false;
-    });
+          }).catch(() => {
+          });
+        }
+      })
+      .catch(firstErrorBag => {
+        loading.value = false;
+        notificationWarning({
+          title: "Register failed",
+          description: firstErrorBag.errors().join('\n'),
+          position: "topRight"
+        })
+      })
+      .finally(() => {
+        loading.value = false;
+      });
 }
 
 function login() {
   router
-    .push({
-      name: "login.index"
-    })
-    .catch(() => {});
+      .push({
+        name: "login.index"
+      })
+      .catch(() => {
+      });
 }
 </script>
 

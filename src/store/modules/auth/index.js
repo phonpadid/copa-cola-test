@@ -69,7 +69,7 @@ export default function create() {
             },
 
             logout(context, payload) {
-                axios.post(`${apiUrl}/auth/logout`, {}, config.addTokenHeader(context.getters.token))
+                axios.post(`${apiUrl}/auth/logouts`, {}, config.addTokenHeader(context.getters.token))
                     .then(() => {
                         context.commit('removeCredential', { path });
                     })

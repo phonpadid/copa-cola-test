@@ -6,14 +6,21 @@
       <span style="color: #000c17 !important;" class="ml-2 text-base font-light">{{ menu.name }}</span>
     </a-menu-item>
   </a-menu>
+  <div class="w-full ml-4 cursor-pointer mt-1" @click="logout">
+    <span class="text-base text-gray-600"><i class="far fa-sign-out-alt"></i></span>
+    <span style="color: #000c17 !important;" class="ml-2 text-base font-light">Logout</span>
+  </div>
 </template>
 
 <script setup>
 import {ref, reactive} from "vue";
 import {useRouter} from "vue-router";
+import {useStore} from "vuex";
+import {notificationSuccess} from "@/utils/message";
 
 const selectedKeys = ref(['0']);
 const router = useRouter();
+const store = useStore();
 /*menu list*/
 const MenuList = reactive([
   {
@@ -56,6 +63,21 @@ function handleChangeMenu(menu) {
   }).catch(() => {
   })
 
+}
+
+function logout() {
+  // store.dispatch('auth/logout')
+  //     .then((res) => {
+  //       if(res.code === 200){
+  //         notificationSuccess({
+  //           title: "Logout Successfully",
+  //           description: "...",
+  //           position: "topRight"
+  //         });
+  //       }
+  //     })
+  localStorage.removeItem("CREDENTIAL");
+  window.location.reload();
 }
 
 </script>
