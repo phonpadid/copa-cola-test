@@ -10,20 +10,21 @@
     </template>
   </TableActionMenu>
   <a-row :gutter="[8,8]">
-    <a-col :sm="24" :md="8" :lg="8" v-for="item in 6">
-      <CardFAQ/>
+    <a-col :sm="24" :md="12" :lg="8" v-for="item in faqItem">
+      <CardFAQ :faqItem="item"/>
     </a-col>
   </a-row>
 </template>
 
 <script setup>
 import {useRouter} from "vue-router";
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import bodyHelpers from "@/utils/BodyHelpers";
 import {useStore} from "vuex";
 
 const router = useRouter();
 const store = useStore();
+const faqItem = ref([]);
 
 function fetchFAQ() {
   store.dispatch("data-resources/listing", {
@@ -33,8 +34,7 @@ function fetchFAQ() {
     ])
   }).then((res) => {
     if (res.code === 200) {
-      console.log(res.data)
-      // activity.value = res.data;
+      faqItem.value = res.data;
     }
   }).catch((error) => {
     console.log(error)
