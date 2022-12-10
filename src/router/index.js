@@ -20,7 +20,7 @@ const routes = [
         ],
     },
     {
-        path: '/login',
+        path: '/',
         component: () => import(/* webpackChunkName: "Login" */'@/views/Pages/Register/LoginForm.vue'),
         children: [
             {
