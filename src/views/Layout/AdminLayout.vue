@@ -1,6 +1,6 @@
 <template>
   <a-layout class="h-screen overflow-hidden w-full">
-    <a-layout-sider style="background-color: #F3F3F3" width="280" class="h-screen flex flex-col bg-white"
+    <a-layout-sider style="background-color: #F3F3F3" width="270" class="h-screen flex flex-col bg-white"
                     v-model:collapsed="collapsed" :trigger="null" collapsible>
       <div class="w-full h-[120px] flex items-center px-3">
         <div class="w-full h-[60px] flex">
@@ -28,12 +28,12 @@
     <a-layout class="w-full">
       <a-layout-header style="background-color: #F3F3F3"
                        class="bg-white w-full flex items-center p-0 pr-6 h-[35px]">
-        <!--        <SelectOutlined-->
-        <!--            v-if="collapsed"-->
-        <!--            class="trigger"-->
-        <!--            @click="() => (collapsed = !collapsed)"-->
-        <!--        />-->
-        <!--        <SelectOutlined v-else class="trigger" @click="() => (collapsed = !collapsed)"/>-->
+<!--                <SelectOutlined-->
+<!--                    v-if="collapsed"-->
+<!--                    class="trigger"-->
+<!--                    @click="() => (collapsed = !collapsed)"-->
+<!--                />-->
+<!--                <SelectOutlined v-else class="trigger" @click="() => (collapsed = !collapsed)"/>-->
       </a-layout-header>
       <a-layout-content>
         <div

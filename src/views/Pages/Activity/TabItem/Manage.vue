@@ -14,7 +14,7 @@
         </h1>
       </a-form-item>
       <a-form-item label=" ">
-        <UploadImage  :title="'image'"/>
+        <UploadImage :limit="1" @update:imageList="chooseImage" :title="'image'"/>
       </a-form-item>
       <a-form-item label="name" name="name">
         <a-input v-model:value="form.name" size="large"/>
@@ -59,7 +59,7 @@ const setRef = el => {
 }
 const rules = {
   name: [NotEmpty('name')],
-  description:[NotEmpty('description')],
+  description: [NotEmpty('description')],
 };
 const onSubmit = () => {
   ruleForm.value
@@ -69,6 +69,11 @@ const onSubmit = () => {
       })
       .catch(error => {
       })
+}
+
+//emit image form component UploadImage
+function chooseImage(image) {
+  console.log(image)
 }
 
 function handleSubmit() {

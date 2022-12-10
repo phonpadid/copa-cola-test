@@ -1,10 +1,12 @@
 <template>
   <div class="w-full relative rounded flex flex-col p-4 h-[200px] border-2 border-gray-200">
     <div class="flex justify-between relative">
-      <div class="w-[100px] h-[100px]">
+      <div class="w-[100px] h-[100px]" v-if="career.image_logo">
         <img class="w-full h-full object-cover"
              :src="career.image_logo.url"
              alt="">
+      </div>
+      <div class="w-[100px] h-[100px] bg-gray-200 rounded" v-else>
       </div>
       <div>
         <div class="flex justify-end">

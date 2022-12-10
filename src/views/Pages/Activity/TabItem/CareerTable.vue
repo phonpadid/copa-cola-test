@@ -10,7 +10,7 @@
     </template>
   </TableActionMenu>
   <a-row :gutter="[8,8]">
-    <a-col :sm="24" :md="6" :lg="6" v-for="item in career">
+    <a-col :sm="24" :md="8" :lg="6" v-for="item in career">
       <CardCareer :career="item"/>
     </a-col>
   </a-row>

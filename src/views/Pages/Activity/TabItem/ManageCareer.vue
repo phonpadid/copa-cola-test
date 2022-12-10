@@ -16,11 +16,11 @@
       <a-form-item label=" ">
         <UploadImage :title="'image'"/>
       </a-form-item>
-      <a-form-item label="name">
-        <a-input size="large"/>
+      <a-form-item label="name" name="name">
+        <a-input v-model:value="form.name" size="large"/>
       </a-form-item>
-      <a-form-item label="description">
-        <a-textarea :rows="6"/>
+      <a-form-item label="description" name="description">
+        <a-textarea v-model:value="form.description" :rows="6"/>
       </a-form-item>
       <a-form-item label=' '>
         <a-button class="bg-blue-500" type='primary' @click='onSubmit'>save change</a-button>
@@ -35,10 +35,14 @@ import {NotEmpty} from '@/utils/validate'
 import {useStore} from "vuex";
 import {useRoute} from "vue-router";
 import {useRouter} from "vue-router";
+// import form  model
+import Career from "@/store/models/Career.js";
+import {notificationSuccess, notificationWarning} from "@/utils/message";
 
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
+const loading = ref(false);
 const labelCol = {
   xl: 4,
   md: 6,
@@ -50,9 +54,7 @@ const wrapperCol = {
   xs: 16,
 }
 const ruleForm = ref(null);
-const form = reactive({
-  name: "",
-});
+const form = reactive(new Career());
 const setRef = el => {
   ruleForm.value = el
 }
@@ -60,12 +62,63 @@ const onSubmit = () => {
   ruleForm.value
       .validate()
       .then((res) => {
-        console.log(res)
+        if (res) {
+          handleSubmit();
+        }
       })
       .catch(error => {
       })
 }
 
+function handleSubmit() {
+  let uri;
+  let method;
+  uri = `variable`;
+  method = "post";
+  const data = JSON.parse(JSON.stringify(form));
+  const body = {
+    method: "post",
+    _method: method,
+    actionUri: uri,
+    formData: false,
+    ...data
+  }
+  finalSaveItem(body);
+}
+
+
+function finalSaveItem(body) {
+  loading.value = true;
+  store.dispatch("data-resources/manage", body)
+      .then((res) => {
+        if (res.code === 200) {
+          notificationSuccess({
+            title: "Create Data Successfully",
+            description: "data created !!",
+            position: "topRight"
+          })
+          loading.value = false;
+          router.push({
+            name: "activity.index"
+          }).catch(() => {
+
+          })
+        }
+      })
+      .catch((firstErrorBag) => {
+        let error = firstErrorBag.items;
+        console.log(error)
+        notificationWarning({
+          title: "something went wrong",
+          description: error
+        })
+        loading.value = false
+      }).finally(() => {
+    loading.value = false;
+  })
+}
+
+//back to Career Page index
 function backToCareer() {
   router.push({
     name: "career.index"
@@ -76,6 +129,7 @@ function backToCareer() {
 
 const rules = {
   name: [NotEmpty('name')],
+  description: [NotEmpty('description')],
 };
 </script>
 

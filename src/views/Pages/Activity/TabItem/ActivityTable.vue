@@ -10,7 +10,7 @@
     </template>
   </TableActionMenu>
   <a-row :gutter="[8,8]">
-    <a-col :sm="24" :md="8" :lg="8" v-for="item in activity">
+    <a-col :sm="24" :md="24" :lg="8" v-for="item in activity">
       <CardActivity :activity="item"/>
     </a-col>
   </a-row>
