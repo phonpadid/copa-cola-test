@@ -10,8 +10,8 @@
     </template>
   </TableActionMenu>
   <a-row :gutter="[8,8]">
-    <a-col :sm="24" :md="8" :lg="8" v-for="item in 6">
-      <CardEvent/>
+    <a-col :sm="24" :md="8" :lg="8" v-for="item in event">
+      <CardEvent :event="item"/>
     </a-col>
   </a-row>
 </template>
@@ -20,7 +20,7 @@
 import {useRouter} from "vue-router";
 import {useStore} from "vuex";
 import bodyHelpers from "@/utils/BodyHelpers";
-import {onMounted,ref} from "vue";
+import {onMounted, ref} from "vue";
 
 const store = useStore();
 const router = useRouter();
@@ -28,13 +28,14 @@ const event = ref([]);
 
 function fetchEvent() {
   store.dispatch("data-resources/listing", {
-    actionUri: 'variable',
+    actionUri: 'post',
     options_request: bodyHelpers([
-      {type: "activity"},
+      {type: "event"},
     ])
   }).then((res) => {
     if (res.code === 200) {
       event.value = res.data;
+      console.log(event.value)
     }
   }).catch((error) => {
     console.log(error)
