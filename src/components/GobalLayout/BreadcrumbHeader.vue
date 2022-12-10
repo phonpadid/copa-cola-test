@@ -17,6 +17,35 @@
                    <span class="text-sm">Home</span>
                 </a-tag>
           </a-breadcrumb-item>
+
+          <!--    Event Detail -->
+          <a-breadcrumb-item v-if="$route.meta.name === 'Event Detail'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">Home</span>
+                </a-tag>
+          </a-breadcrumb-item>
+          <!--    Activity -->
+          <a-breadcrumb-item v-if="$route.meta.name === 'Activity and Career'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">Home</span>
+                </a-tag>
+          </a-breadcrumb-item>
+
+          <!--    Activity Detail -->
+          <a-breadcrumb-item v-if="$route.meta.name === 'Activity Detail'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">Home</span>
+                </a-tag>
+          </a-breadcrumb-item>
+
+          <!--    FAQ -->
+          <a-breadcrumb-item v-if="$route.meta.name === 'Frequently Asked Question'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">Home</span>
+                </a-tag>
+          </a-breadcrumb-item>
+
+
         </span>
         <span class="text-black"> / {{ $route.meta.title }}</span>
       </template>

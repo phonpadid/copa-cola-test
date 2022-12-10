@@ -26,17 +26,17 @@
                   :model='form'
                   :rules='rules'
                   :wrapper-col='wrapperCol'>
-            <a-form-item name='email'>
+            <a-form-item name='credential'>
               <label for="email">Email</label>
-              <a-input size="large"/>
+              <a-input v-model:value="form.credential" size="large"/>
             </a-form-item>
             <a-form-item name='password'>
               <label for="email">Password</label>
-              <a-input size="large"/>
+              <a-input v-model:value="form.password" size="large"/>
             </a-form-item>
             <a-form-item>
-              <a-button size="large" type="primary" class="bg-blue-500 w-full">
-                Register
+              <a-button :loading="loading" size="large" type="primary" class="bg-blue-500 w-full" @click="onSubmit">
+                Login
               </a-button>
               <div class="w-full">
                 <p @click="Register" class="text-base mt-4 cursor-pointer hover:text-blue-600 capitalize">create account
@@ -59,33 +59,59 @@ import {reactive, ref} from 'vue'
 import {NotEmpty} from '@/utils/validate'
 import {useStore} from "vuex";
 import {useRoute, useRouter} from "vue-router";
+import User from "@/store/models/User.js";
+import {notificationSuccess} from "@/utils/message";
 
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
+const loading = ref(false)
 const wrapperCol = {
   xl: 24,
   md: 24,
   xs: 24,
 }
 const ruleForm = ref(null);
-const form = reactive({
-  name: "",
-});
+const form = reactive(new User());
 const setRef = el => {
   ruleForm.value = el
 }
 const onSubmit = () => {
+
   ruleForm.value
       .validate()
       .then((res) => {
-        console.log(res)
+        if (res) {
+          loading.value = true;
+          handleSubmit();
+        }
+        loading.value = false;
       })
       .catch(error => {
       })
 }
+
+function handleSubmit() {
+  store.dispatch("auth/login", form)
+      .then((res) => {
+        notificationSuccess({
+          title: "Login Success",
+          description: "Login Successfully",
+          position: "topRight"
+        })
+        router.push({
+          name: "dashboard.index"
+        }).catch(() => {
+        })
+      }).catch(() => {
+
+  })
+}
+
 const rules = {
-  name: [NotEmpty('name')],
+  credential: [NotEmpty('credential')],
+  password: [NotEmpty('password')],
+
 };
 
 //change to register page if not account

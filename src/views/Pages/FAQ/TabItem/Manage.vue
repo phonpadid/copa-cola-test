@@ -1,20 +1,18 @@
 <template>
   <div class="base-form">
     <a-form
-        class="mt-8"
+        class="mt-16"
         :form="form"
         :ref='setRef'
         :model='form'
         :rules='rules'
         :label-col='labelCol'
         :wrapper-col='wrapperCol'>
-      <a-form-item label="Event Name">
-        <a-input/>
+
+      <a-form-item label="Question">
+        <a-input size="large"/>
       </a-form-item>
-      <a-form-item label="Start Date">
-        <a-date-picker class="w-full"/>
-      </a-form-item>
-      <a-form-item label="Description">
+      <a-form-item label="Answer">
         <a-textarea :rows="6"/>
       </a-form-item>
       <a-form-item label=' '>

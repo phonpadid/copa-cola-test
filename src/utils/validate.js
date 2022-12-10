@@ -1,6 +1,6 @@
 /**
  *
- * @param {message} str
+ * @param {string} str
  * check empty data
  */
 export const NotEmpty = str => {

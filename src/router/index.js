@@ -13,6 +13,9 @@ const routes = [
                 component: () => import(/* webpackChunkName: "Order Index" */ '@/views/Pages/Register/RegisterForm.vue'),
                 path: '',
                 name: 'register.index',
+                meta: {
+                    layout: "default",
+                }
             },
         ],
     },
@@ -24,6 +27,24 @@ const routes = [
                 component: () => import(/* webpackChunkName: "Order Index" */ '@/views/Pages/Register/LoginForm.vue'),
                 path: '',
                 name: 'login.index',
+                meta: {
+                    layout: "default",
+                }
+            },
+        ],
+    },
+
+    {
+        path: '/dashboard',
+        component: () => import(/* webpackChunkName: "Dashboard" */'@/views/Pages/Dashboard/Dashboard.vue'),
+        children: [
+            {
+                component: () => import(/* webpackChunkName: "Dashboard Index" */ '@/views/Pages/Dashboard/Dashboard.vue'),
+                path: '',
+                name: 'dashboard.index',
+                meta: {
+                    layout: "admin",
+                }
             },
         ],
     },

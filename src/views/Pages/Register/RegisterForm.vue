@@ -28,18 +28,18 @@
                   :wrapper-col='wrapperCol'>
             <a-form-item name='email'>
               <label for="email">Email</label>
-              <a-input size="large"/>
+              <a-input v-model:value="form.email" size="large"/>
             </a-form-item>
             <a-form-item name='password'>
               <label for="email">Password</label>
-              <a-input size="large"/>
+              <a-input v-model:value="form.password" size="large"/>
             </a-form-item>
-            <a-form-item name='confirm-password'>
+            <a-form-item name='password_confirmation'>
               <label for="email">Confirm Password</label>
-              <a-input size="large"/>
+              <a-input v-model:value="form.password_confirmation" size="large"/>
             </a-form-item>
             <a-form-item>
-              <a-button size="large" type="primary" class="bg-blue-500 w-full">
+              <a-button :loading="loading" size="large" type="primary" class="bg-blue-500 w-full" @click="onSubmit">
                 Register
               </a-button>
               <div class="text-center mt-4">
@@ -58,12 +58,16 @@
 <script setup>
 import registerIcon from "@/assets/image/resgister.png";
 import logoApp from "@/assets/image/JOINABLE.svg";
-import {reactive, ref} from 'vue'
+import {reactive, onMounted, ref} from 'vue'
 import {NotEmpty} from '@/utils/validate'
 import {useStore} from "vuex";
 import {useRoute, useRouter} from "vue-router";
+import register from "@/store/models/Register";
+import {notificationSuccess} from "@/utils/message";
 
 const store = useStore();
+const isEdit = ref(false);
+const isSaving = ref(false)
 const route = useRoute();
 const router = useRouter();
 const wrapperCol = {
@@ -72,26 +76,82 @@ const wrapperCol = {
   xs: 24,
 }
 const ruleForm = ref(null);
-const form = reactive({
-  name: "",
-});
+const loading = ref(false);
+const form = reactive(new register());
 const setRef = el => {
   ruleForm.value = el
 }
+//validate form
+const rules = {
+  email: [NotEmpty("email")],
+  password: [NotEmpty('password')],
+  password_confirmation: [NotEmpty('password_confirmation')],
+};
+
+//function area
 const onSubmit = () => {
   ruleForm.value
       .validate()
       .then((res) => {
-        console.log(res)
+        if (res) {
+          handleSubmit();
+        }
       })
       .catch(error => {
       })
 }
-const rules = {
-  name: [NotEmpty('name')],
-};
 
-//function area
+function handleSubmit() {
+  let uri;
+  let method;
+  if (isEdit.value) {
+    uri = `auth/register-company`;
+    method = "put"
+  } else {
+    uri = "auth/register-company";
+    method = "post";
+  }
+  const data = JSON.parse(JSON.stringify(form));
+  const body = {
+    method: "post",
+    _method: method,
+    actionUri: uri,
+    formData: false,
+    ...data
+  }
+  finalSaveItem(body);
+}
+
+function finalSaveItem(body) {
+  if (isSaving.value) {
+    return;
+  }
+  isSaving.value = true;
+  loading.value = true;
+  store.dispatch("data-resources/manage", body)
+      .then((res) => {
+        if (res.code === 200) {
+          notificationSuccess({
+            title: "Register Successfully",
+            description: "Confirm Login !!",
+            position: "topRight"
+          })
+          loading.value = false;
+          router.push({
+            name: "login.index"
+          }).catch(() => {
+
+          })
+        }
+      })
+      .catch((firstErrorBag) => {
+        let error = firstErrorBag.items;
+        isSaving.value = false;
+        loading.value = false
+      }).finally(() => {
+    loading.value = false;
+  })
+}
 
 function login() {
   router.push({
@@ -101,6 +161,10 @@ function login() {
   })
 }
 
+onMounted(() => {
+  let id = route.params.product_id;
+  isEdit.value = !!id;
+})
 </script>
 
 <style scoped>

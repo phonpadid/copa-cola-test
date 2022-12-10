@@ -22,6 +22,16 @@ const moduleRouter = {
                 layout: "admin",
             }
         },
+        {
+            component: () => import(/* webpackChunkName: "Event Detail" */ '@/views/Pages/Event/TabItem/ViewEventDetail.vue'),
+            path: 'event-detail',
+            name: 'event.detail',
+            meta: {
+                title: "Event Detail",
+                name: "Event Detail",
+                layout: "admin",
+            }
+        },
     ],
 }
 

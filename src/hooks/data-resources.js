@@ -65,7 +65,7 @@ export default function create() {
                             helpers.addDataForm(formData, payload);
                             data = formData;
                         } else {
-                            data = payload.data
+                            data = payload
                         }
                         apiAction = apiCall(`${apiUrl}/${payload.actionUri}`, data,
                             config.addTokenHeader(rootGetters['auth/token'], payload.formData));

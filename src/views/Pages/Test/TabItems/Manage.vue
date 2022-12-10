@@ -10,7 +10,7 @@
       <a-form-item label=' ' name='product_image'>
         <upload-image/>
       </a-form-item>
-      <a-form-item label='Product Name' name='name'>
+      <a-form-item label='Register Name' name='name'>
         <a-input v-model:value='form.name'/>
       </a-form-item>
       <a-form-item label=' '>

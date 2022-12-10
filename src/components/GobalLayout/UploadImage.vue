@@ -1,14 +1,13 @@
 <template>
   <a-upload
       list-type="picture-card"
-      v-model:file-list="imageList"
       @change="handleChange"
       @preview="handlePreview"
   >
     <div v-if="imageList.length < limit">
       <i class="fal fa-plus"></i>
       <div class="ant-upload-text">
-        {{ title}}
+        {{ title }}
       </div>
     </div>
   </a-upload>

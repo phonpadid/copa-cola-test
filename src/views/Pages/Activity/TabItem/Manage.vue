@@ -8,13 +8,18 @@
         :rules='rules'
         :label-col='labelCol'
         :wrapper-col='wrapperCol'>
-      <a-form-item label="Event Name">
-        <a-input/>
+      <a-form-item>
+        <h1 @click="backToActivity" class="text-2xl tracking-wide font-black cursor-pointer text-blue-600">
+          <span><i class="far fa-long-arrow-left"></i></span> Activity
+        </h1>
       </a-form-item>
-      <a-form-item label="Start Date">
-        <a-date-picker class="w-full"/>
+      <a-form-item label=" ">
+        <UploadImage :title="'image'"/>
       </a-form-item>
-      <a-form-item label="Description">
+      <a-form-item label="name">
+        <a-input size="large"/>
+      </a-form-item>
+      <a-form-item label="description">
         <a-textarea :rows="6"/>
       </a-form-item>
       <a-form-item label=' '>
@@ -29,9 +34,11 @@ import {reactive, ref} from 'vue'
 import {NotEmpty} from '@/utils/validate'
 import {useStore} from "vuex";
 import {useRoute} from "vue-router";
+import {useRouter} from "vue-router";
 
 const store = useStore();
 const route = useRoute();
+const router = useRouter();
 const labelCol = {
   xl: 4,
   md: 6,
@@ -58,6 +65,15 @@ const onSubmit = () => {
       .catch(error => {
       })
 }
+
+function backToActivity() {
+  router.push({
+    name: "activity.index"
+  }).catch(() => {
+
+  })
+}
+
 const rules = {
   name: [NotEmpty('name')],
 };

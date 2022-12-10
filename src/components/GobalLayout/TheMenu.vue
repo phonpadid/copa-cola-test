@@ -18,16 +18,35 @@ const router = useRouter();
 const MenuList = reactive([
   {
     id: "0",
+    name: "Dashboard",
+    icon: "fas fa-chart-line",
+    route: "dashboard.index"
+  },
+  {
+    id: "1",
     name: "Company",
     icon: "far fa-building",
     route: "company.index"
   },
   {
-    id: "1",
+    id: "2",
     name: "Events",
     icon: "far fa-calendar-alt",
     route: "event.index"
   },
+  {
+    id: "3",
+    name: "Activity and Career",
+    icon: "far fa-calendar-alt",
+    route: "activity.index"
+  },
+  {
+    id: "4",
+    name: "FAQ",
+    icon: "far fa-chalkboard-teacher",
+    route: "FAQ.index"
+  },
+
 ]);
 
 /*change menu */
