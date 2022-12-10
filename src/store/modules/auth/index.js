@@ -1,4 +1,4 @@
-import {axios, apiUrl, config} from "../../api/axios";
+import { axios, apiUrl, config } from "../../api/axios";
 import User from "@/store/models/User";
 import Credential from "@/store/models/auth/Credential";
 import helpers from "@/hooks/helpers";
@@ -22,7 +22,7 @@ export default function create() {
                     let credential = helpers.parseJson(userCredential);
                     return helpers.isObject(credential) ? credential : new Credential();
                 }
-                return this.state.credential;
+                return state.credential;
             },
             token(state, getter) {
                 return getter.userCredential.access_token;
@@ -58,7 +58,7 @@ export default function create() {
                 return new Promise(((resolve, reject) => {
                     axios.post(`${apiUrl}/auth/login`, user).then((res) => {
                         if (res.data.code === 200) {
-                            const {data} = res.data;
+                            const { data } = res.data;
                             context.commit("setCredential", data)
                             resolve(res)
                         }
@@ -71,15 +71,15 @@ export default function create() {
             logout(context, payload) {
                 axios.post(`${apiUrl}/auth/logout`, {}, config.addTokenHeader(context.getters.token))
                     .then(() => {
-                        context.commit('removeCredential', {path});
+                        context.commit('removeCredential', { path });
                     })
                     .catch(() => {
-                        context.commit('removeCredential', {path});
+                        context.commit('removeCredential', { path });
                     });
             },
 
-            unauthorized({dispatch}, payload) {
-                const {status} = payload || {};
+            unauthorized({ dispatch }, payload) {
+                const { status } = payload || {};
                 if (status === 401) {
                     dispatch('logout');
                 }
