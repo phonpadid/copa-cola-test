@@ -66,8 +66,6 @@ import register from "@/store/models/Register";
 import {notificationSuccess} from "@/utils/message";
 
 const store = useStore();
-const isEdit = ref(false);
-const isSaving = ref(false)
 const route = useRoute();
 const router = useRouter();
 const wrapperCol = {
@@ -104,13 +102,8 @@ const onSubmit = () => {
 function handleSubmit() {
   let uri;
   let method;
-  if (isEdit.value) {
-    uri = `auth/register-company`;
-    method = "put"
-  } else {
-    uri = "auth/register-company";
-    method = "post";
-  }
+  uri = `auth/register-company`;
+  method = "post";
   const data = JSON.parse(JSON.stringify(form));
   const body = {
     method: "post",
@@ -123,10 +116,6 @@ function handleSubmit() {
 }
 
 function finalSaveItem(body) {
-  if (isSaving.value) {
-    return;
-  }
-  isSaving.value = true;
   loading.value = true;
   store.dispatch("data-resources/manage", body)
       .then((res) => {
@@ -146,7 +135,6 @@ function finalSaveItem(body) {
       })
       .catch((firstErrorBag) => {
         let error = firstErrorBag.items;
-        isSaving.value = false;
         loading.value = false
       }).finally(() => {
     loading.value = false;
@@ -161,10 +149,6 @@ function login() {
   })
 }
 
-onMounted(() => {
-  let id = route.params.product_id;
-  isEdit.value = !!id;
-})
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full relative rounded flex flex-col p-4 h-[300px] border-2 border-gray-200">
+  <div class="w-full relative rounded flex flex-col p-4 h-[200px] border-2 border-gray-200">
     <div class="flex justify-between relative">
       <div class="w-[100px] h-[100px]">
         <img class="w-full h-full object-cover"
@@ -12,7 +12,7 @@
               class="w-[30px] rounded-full mr-2  text-white cursor-pointer flex justify-center items-center h-[30px] bg-blue-500">
             <i class="far fa-pencil-alt"></i>
           </div>
-          <div @click="viewCareer"
+          <div @click="viewCareer(career.id)"
                class="w-[30px] mr-2 rounded-full text-white cursor-pointer flex justify-center items-center h-[30px] bg-green-500">
             <i class="fal fa-eye"></i>
           </div>
@@ -43,9 +43,12 @@ const props = defineProps({
 })
 const router = useRouter();
 
-function viewCareer() {
+function viewCareer(career_id) {
   router.push({
-    name: "career.detail"
+    name: "career.detail",
+    params: {
+      career_id: career_id
+    }
   }).catch(() => {
 
   })

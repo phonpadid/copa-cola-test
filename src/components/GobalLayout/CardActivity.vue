@@ -1,11 +1,13 @@
 <template>
   <div class="w-full relative flex flex-col p-4 h-[200px] border-2 border-gray-200">
     <div class="flex justify-between relative">
-      <div class="w-[80px] h-[80px]">
+      <div class="w-[80px] h-[80px]"  v-if="activity.image_logo && activity.image_logo.url">
         <img class="w-full h-full object-cover"
-             v-if="activity.image_logo"
              :src="activity.image_logo.url"
              alt="">
+      </div>
+      <div v-else class="w-[80px] h-[80px] bg-gray-200 rounded">
+
       </div>
       <div
           class="w-[100px] rounded-3xl text-white flex justify-center items-center absolute left-28 h-[20px] mt-8 base-color-theme">

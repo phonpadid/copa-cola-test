@@ -12,16 +12,6 @@ const moduleRouter = {
                 layout: "admin",
             }
         },
-        {
-            component: () => import(/* webpackChunkName: "Company Profile" */ '@/views/Pages/Company/TabItem/Manage.vue'),
-            path: 'create',
-            name: 'company.profile',
-            meta: {
-                title: "Company Profile",
-                name: "Company Info",
-                layout: "admin",
-            }
-        },
     ],
 }
 

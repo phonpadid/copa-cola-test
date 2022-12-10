@@ -7,42 +7,25 @@
         <span class="ml-2">Activity Detail</span>
       </div>
       <div class="w-full h-[300px] bg-gray-200">
-        <img class="w-full h-full object-cover"
-             src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1112&q=80"
+        <img class="w-full   h-full object-cover"
+             v-if="activityDetail.image_logo"
+             :src="activityDetail.image_logo.url"
              alt="">
       </div>
-      <h1 class="text-xl mt-4 font-bold">Activity Name</h1>
+      <h1 class="text-xl mt-4 font-bold">{{ activityDetail.name }}</h1>
       <div class="w-[100px] flex items-center justify-center mt-1  h-[20px] base-color-theme">
         <p class="m-0 p-0 text-xs text-white">
           01-Jan-2021
         </p>
       </div>
-      <p class="text-justify mt-4 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aspernatur
-        commodi
-        dolorem
-        doloribus, harum iusto
-        libero magni molestias mollitia necessitatibus possimus praesentium, quam, quibusdam sequi ullam ut veniam?
-        Alias animi aut, eos hic ipsum libero molestias, mollitia nesciunt reprehenderit soluta tempora temporibus unde
-        vitae. Dolores facilis itaque quo sequi, totam unde. Dolores esse id incidunt itaque! Ad animi atque consequatur
-        consequuntur dolores, dolorum excepturi, fugiat illum impedit incidunt iste itaque iusto magnam nisi omnis quam
-        repellat. Alias commodi dolores est, excepturi fugiat iusto odit quis repellendus saepe veritatis? A cupiditate
-        earum incidunt nesciunt nulla quidem recusandae. Aut dolore iure natus.</p>
-      <p class="text-justify mt-4 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aspernatur
-        commodi
-        dolorem
-        doloribus, harum iusto
-        libero magni molestias mollitia necessitatibus possimus praesentium, quam, quibusdam sequi ullam ut veniam?
-        Alias animi aut, eos hic ipsum libero molestias, mollitia nesciunt reprehenderit soluta tempora temporibus unde
-        vitae. Dolores facilis itaque quo sequi, totam unde. Dolores esse id incidunt itaque! Ad animi atque consequatur
-        consequuntur dolores, dolorum excepturi, fugiat illum impedit incidunt iste itaque iusto magnam nisi omnis quam
-        repellat. Alias commodi dolores est, excepturi fugiat iusto odit quis repellendus saepe veritatis? A cupiditate
-        earum incidunt nesciunt nulla quidem recusandae. Aut dolore iure natus.</p>
+      <p class="text-sm mt-4">{{ activityDetail.description }}</p>
       <div class="w-full flex flex-col min-h-[80px] mt-4">
         <h1 class="text-xl font-bold">Joined</h1>
         <div class="w-full flex h-[40px] mt-4">
           <div class="w-[40px] mr-2 h-[40px] overflow-hidden rounded-full bg-gray-200">
             <img class="w-full   h-full object-cover"
-                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+                 v-if="activityDetail.image_logo"
+                 :src="activityDetail.image_logo.url"
                  alt="">
           </div>
           <div class="w-[40px] mr-2 h-[40px] overflow-hidden rounded-full bg-gray-200">
@@ -62,9 +45,31 @@
 </template>
 
 <script setup>
-import {useRouter} from "vue-router";
+import {useRouter, useRoute} from "vue-router";
+import {useStore} from "vuex";
+import bodyHelpers from "@/utils/BodyHelpers";
+import {onMounted, ref} from "vue";
 
 const router = useRouter();
+const route = useRoute();
+const store = useStore();
+const activityDetail = ref({});
+
+function fetchActivityDetail() {
+  const id = route.params.activity_id;
+  store.dispatch("data-resources/listing", {
+    actionUri: `variable/${id}`,
+    options_request: bodyHelpers([
+      {type: "activity"},
+    ])
+  }).then((res) => {
+    if (res.code === 200) {
+      activityDetail.value = res.data;
+    }
+  }).catch((error) => {
+    console.log(error)
+  })
+}
 
 function changeToMainEvent() {
   router.push({
@@ -73,6 +78,10 @@ function changeToMainEvent() {
 
   })
 }
+
+onMounted(() => {
+  fetchActivityDetail();
+})
 </script>
 
 <style scoped>

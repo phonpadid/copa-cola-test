@@ -17,8 +17,6 @@ declare module '@vue/runtime-core' {
     CardCareer: typeof import('./src/components/GobalLayout/CardCareer.vue')['default']
     CardEvent: typeof import('./src/components/GobalLayout/CardEvent.vue')['default']
     CardFAQ: typeof import('./src/components/GobalLayout/CardFAQ.vue')['default']
-    Careea: typeof import('./src/views/Pages/Activity/TabItem/Careea.vue')['default']
-    CareeaTable: typeof import('./src/views/Pages/Activity/TabItem/CareeaTable.vue')['default']
     CareerDetail: typeof import('./src/views/Pages/Activity/TabItem/CareerDetail.vue')['default']
     CareerTable: typeof import('./src/views/Pages/Activity/TabItem/CareerTable.vue')['default']
     Company: typeof import('./src/views/Pages/Company/Company.vue')['default']

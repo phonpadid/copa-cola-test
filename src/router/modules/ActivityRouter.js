@@ -47,7 +47,7 @@ const moduleRouter = {
         },
         {
             component: () => import(/* webpackChunkName: "Activity Detail" */ '@/views/Pages/Activity/TabItem/ActivityDetail.vue'),
-            path: 'activity-detail',
+            path: 'activity-detail/:activity_id',
             name: 'activity.detail',
             meta: {
                 title: "Activity Detail",
@@ -57,7 +57,7 @@ const moduleRouter = {
         },
         {
             component: () => import(/* webpackChunkName: "Career Detail" */ '@/views/Pages/Activity/TabItem/CareerDetail.vue'),
-            path: 'career-detail',
+            path: 'career-detail/:career_id',
             name: 'career.detail',
             meta: {
                 title: "Career Detail",
