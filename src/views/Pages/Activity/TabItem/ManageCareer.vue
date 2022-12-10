@@ -14,7 +14,7 @@
         </h1>
       </a-form-item>
       <a-form-item label=" ">
-        <UploadImage :title="'image'"/>
+        <UploadImage @update:imageList="chooseImage" :title="'image'"/>
       </a-form-item>
       <a-form-item label="name" name="name">
         <a-input v-model:value="form.name" size="large"/>
@@ -58,6 +58,13 @@ const form = reactive(new Career());
 const setRef = el => {
   ruleForm.value = el
 }
+
+//emit image form component UploadImage and set to form
+function chooseImage(image) {
+  console.log(image[0].originFileObj, 5555)
+  form.image_logo = image[0].originFileObj
+}
+
 const onSubmit = () => {
   ruleForm.value
       .validate()
@@ -76,16 +83,20 @@ function handleSubmit() {
   uri = `variable`;
   method = "post";
   const data = JSON.parse(JSON.stringify(form));
+  data.image_logo = form.image_logo;
+  if (!(form.image_logo instanceof File)) {
+    delete data.image_logo
+  }
   const body = {
     method: "post",
     _method: method,
     actionUri: uri,
-    formData: false,
+    formData: true,
     ...data
   }
+  console.log(body, "body")
   finalSaveItem(body);
 }
-
 
 function finalSaveItem(body) {
   loading.value = true;
@@ -107,7 +118,6 @@ function finalSaveItem(body) {
       })
       .catch((firstErrorBag) => {
         let error = firstErrorBag.items;
-        console.log(error)
         notificationWarning({
           title: "something went wrong",
           description: error
