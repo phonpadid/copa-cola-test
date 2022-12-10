@@ -47,7 +47,6 @@
         <a-row :gutter="[16,16]">
           <a-col :sm="24" :md="24" :lg="24">
             <div class="w-full h-[120px] bg-green-500">
-
             </div>
           </a-col>
           <a-col :sm="24" :md="24" :lg="24">
