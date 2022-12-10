@@ -1,3 +1,5 @@
+import Middleware from "@/middleware";
+
 const moduleRouter = {
     path: '/company',
     component: () => import(/* webpackChunkName: "Company" */'@/views/Pages/Company/Company.vue'),
@@ -10,6 +12,7 @@ const moduleRouter = {
                 title: "Company Info",
                 name: "Company Info",
                 layout: "admin",
+                middleware: [Middleware.auth]
             }
         },
     ],

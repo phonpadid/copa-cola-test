@@ -1,9 +1,10 @@
 <template>
   <a-upload
-    list-type="picture-card"
-    @change="handleChange"
-    @preview="handlePreview"
-    :before-upload="true"
+      list-type="picture-card"
+      @change="handleChange"
+      @preview="handlePreview"
+      :before-upload="true"
+
   >
     <div v-if="imageList.length < limit">
       <i class="fal fa-plus"></i>
@@ -11,18 +12,18 @@
     </div>
   </a-upload>
   <a-modal
-    centered
-    v-model:visible="previewVisible"
-    :closable="false"
-    :footer="null"
-    :bodyStyle="{ padding: 0 }"
+      centered
+      v-model:visible="previewVisible"
+      :closable="false"
+      :footer="null"
+      :bodyStyle="{ padding: 0 }"
   >
-    <img alt="example" style="width: 100%" :src="previewImage" />
+    <img alt="example" style="width: 100%" :src="previewImage"/>
   </a-modal>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import {ref} from "vue";
 
 const emit = defineEmits(["update:imageList"]);
 defineProps({
@@ -47,11 +48,11 @@ const handlePreview = async file => {
   previewVisible.value = true;
 };
 
-const handleChange = ({ fileList }) => {
+const handleChange = ({fileList}) => {
   const imageList = [...fileList].map(item => {
-    const { response = null, ...other } = item;
+    const {response = null, ...other} = item;
     if (response) {
-      const { ossUrl: url } = response.data || {};
+      const {ossUrl: url} = response.data || {};
       return {
         ...other,
         url

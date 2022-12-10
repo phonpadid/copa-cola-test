@@ -32,7 +32,7 @@
             </a-form-item>
             <a-form-item name='password'>
               <label for="email">Password</label>
-              <a-input v-model:value="form.password" size="large"/>
+              <a-input-password v-model:value="form.password" size="large"/>
             </a-form-item>
             <a-form-item>
               <a-button :loading="loading" size="large" type="primary" class="bg-blue-500 w-full" @click="onSubmit">

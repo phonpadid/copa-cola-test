@@ -1,3 +1,5 @@
+import Middleware from "@/middleware";
+
 const moduleRouter = {
     path: '/event',
     component: () => import(/* webpackChunkName: "Event" */'@/views/Pages/Event/Event.vue'),
@@ -10,6 +12,7 @@ const moduleRouter = {
                 title: "Event",
                 name: "Event",
                 layout: "admin",
+                middleware: [Middleware.auth]
             }
         },
         {
@@ -20,6 +23,7 @@ const moduleRouter = {
                 title: "Event",
                 name: "Event",
                 layout: "admin",
+                middleware: [Middleware.auth]
             }
         },
         {
@@ -30,6 +34,7 @@ const moduleRouter = {
                 title: "Event Detail",
                 name: "Event Detail",
                 layout: "admin",
+                middleware: [Middleware.auth]
             }
         },
     ],

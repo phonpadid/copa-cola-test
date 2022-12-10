@@ -1,3 +1,5 @@
+import Middleware from "@/middleware";
+
 const moduleRouter = {
     path: '/frequently-asked-question',
     component: () => import(/* webpackChunkName: "FAQ" */'@/views/Pages/FAQ/FAQ.vue'),
@@ -10,6 +12,7 @@ const moduleRouter = {
                 title: "Frequently Asked Question",
                 name: "Frequently Asked Question",
                 layout: "admin",
+                middleware: [Middleware.auth]
             }
         },
         {
@@ -20,6 +23,7 @@ const moduleRouter = {
                 title: "Frequently Asked Question",
                 name: "Frequently Asked Question",
                 layout: "admin",
+                middleware: [Middleware.auth]
             }
         },
     ],

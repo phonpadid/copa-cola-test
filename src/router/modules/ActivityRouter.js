@@ -1,3 +1,5 @@
+import Middleware from "@/middleware";
+
 const moduleRouter = {
     path: '/activity',
     component: () => import(/* webpackChunkName: "Activity" */'@/views/Pages/Activity/Activity.vue'),
@@ -10,7 +12,8 @@ const moduleRouter = {
                 title: "Activity and Career",
                 name: "Activity and Career",
                 layout: "admin",
-                tab: '1'
+                tab: '1',
+                middleware: [Middleware.auth]
             }
         },
         {
@@ -21,7 +24,8 @@ const moduleRouter = {
                 title: "Activity and Career",
                 name: "Activity and Career",
                 layout: "admin",
-                tab: '2'
+                tab: '2',
+                middleware: [Middleware.auth]
             }
         },
         {
@@ -32,6 +36,7 @@ const moduleRouter = {
                 title: "Activity and Career",
                 name: "Activity and Career",
                 layout: "admin",
+                middleware: [Middleware.auth]
             }
         },
 
@@ -43,6 +48,7 @@ const moduleRouter = {
                 title: "Activity and Career",
                 name: "Activity and Career",
                 layout: "admin",
+                middleware: [Middleware.auth]
             }
         },
         {
@@ -53,6 +59,7 @@ const moduleRouter = {
                 title: "Activity Detail",
                 name: "Activity Detail",
                 layout: "admin",
+                middleware: [Middleware.auth]
             }
         },
         {
@@ -63,6 +70,7 @@ const moduleRouter = {
                 title: "Career Detail",
                 name: "Career Detail",
                 layout: "admin",
+                middleware: [Middleware.auth]
             }
         },
 
