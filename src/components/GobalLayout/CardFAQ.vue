@@ -11,7 +11,7 @@
       <i class="fas fa-trash"></i>
     </div>
     <div class="w-60px absolute bottom-8 right-8">
-      <a-switch class="bg-blue-500" @click="changeStatus" v-model:checked="checked">
+      <a-switch class="bg-blue-500" @click="changeStatus(faqItem.id)" v-model:checked="checked">
         <template #checkedChildren>
           <check-outlined/>
         </template>
@@ -24,26 +24,52 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import {useStore} from "vuex";
 import {CheckOutlined, CloseOutlined} from "@ant-design/icons-vue";
+import {notificationSuccess} from "@/utils/message";
 
+const store = useStore();
 const checked = ref(false);
 const props = defineProps({
   faqItem: {},
 })
+
+//close and open status FAQ
+function changeStatus(id) {
+  const body = {
+    method: "post",
+    actionUri: `post-published/${id}`,
+    formData: false,
+  }
+  store.dispatch("data-resources/manage", body)
+      .then((res) => {
+        if (res.code === 200) {
+          notificationSuccess({
+            title: "Change Status Successfully",
+            description: "update data success !!",
+            position: "topRight"
+          })
+        }
+      })
+}
 
 function subStringTitle(text) {
   if (text) {
     return text.substring(0, 25) + '...'
   }
 }
+
 function subStringContent(text) {
   if (text) {
     return text.substring(0, 140) + '...'
   }
 }
 
-
+onMounted(() => {
+  //check status checkbox equal 1 open
+  props.faqItem.is_published === 1 ? checked.value = true : checked.value = false;
+})
 </script>
 
 <style scoped>
