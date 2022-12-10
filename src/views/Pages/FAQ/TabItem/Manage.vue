@@ -10,7 +10,7 @@
         :wrapper-col='wrapperCol'>
 
       <a-form-item label="Question">
-        <a-input size="large"/>
+        <a-input  size="large"/>
       </a-form-item>
       <a-form-item label="Answer">
         <a-textarea :rows="6"/>
@@ -27,6 +27,7 @@ import {reactive, ref} from 'vue'
 import {NotEmpty} from '@/utils/validate'
 import {useStore} from "vuex";
 import {useRoute} from "vue-router";
+import FAQ from "@/store/models/FAQ.js"
 
 const store = useStore();
 const route = useRoute();
@@ -41,9 +42,7 @@ const wrapperCol = {
   xs: 16,
 }
 const ruleForm = ref(null);
-const form = reactive({
-  name: "",
-});
+const form = reactive(new FAQ());
 const setRef = el => {
   ruleForm.value = el
 }
