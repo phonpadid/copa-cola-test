@@ -10,6 +10,8 @@ function FirstErrorBag() {
         field[key] = error;
         return field;
     });
+
+    this.errors = () => this.items.map((item) => item[Object.keys(item)[0]][0]);
 }
 
 

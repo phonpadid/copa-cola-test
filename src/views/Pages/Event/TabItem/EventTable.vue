@@ -18,35 +18,28 @@
 
 <script setup>
 import {useRouter} from "vue-router";
-import CardEvent from "@/components/GobalLayout/CardEvent.vue";
+import {useStore} from "vuex";
+import bodyHelpers from "@/utils/BodyHelpers";
+import {onMounted,ref} from "vue";
 
+const store = useStore();
 const router = useRouter();
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    width: 150,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    width: 150,
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-  },
-  {
-    title: 'Action',
-    dataIndex: 'Action',
-  }
-];
-const data = [...Array(100)].map((_, i) => ({
-  key: i,
-  name: `Edward King ${i}`,
-  age: 32,
-  address: `London, Park Lane no. ${i}`,
-}));
+const event = ref([]);
+
+function fetchEvent() {
+  store.dispatch("data-resources/listing", {
+    actionUri: 'variable',
+    options_request: bodyHelpers([
+      {type: "activity"},
+    ])
+  }).then((res) => {
+    if (res.code === 200) {
+      event.value = res.data;
+    }
+  }).catch((error) => {
+    console.log(error)
+  })
+}
 
 function onCreate() {
   router.push({
@@ -54,6 +47,10 @@ function onCreate() {
   }).catch(() => {
   })
 }
+
+onMounted(() => {
+  fetchEvent();
+})
 </script>
 <style scoped>
 </style>

@@ -36,7 +36,7 @@ import {useStore} from "vuex";
 import {useRoute} from "vue-router";
 import {useRouter} from "vue-router";
 import Activity from "@/store/models/Activity";
-import {notificationSuccess} from "@/utils/message";
+import {notificationSuccess,notificationWarning} from "@/utils/message";
 
 const store = useStore();
 const route = useRoute();
@@ -117,8 +117,12 @@ function finalSaveItem(body) {
         }
       })
       .catch((firstErrorBag) => {
-        let error = firstErrorBag.items;
-        loading.value = false
+        notificationWarning({
+          title: "Save failed",
+          description: firstErrorBag.errors().join('\n'),
+          position: "topRight"
+        })
+        loading.value = false;
       }).finally(() => {
     loading.value = false;
   })

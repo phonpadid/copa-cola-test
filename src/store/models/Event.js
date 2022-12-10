@@ -6,7 +6,7 @@ export default function Event() {
     this.title = null;
     this.body = null;
     this.schedule = null;
-    this.activities = null;
+    this.activities = [1];
 
 
     this.fromJSON = (json) => {

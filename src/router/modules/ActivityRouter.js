@@ -15,7 +15,7 @@ const moduleRouter = {
         },
         {
             component: () => import(/* webpackChunkName: "Career Index" */ '@/views/Pages/Activity/Index.vue'),
-            path: '/career',
+            path: '/activity-and-career',
             name: 'career.index',
             meta: {
                 title: "Activity and Career",
