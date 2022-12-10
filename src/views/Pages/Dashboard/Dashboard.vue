@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full h-[600px]">
-    <a-row :gutter="[8,8]">
-      <a-col :sm="24" :md="24" lg="24">
-        <div class="w-full flex rounded-2xl justify-between  h-[260px] bg-blue-300">
+  <div class="w-full h-[600px] px-32 pt-10">
+    <a-row :gutter="[16,16]">
+      <a-col :sm="24" :md="24" :lg="24">
+        <div class="w-full flex rounded justify-between  h-[260px] bg-blue-300">
           <div class="flex flex-col">
             <div class="w-[600px]  px-16  flex   items-center h-[300px]">
               <div>
@@ -16,6 +16,46 @@
             <img class="w-full h-full object-cover" :src="dashboardLogo" alt="">
           </div>
         </div>
+      </a-col>
+      <a-col :sm="24" :md="8" :lg="8">
+        <div class="w-full h-[300px]">
+          <a-row :gutter="[16,16]">
+            <a-col :sm="24" :md="12" :lg="12">
+              <div class="w-full h-[120px] rounded bg-green-500">
+
+              </div>
+            </a-col>
+            <a-col :sm="24" :md="12" :lg="12">
+              <div class="w-full h-[120px] rounded bg-green-500">
+
+              </div>
+            </a-col>
+            <a-col :sm="24" :md="24" :lg="24">
+              <div class="w-full h-[120px] rounded bg-green-500">
+
+              </div>
+            </a-col>
+          </a-row>
+        </div>
+      </a-col>
+      <a-col :sm="24" :md="8" :lg="8">
+        <div class="w-full h-[255px] rounded bg-green-500">
+
+        </div>
+      </a-col>
+      <a-col :sm="24" :md="8" :lg="8">
+        <a-row :gutter="[16,16]">
+          <a-col :sm="24" :md="24" :lg="24">
+            <div class="w-full h-[120px] bg-green-500">
+
+            </div>
+          </a-col>
+          <a-col :sm="24" :md="24" :lg="24">
+            <div class="w-full h-[120px] bg-green-500">
+
+            </div>
+          </a-col>
+        </a-row>
       </a-col>
     </a-row>
   </div>
