@@ -37,18 +37,24 @@ const MenuList = reactive([
   },
   {
     id: "2",
+    name: "Employee",
+    icon: "fas fa-users",
+    route: "employee.index"
+  },
+  {
+    id: "3",
     name: "Events",
     icon: "far fa-calendar-alt",
     route: "event.index"
   },
   {
-    id: "3",
+    id: "4",
     name: "Activity and Career",
     icon: "far fa-calendar-alt",
     route: "activity.index"
   },
   {
-    id: "4",
+    id: "5",
     name: "FAQ",
     icon: "far fa-chalkboard-teacher",
     route: "FAQ.index"

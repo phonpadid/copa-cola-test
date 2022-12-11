@@ -60,7 +60,7 @@ import {NotEmpty} from '@/utils/validate'
 import {useStore} from "vuex";
 import {useRoute, useRouter} from "vue-router";
 import User from "@/store/models/User.js";
-import {notificationSuccess} from "@/utils/message";
+import {notificationSuccess, notificationWarning} from "@/utils/message";
 
 const store = useStore();
 const route = useRoute();
@@ -77,7 +77,6 @@ const setRef = el => {
   ruleForm.value = el
 }
 const onSubmit = () => {
-
   ruleForm.value
       .validate()
       .then((res) => {
@@ -91,7 +90,9 @@ const onSubmit = () => {
       })
 }
 
+
 function handleSubmit() {
+  loading.value = true;
   store.dispatch("auth/login", form)
       .then((res) => {
         notificationSuccess({
@@ -99,13 +100,20 @@ function handleSubmit() {
           description: "Login Successfully",
           position: "topRight"
         })
+        loading.value = false;
         router.push({
           name: "dashboard.index"
         }).catch(() => {
         })
-      }).catch(() => {
-
-  })
+      })
+      .catch((firstErrorBag) => {
+        notificationWarning({
+          title: "Login Fail",
+          description: firstErrorBag.message,
+          position: "topRight"
+        })
+        loading.value = false;
+      })
 }
 
 const rules = {

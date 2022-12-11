@@ -50,6 +50,12 @@
                 </a-tag>
           </a-breadcrumb-item>
 
+          <!--    Employee -->
+          <a-breadcrumb-item v-if="$route.meta.name === 'Employee'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">Home</span>
+                </a-tag>
+          </a-breadcrumb-item>
 
         </span>
         <span class="text-black"> / {{ $route.meta.title }}</span>
