@@ -6,6 +6,7 @@
         @apply px-6 flex flex-col w-full min-h-[500px] border-t-2 border-gray-200 mt-2 p-4
     }
 
+
     .base-title-1 {
         @apply text-2xl font-black
     }

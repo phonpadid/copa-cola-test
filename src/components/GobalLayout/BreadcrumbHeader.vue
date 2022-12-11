@@ -38,6 +38,11 @@
                 </a-tag>
           </a-breadcrumb-item>
 
+          <!--    Dashboard -->
+          <a-breadcrumb-item v-if="$route.meta.name === 'Dashboard Analysis'" style="cursor: pointer">
+            <i class="fas fa-chart-line"></i>
+          </a-breadcrumb-item>
+
           <!--    FAQ -->
           <a-breadcrumb-item v-if="$route.meta.name === 'Frequently Asked Question'" style="cursor: pointer">
                 <a-tag color="processing">

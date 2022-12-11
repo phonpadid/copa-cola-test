@@ -44,6 +44,8 @@ const routes = [
                 name: 'dashboard.index',
                 meta: {
                     layout: "admin",
+                    title: "Dashboard Analysis",
+                    name: "Dashboard Analysis",
                     middleware: [Middleware.auth]
                 }
             },
