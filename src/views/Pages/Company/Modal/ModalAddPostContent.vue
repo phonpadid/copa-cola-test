@@ -42,7 +42,7 @@ import {useRoute} from "vue-router";
 import Content from "@/store/models/Content";
 import {notificationSuccess, notificationWarning} from "@/utils/message";
 
-const emit = defineEmits(['change']);
+const emit = defineEmits(['change', 'success']);
 const props = defineProps({
   visible: {
     type: Boolean,
@@ -109,6 +109,7 @@ function finalSaveItem(body) {
             position: "topRight"
           })
           setModalVisible(false)
+          emit("success");
           loading.value = false;
           router.push({
             name: "company.index"

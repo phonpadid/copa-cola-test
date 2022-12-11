@@ -27,6 +27,8 @@ declare module '@vue/runtime-core' {
     EventTable: typeof import('./src/views/Pages/Event/TabItem/EventTable.vue')['default']
     FAQ: typeof import('./src/views/Pages/FAQ/FAQ.vue')['default']
     FAQTable: typeof import('./src/views/Pages/FAQ/TabItem/FAQTable.vue')['default']
+    Feedback: typeof import('./src/views/Pages/Feedback/Feedback.vue')['default']
+    FeedbackTable: typeof import('./src/views/Pages/Feedback/TabItem/FeedbackTable.vue')['default']
     HomeView: typeof import('./src/views/HomeView.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']
@@ -49,5 +51,6 @@ declare module '@vue/runtime-core' {
     Undefined: typeof import('./src/views/Pages/Test/index.vue')['default']
     UploadImage: typeof import('./src/components/GobalLayout/UploadImage.vue')['default']
     ViewEventDetail: typeof import('./src/views/Pages/Event/TabItem/ViewEventDetail.vue')['default']
+    ViewFeedbackDetail: typeof import('./src/views/Pages/Feedback/TabItem/ViewFeedbackDetail.vue')['default']
   }
 }

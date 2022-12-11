@@ -66,18 +66,16 @@ function handleChangeMenu(menu) {
 }
 
 function logout() {
-  // store.dispatch('auth/logout')
-  //     .then((res) => {
-  //       if(res.code === 200){
-  //         notificationSuccess({
-  //           title: "Logout Successfully",
-  //           description: "...",
-  //           position: "topRight"
-  //         });
-  //       }
-  //     })
-  localStorage.removeItem("CREDENTIAL");
-  window.location.reload();
+  store.dispatch('auth/logout')
+      .then((res) => {
+        if(res.code === 200){
+          notificationSuccess({
+            title: "Logout Successfully",
+            description: "...",
+            position: "topRight"
+          });
+        }
+      })
 }
 
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full relative flex flex-col p-8 min-h-[200px] border-2 border-gray-200">
     <h1 class="text-base font-bold">{{ subStringTitle(faqItem.title) }}</h1>
-    <p class="mt-2 text-sm text-justify">{{ subStringContent(faqItem.body) }}</p>
+    <p class="mt-2 text-sm text-justify break-words">{{ subStringContent(faqItem.body) }}</p>
     <div
         class="w-[25px] text-white cursor-pointer flex justify-center items-center absolute rounded-full right-12 h-[25px] bg-blue-500">
       <i class="far fa-pencil-alt"></i>

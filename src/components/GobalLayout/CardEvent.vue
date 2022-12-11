@@ -1,13 +1,14 @@
 <template>
   <div class="w-full p-4 cursor-pointer flex flex-col h-[180px]  border-2 border-gray-200 rounded">
-    <div class="w-full flex justify-between">
-      <div>
-        <h2 class="text-base font-bold text-gray-800">{{ subStringTitle(event.title) }}</h2>
-        <p>{{ subStringContent(event.body) }}</p>
-      </div>
+    <div class="w-full flex flex-col justify-between">
+      <h2 class="text-base font-bold text-gray-800 break-words">{{ subStringTitle(event.title) }}</h2>
+      <p class="text-sm mt-2 text-justify break-words">
+        {{ subStringContent(event.body) }}
+      </p>
     </div>
     <div class="w-full flex absolute bottom-5">
-      <div class="w-[30px] m-1 h-[30px] overflow-hidden rounded-full bg-gray-400" v-for="item in event.activities" :key="item.id">
+      <div class="w-[30px] m-1 h-[30px] overflow-hidden rounded-full bg-gray-400" v-for="item in event.activities"
+           :key="item.id">
         <img class="w-full  h-full object-cover"
              v-if="item.image_logo"
              :src="item.image_logo.url"
