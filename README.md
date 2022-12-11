@@ -1,29 +1,18 @@
-# data_portal_system_admin_121022
 
-This template should help get you started developing with Vue 3 in Vite.
+# joinable Web admin (Team devhub)
+ Joinable Web admin is Web admin of joinable project, joinable project is platform that make user join and feel belong to their office quicker, there are ton of infomation and guideline about their office that their admin post into application, users can see all of employee and who have same activitie and careers with them. Users can create event asscociate with any activities and let the other can join.
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Installation
 
-## Customize configuration
+### Install package
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+``` bash
+npm i
 ```
 
-### Compile and Hot-Reload for Development
+### Run serve
 
-```sh
+``` bash
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
 ```
