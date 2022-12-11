@@ -54,7 +54,6 @@ export default function create() {
         },
         actions: {
             login(context, user) {
-                console.log(user, 111)
                 return new Promise(((resolve, reject) => {
                     axios.post(`${apiUrl}/auth/login`, user).then((res) => {
                         if (res.data.code === 200) {
