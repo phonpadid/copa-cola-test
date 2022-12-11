@@ -1,1 +1,0 @@
-import{n}from"./index.cab202b7.js";const o=i=>n.warning({message:`${i.title}`,description:`${i.description}`,placement:`${i.position}`}),c=i=>n.success({message:`${i.title}`,description:`${i.description}`,placement:`${i.position}`});export{o as a,c as n};
