@@ -34,7 +34,7 @@ const config = {
         return this.getHeaders();
     },
     getHeaders() {
-        return {headers: this.headers};
+        return { headers: this.headers };
     },
     addTokenHeader(token, isMultipart = false) {
         if (isMultipart) {
@@ -52,6 +52,7 @@ const config = {
         "Content-Language": "la",
     }
 };
+
 export {
     apiUrl,
     axios,

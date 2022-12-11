@@ -22,10 +22,10 @@
     <div class="absolute right-8 bottom-4">
       <span
         class="text-sm capitalize font-bold text-orange-600"
-        @click="viewEventDetail()"
+        @click="viewEventDetail(event.id)"
         v-if="event.type == 'event'"
       >{{event.personals_count}} joined</span>
-      <span class="text-sm capitalize font-bold text-blue-600" @click="viewEventDetail()">
+      <span class="text-sm capitalize font-bold text-blue-600" @click="viewEventDetail(event.id)">
         view more
         <i class="far fa-long-arrow-right"></i>
       </span>
@@ -53,10 +53,13 @@ function subStringContent(text) {
   }
 }
 
-function viewEventDetail() {
+function viewEventDetail(id) {
   router
     .push({
-      name: "event.detail"
+      name: "event.detail",
+      query: {
+        post_id: id
+      }
     })
     .catch(() => {});
 }
