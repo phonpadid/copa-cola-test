@@ -61,7 +61,6 @@ const setRef = el => {
 
 //emit image form component UploadImage and set to form
 function chooseImage(image) {
-  console.log(image[0].originFileObj, 5555)
   form.image_logo = image[0].originFileObj
 }
 
@@ -94,7 +93,6 @@ function handleSubmit() {
     formData: true,
     ...data
   }
-  console.log(body, "body")
   finalSaveItem(body);
 }
 
@@ -117,10 +115,10 @@ function finalSaveItem(body) {
         }
       })
       .catch((firstErrorBag) => {
-        let error = firstErrorBag.items;
         notificationWarning({
-          title: "something went wrong",
-          description: error
+          title: "Save failed",
+          description: firstErrorBag.errors().join('\n'),
+          position: "topRight"
         })
         loading.value = false
       }).finally(() => {

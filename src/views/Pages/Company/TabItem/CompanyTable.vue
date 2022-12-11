@@ -40,7 +40,7 @@
       <!--     content -->
       <a-form-item label=" ">
         <a-divider>Manage Post Content</a-divider>
-        <div class="relative flex flex-col w-full min-h-[300px]">
+        <div class="relative flex flex-col w-full min-h-[300px]" v-for="item in companyContent" :key="item.id">
           <a-button
               @click="onCreatePostContent"
               type="primary"
@@ -51,17 +51,15 @@
           </a-button>
           <div class="w-full mt-10 h-[200px]">
             <img
+                v-if="item.image_content"
                 class="w-full h-full object-cover"
-                src="https://images.unsplash.com/photo-1604328698692-f76ea9498e76?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                src=""
                 alt
             />
           </div>
-          <h3 class="mt-2 font-bold">Title Post Content</h3>
+          <h3 class="mt-2 font-bold">{{ item.title }}</h3>
           <p class="text-justify">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam asperiores
-            blanditiis commodi
-            consectetur culpa dolorum earum eos esse impedit ipsa iure molestiae non nostrum obcaecati provident saepe,
-            sed temporibus?
+            {{ item.body }}
           </p>
         </div>
       </a-form-item>
@@ -94,6 +92,7 @@ const ruleForm = ref(null);
 const companyInfo = ref({
   image_profile: {preview: ""}
 });
+const companyContent = ref({});
 const loading = ref(false);
 
 const setRef = el => {
@@ -119,7 +118,6 @@ function handleSubmit() {
   if (!(companyInfo.image_profile instanceof File)) {
     delete data.image_profile;
   }
-  console.log(companyInfo, 88);
   const body = {
     method: "post",
     _method: method,
@@ -190,6 +188,22 @@ function fetchCompanyInfo() {
       });
 }
 
+function fetchCompanyContent() {
+  store
+      .dispatch("data-resources/listing", {
+        actionUri: "company-content"
+      })
+      .then(res => {
+        if (res.code === 200) {
+          companyContent.value = res.data;
+          console.log(companyContent.value, 55555)
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+}
+
 //create new post content with modal
 function onCreatePostContent() {
   modalVisible.value = true;
@@ -197,6 +211,7 @@ function onCreatePostContent() {
 
 onMounted(() => {
   fetchCompanyInfo();
+  fetchCompanyContent();
 })
 
 </script>
