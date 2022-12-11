@@ -16,6 +16,10 @@
           <div class="w-[200px] pl-3 flex justify-center flex-col h-full">
             <h1 class="m-0 font-bold">{{displayName}}</h1>
             <p class="m-0 text-xs font-light text-gray-500">{{me.email}}</p>
+            <div class="flex" @click="copyToClipboard">
+              <h1 id="myInput" class="m-0 font-bold mr-1">{{me.company.joinable_code}}</h1>
+              <i class="fal fa-copy"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -58,7 +62,11 @@ import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 
 const collapsed = ref(false);
-const me = ref({});
+const me = ref({
+  company: {
+    joinable_code: ""
+  }
+});
 const store = useStore();
 
 const fetchMe = () => {
@@ -75,6 +83,16 @@ const fetchMe = () => {
       console.log(error);
     });
 };
+function copyToClipboard() {
+  // Get the text field
+  var copyText = me.value.company.joinable_code;
+
+  // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText);
+
+  // Alert the copied text
+  alert("Copied the text: " + copyText);
+}
 
 onMounted(() => fetchMe());
 const displayName = computed(() =>
