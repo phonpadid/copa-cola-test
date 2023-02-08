@@ -1,5 +1,5 @@
 {
-  "name": "joinable_web_admin",
+  "name": "billing_system",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

@@ -6,54 +6,182 @@
     <a-breadcrumb :routes="routes">
       <template #itemRender="{ route, routes, paths,meta }">
         <span v-if="routes.indexOf(route) === routes.length - 1">
-          <a-breadcrumb-item v-if="$route.meta.name === 'Company Info'" style="cursor: pointer">
-                <a-tag color="processing">
-                   <span class="text-sm">Home</span>
-                </a-tag>
-          </a-breadcrumb-item>
-          <!--    Event -->
-          <a-breadcrumb-item v-if="$route.meta.name === 'Event'" style="cursor: pointer">
+          <a-breadcrumb-item v-if="$route.meta.name === 'Office Info'" style="cursor: pointer">
                 <a-tag color="processing">
                    <span class="text-sm">Home</span>
                 </a-tag>
           </a-breadcrumb-item>
 
-          <!--    Event Detail -->
-          <a-breadcrumb-item v-if="$route.meta.name === 'Event Detail'" style="cursor: pointer">
-                <a-tag color="processing">
-                   <span class="text-sm">Home</span>
-                </a-tag>
-          </a-breadcrumb-item>
-          <!--    Activity -->
-          <a-breadcrumb-item v-if="$route.meta.name === 'Activity and Career'" style="cursor: pointer">
+            <a-breadcrumb-item v-if="$route.meta.name === 'Operator Info'" style="cursor: pointer">
                 <a-tag color="processing">
                    <span class="text-sm">Home</span>
                 </a-tag>
           </a-breadcrumb-item>
 
-          <!--    Activity Detail -->
-          <a-breadcrumb-item v-if="$route.meta.name === 'Activity Detail'" style="cursor: pointer">
+              <a-breadcrumb-item v-if="$route.meta.name === 'List Of Route Voice'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">Home</span>
+                </a-tag>
+          </a-breadcrumb-item>
+          <a-breadcrumb-item v-if="$route.meta.name === 'List Of Route SMS'" style="cursor: pointer">
                 <a-tag color="processing">
                    <span class="text-sm">Home</span>
                 </a-tag>
           </a-breadcrumb-item>
 
-          <!--    Dashboard -->
-          <a-breadcrumb-item v-if="$route.meta.name === 'Dashboard Analysis'" style="cursor: pointer">
-            <i class="fas fa-chart-line"></i>
-          </a-breadcrumb-item>
 
-          <!--    FAQ -->
-          <a-breadcrumb-item v-if="$route.meta.name === 'Frequently Asked Question'" style="cursor: pointer">
+            <a-breadcrumb-item v-if="$route.meta.name === 'List Of Route Country'" style="cursor: pointer">
                 <a-tag color="processing">
                    <span class="text-sm">Home</span>
                 </a-tag>
           </a-breadcrumb-item>
 
-          <!--    Employee -->
-          <a-breadcrumb-item v-if="$route.meta.name === 'Employee'" style="cursor: pointer">
+          <a-breadcrumb-item v-if="$route.meta.name === 'Partner Info'" style="cursor: pointer">
                 <a-tag color="processing">
                    <span class="text-sm">Home</span>
+                </a-tag>
+          </a-breadcrumb-item>
+           <a-breadcrumb-item v-if="$route.meta.name === 'Currency Info'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'currency.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+            <a-breadcrumb-item v-if="$route.meta.name === 'IncomingRate Info'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'incomingRate.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+
+            <a-breadcrumb-item v-if="$route.meta.name === 'IncomingRateSMS Info'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'incomingRateSMS.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+
+            <a-breadcrumb-item v-if="$route.meta.name === 'OutGoingRate Info'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'outGoingRate.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+
+           <a-breadcrumb-item v-if="$route.meta.name === 'TestClassify Info'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'testClassify.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+           <a-breadcrumb-item v-if="$route.meta.name === 'HUR Threshold Info'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'HURThreshold.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+
+              <a-breadcrumb-item v-if="$route.meta.name === 'Re-Run SMS'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'reRunSMS.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+
+             <a-breadcrumb-item v-if="$route.meta.name === 'Re-Run Voice'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'reRunSMS.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+
+           <a-breadcrumb-item v-if="$route.meta.name === 'Voice CDRs'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'voiceCDRs.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+           <a-breadcrumb-item v-if="$route.meta.name === 'Voice OG CDRs'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'voiceOGCDRs.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+           <a-breadcrumb-item v-if="$route.meta.name === 'SMS CDRs'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'SMS-CDRs.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+
+             <a-breadcrumb-item v-if="$route.meta.name === 'Reconcile CDRs IC'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'reconcileCDRsIC.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+
+           <a-breadcrumb-item v-if="$route.meta.name === 'Reconcile CDRs OG'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'reconcileCDRsOG.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+           <a-breadcrumb-item v-if="$route.meta.name === 'User Info'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'user.index'}">
+                       Home
+                     </router-link>
+                   </span>
+                </a-tag>
+          </a-breadcrumb-item>
+             <a-breadcrumb-item v-if="$route.meta.name === 'Auto Number Info'" style="cursor: pointer">
+                <a-tag color="processing">
+                   <span class="text-sm">
+                     <router-link :to="{name:'autoNumber.index'}">
+                       Home
+                     </router-link>
+                   </span>
                 </a-tag>
           </a-breadcrumb-item>
 
