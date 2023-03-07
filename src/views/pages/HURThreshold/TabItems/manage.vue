@@ -17,7 +17,7 @@
         </a-form-item>
 
         <a-form-item label="Select Top Records">
-          <a-input/>
+          <a-select/>
         </a-form-item>
         <a-form-item label="HUR Threshold (Minutes)">
           <a-input/>

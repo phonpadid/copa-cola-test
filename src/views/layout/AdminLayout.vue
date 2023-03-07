@@ -2,7 +2,7 @@
   <a-layout class="h-screen overflow-hidden w-full">
     <a-layout-sider
         width="270"
-        class="h-screen pl-0 bg-gray-200 flex flex-col"
+        class="h-screen pl-0 bg-white flex flex-col"
         v-model:collapsed="collapsed"
         :trigger="null"
         collapsible
@@ -10,7 +10,7 @@
       <div class="w-full h-[120px] flex items-center px-3">
         <div class="w-full h-[60px] flex">
           <div
-              class="w-[55px] h-[55px] rounded-full bg-white flex justify-center items-center text-xl text-white"
+              class="w-[55px] h-[55px] rounded-full bg-gray-200 flex justify-center items-center text-xl text-white"
           >
           </div>
           <div class="w-[200px] pl-3 flex justify-center flex-col h-full">
