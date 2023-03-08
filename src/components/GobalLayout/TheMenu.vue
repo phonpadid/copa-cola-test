@@ -262,19 +262,19 @@ const MainMenu = reactive([
         id: 61,
         name: "Bank Account",
         icon: "far fa-file-chart-line",
-        route: "adjustment-voice.index"
+        route: "bank-account.index"
       },
       {
         id: 62,
         name: "Currency",
         icon: "far fa-file-chart-line",
-        route: "adjustment-sms.index"
+        route: "currencies.index"
       },
       {
         id: 63,
         name: "Exchange Rate",
         icon: "far fa-file-chart-line",
-        route: "print-credit-and-debit.index"
+        route: "exchange-rate.index"
       },
     ]
   },

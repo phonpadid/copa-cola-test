@@ -1,4 +1,4 @@
-import router from "@/router/modules/bankAcountRouter";
+import router from "@/router/modules/bankAccountRouter";
 
 export default {
     router

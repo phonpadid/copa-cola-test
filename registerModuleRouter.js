@@ -23,9 +23,9 @@ import autoNumber from "@/views/pages/system/autoNumber/router"
 import adjustmentSMSRouter from "@/views/pages/settlement/creditAndDebit/adjustmentSMS/router"
 import adjustmentVoiceRouter from "@/views/pages/settlement/creditAndDebit/adjustmentVoice/router"
 import printCreditAndDebitRouter from "@/views/pages/settlement/creditAndDebit/printCreditAndDebit/router"
-// import bankAccountRouter from "@/views/pages/settlement/List/bankAccount/router"
-// import currenciesRouter from "@/views/pages/settlement/List/currencies/router"
-// import exchangeRateRouter from "@/views/pages/settlement/List/exchangeRate/router"
+import bankAccountRouter from "@/views/pages/settlement/List/bankAccount/router"
+import currenciesRouter from "@/views/pages/settlement/List/currencies/router"
+import exchangeRateRouter from "@/views/pages/settlement/List/exchangeRate/router"
 // import approvedInvoiceRouter from "@/views/pages/settlement/listOfInvoice/approvedInvoice/router"
 // import partnerInvoiceRouter from "@/views/pages/settlement/listOfInvoice/partnerInvoice/router"
 // import statemtAndInvoiceValidationRouter from "@/views/pages/settlement/listOfInvoice/statemtAndInvoiceValidation/router"
@@ -64,9 +64,9 @@ registerModules({
     adjustmentSMSRouter,
     adjustmentVoiceRouter,
     printCreditAndDebitRouter,
-    // bankAccountRouter,
-    // currenciesRouter,
-    // exchangeRateRouter,
+    bankAccountRouter,
+    currenciesRouter,
+    exchangeRateRouter,
     // approvedInvoiceRouter,
     // partnerInvoiceRouter,
     // statemtAndInvoiceValidationRouter,
