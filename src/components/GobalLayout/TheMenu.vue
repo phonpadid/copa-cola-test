@@ -278,6 +278,110 @@ const MainMenu = reactive([
       },
     ]
   },
+
+
+  //List Of Invoice
+  {
+    id: 70,
+    name: "List Of Invoice",
+    icon: "far fa-database",
+    group: [
+      {
+        id: 71,
+        name: "ApprovedInvoice",
+        icon: "far fa-file-chart-line",
+        route: "approved.index"
+      },
+      {
+        id: 72,
+        name: "PartnerInvoice",
+        icon: "far fa-file-chart-line",
+        route: "partner-invoice.index"
+      },
+      {
+        id: 73,
+        name: "StatemtAndInvoiceValidation",
+        icon: "far fa-file-chart-line",
+        route: "statemt-invoice-validation.index"
+      },
+      {
+        id: 74,
+        name: "View And Export Invoice",
+        icon: "far fa-file-chart-line",
+        route: "view-and-export-invoice.index"
+      },
+    ]
+  },
+
+  //List Of Invoice SMS
+  {
+    id: 80,
+    name: "List Of Invoice SMS",
+    icon: "far fa-database",
+    group: [
+      {
+        id: 81,
+        name: "ApprovedInvoice SMS",
+        icon: "far fa-file-chart-line",
+        route: "approved-sms.index"
+      },
+      {
+        id: 82,
+        name: "PartnerInvoice SMS",
+        icon: "far fa-file-chart-line",
+        route: "partner-invoice-sms.index"
+      },
+      {
+        id: 84,
+        name: "View And Export Invoice SMS",
+        icon: "far fa-file-chart-line",
+        route: "view-and-export-invoice-sms.index"
+      },
+    ]
+  },
+
+
+  //List Of Payment
+  {
+    id: 90,
+    name: "List Of Payment",
+    icon: "far fa-database",
+    group: [
+      {
+        id: 91,
+        name: "ListOfPayment SMS",
+        icon: "far fa-file-chart-line",
+        route: "list-of-payment-sms.index"
+      },
+      {
+        id: 92,
+        name: "ListOfPayment Voice",
+        icon: "far fa-file-chart-line",
+        route: "list-of-payment-voice.index"
+      },
+    ]
+  },
+
+  //List Of Receipt
+  {
+    id: 100,
+    name: "List Of Receipt",
+    icon: "far fa-database",
+    group: [
+      {
+        id: 101,
+        name: "InterconnectReport",
+        icon: "far fa-file-chart-line",
+        route: "interconnect-report.index"
+      },
+      {
+        id: 102,
+        name: "ListOfReceiptSMS",
+        icon: "far fa-file-chart-line",
+        route: "list-of-receipt-sms.index"
+      },
+    ]
+  },
 ]);
 const MenuList = reactive([
   {

@@ -26,13 +26,13 @@ import printCreditAndDebitRouter from "@/views/pages/settlement/creditAndDebit/p
 import bankAccountRouter from "@/views/pages/settlement/List/bankAccount/router"
 import currenciesRouter from "@/views/pages/settlement/List/currencies/router"
 import exchangeRateRouter from "@/views/pages/settlement/List/exchangeRate/router"
-// import approvedInvoiceRouter from "@/views/pages/settlement/listOfInvoice/approvedInvoice/router"
-// import partnerInvoiceRouter from "@/views/pages/settlement/listOfInvoice/partnerInvoice/router"
-// import statemtAndInvoiceValidationRouter from "@/views/pages/settlement/listOfInvoice/statemtAndInvoiceValidation/router"
-// import viewAndExportInvoice from "@/views/pages/settlement/listOfInvoice/viewAndExportInvoice/router"
-// import approvedInvoiceSMSRouter from "@/views/pages/settlement/listOfInvoiceSMS/approvedInvoiceSMS/router"
-// import partnerInvoiceSMSRouter from "@/views/pages/settlement/listOfInvoiceSMS/partnerInvoiceSMS/router"
-// import viewAndExportInvoiceSMSRouter from "@/views/pages/settlement/listOfInvoiceSMS/viewAndExportInvoiceSMS/router"
+import approvedInvoiceRouter from "@/views/pages/settlement/listOfInvoice/approvedInvoice/router"
+import partnerInvoiceRouter from "@/views/pages/settlement/listOfInvoice/partnerInvoice/router"
+import statemtAndInvoiceValidationRouter from "@/views/pages/settlement/listOfInvoice/statemtAndInvoiceValidation/router"
+import viewAndExportInvoice from "@/views/pages/settlement/listOfInvoice/viewAndExportInvoice/router"
+import approvedInvoiceSMSRouter from "@/views/pages/settlement/listOfInvoiceSMS/approvedInvoiceSMS/router"
+import partnerInvoiceSMSRouter from "@/views/pages/settlement/listOfInvoiceSMS/partnerInvoiceSMS/router"
+import viewAndExportInvoiceSMSRouter from "@/views/pages/settlement/listOfInvoiceSMS/viewAndExportInvoiceSMS/router"
 // import listOfPaymentSMSRouter from "@/views/pages/settlement/listOfPayment/listOfPaymentSMS/router"
 // import listOfPaymentVoiceRouter from "@/views/pages/settlement/listOfPayment/listOfPaymentVoice/router"
 // import listOfReceiptSMSRouter from "@/views/pages/settlement/listOfReceipt/listOfReceiptSMS/router";
@@ -67,13 +67,13 @@ registerModules({
     bankAccountRouter,
     currenciesRouter,
     exchangeRateRouter,
-    // approvedInvoiceRouter,
-    // partnerInvoiceRouter,
-    // statemtAndInvoiceValidationRouter,
-    // viewAndExportInvoice,
-    // approvedInvoiceSMSRouter,
-    // partnerInvoiceSMSRouter,
-    // viewAndExportInvoiceSMSRouter,
+    approvedInvoiceRouter,
+    partnerInvoiceRouter,
+    statemtAndInvoiceValidationRouter,
+    viewAndExportInvoice,
+    approvedInvoiceSMSRouter,
+    partnerInvoiceSMSRouter,
+    viewAndExportInvoiceSMSRouter,
     // listOfPaymentSMSRouter,
     // listOfPaymentVoiceRouter,
     // listOfReceiptSMSRouter,
