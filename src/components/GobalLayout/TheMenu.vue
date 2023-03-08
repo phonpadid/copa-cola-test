@@ -3,7 +3,7 @@
       v-for="(menu) in MainMenu"
       :key="menu.id"
       mode="inline"
-      class="text-base"
+      class="text-base bg-sidebar"
       v-model:selectedKeys="selectedKeys">
 
     <a-sub-menu :key="menu.id">
@@ -24,13 +24,14 @@
       v-for="(single) in MenuList"
       :key="single.id"
       mode="inline"
+      class="bg-sidebar"
       v-model:selectedKeys="selectedKeys">
     <a-menu-item :key="single.id" @click="handleChangeMenu(single)">
 
       <template #icon>
-        <span class="text-base text-gray-600"><i :class="single.icon"></i></span>
+        <span class="text-base"><i :class="single.icon"></i></span>
       </template>
-      <span style="color: #000c17 !important;" class="ml-2 text-base font-light">{{ single.name }}</span>
+      <span class="ml-2 text-base font-light">{{ single.name }}</span>
     </a-menu-item>
   </a-menu>
 </template>

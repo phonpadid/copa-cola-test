@@ -2,7 +2,7 @@
   <a-layout class="h-screen overflow-hidden w-full">
     <a-layout-sider
         width="270"
-        class="h-screen pl-0 bg-white flex flex-col"
+        class="h-screen  pl-0 bg-sidebar flex flex-col"
         v-model:collapsed="collapsed"
         :trigger="null"
         collapsible
@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <div class="w-full h-[600px] overflow-y-auto overflow-x-hidden  text-justify">
+      <div class="w-full h-screen overflow-y-auto overflow-x-hidden  text-justify">
         <!--      menu sidebar-->
         <TheMenu/>
         <!--    end  menu sidebar-->
@@ -32,15 +32,16 @@
     </a-layout-sider>
     <a-layout class="w-full">
       <a-layout-header
-          style="background-color: #F3F3F3"
+          style="background: #b33939"
           class="w-full flex items-center pl-6 pr-6 h-[35px]"
       >
         <UnorderedListOutlined
+            style="color: #FFFFFF"
             v-if="collapsed"
             class="trigger"
             @click="() => (collapsed = !collapsed)"
         />
-        <UnorderedListOutlined v-else class="trigger" @click="() => (collapsed = !collapsed)"/>
+        <UnorderedListOutlined style="color: #FFFFFF" v-else class="trigger" @click="() => (collapsed = !collapsed)"/>
       </a-layout-header>
       <a-layout-content>
         <div class="w-full bg-white rounded-tl-lg h-full overflow-y-auto p-4 text-justify">

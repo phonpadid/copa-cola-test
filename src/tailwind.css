@@ -23,6 +23,11 @@
         @apply w-full px-4
     }
 
+    .bg-sidebar {
+        background: rgba(61, 61, 61, 1.0);
+        color: white;
+    }
+
 }
 
 
@@ -128,5 +133,9 @@ h1, h2, h3, h4, h5, h6, p, span, ul, li, a {
 
 .ant-input {
     font-family: Poppins, BoonBaan, sans-serif !important;
+}
+
+.ant-menu-submenu-expand-icon, .ant-menu-submenu-arrow {
+    color: #FFFFFF;
 }
 
