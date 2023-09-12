@@ -6,16 +6,18 @@
         v-model:collapsed="collapsed"
         :trigger="null"
         collapsible
+        style="background: #b33939"
     >
-      <div class="w-full h-[120px] flex items-center px-3">
-        <div class="w-full h-[60px] flex">
+      <div class="w-full h-[120px] flex items-center px-3 border-b border-gray-100">
+        <div class="w-full h-[60px]  flex">
           <div
-              class="w-[55px] h-[55px] rounded-full bg-gray-200 flex justify-center items-center text-xl text-white"
+              class="w-[55px] h-[55px] overflow-hidden rounded-full bg-gray-200 flex justify-center items-center text-xl text-white"
           >
+            <img class="w-full h-full overflow-hidden object-cover" :src="logo" alt="">
           </div>
           <div class="w-[200px] pl-3 flex justify-center flex-col h-full">
-            <h1 class="m-0 font-bold"></h1>
-            <p class="m-0 text-xs font-light text-gray-500"></p>
+            <h1 class="m-0  text-white font-black text-xl">Coca-Cola</h1>
+            <p class="m-0 text-xs font-light text-white">COPA Coca-Cola Laos</p>
           </div>
         </div>
       </div>
@@ -25,8 +27,8 @@
         <!--    end  menu sidebar-->
       </div>
       <!--      footer sidebar-->
-      <div class="absolute bottom-0 flex justify-center items-center w-full h-[40px] bg-white">
-        <h2 class="text-sm text-gray-500 font-light uppercase">2023 © Billing System</h2>
+      <div class="absolute bottom-0 flex justify-center items-center w-full h-[40px] border border-red-500 bg-white">
+        <h2 class="text-sm text-gray-500 font-light uppercase">2023 © Coca Cola Admin</h2>
       </div>
       <!--     end footer sidebar-->
     </a-layout-sider>
@@ -56,6 +58,9 @@
 <script setup>
 import {UnorderedListOutlined} from "@ant-design/icons-vue";
 import {ref} from "vue";
+import TheMenu from "@/components/GobalLayout/TheMenu.vue";
+import BreadcrumbHeader from "@/components/GobalLayout/BreadcrumbHeader.vue";
+import logo from "@/assets/image/coca-cola-bottle-cap5138.logowik.com.webp"
 
 const collapsed = ref(false);
 </script>

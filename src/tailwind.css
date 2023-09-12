@@ -139,3 +139,23 @@ h1, h2, h3, h4, h5, h6, p, span, ul, li, a {
     color: #FFFFFF;
 }
 
+.action-item-table {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin: 0 4px;
+    cursor: pointer;
+}
+
+.action-item-table i {
+    color: #FFFFFF;
+}
+
+.table-action {
+    display: flex;
+
+}
+

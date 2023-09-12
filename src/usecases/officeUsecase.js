@@ -1,5 +1,6 @@
 import {reactive, ref, toRefs} from "vue";
 import router from "@/router"
+import {notificationSuccess} from "@/utils/message";
 
 const data = reactive({
     isEdit: false,
@@ -23,11 +24,32 @@ function onCreate() {
     }).catch(() => {
     })
 }
+function onEdit(id) {
+    router.push({
+        name: "office.edit",
+        params:{
+            id:id
+        },
+        query:{
+            edit:"true"
+        }
+    }).catch(() => {
+    })
+}
+function onDelete(id){
+    notificationSuccess({
+        title: "Delete Success",
+        description: "delete data successfully...",
+        position: "topRight"
+    })
+}
 
 export default {
     ...toRefs(data),
     layout,
     onCreate,
+    onEdit,
+    onDelete,
     rules,
     refForm,
 }

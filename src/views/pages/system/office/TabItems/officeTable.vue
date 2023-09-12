@@ -21,13 +21,23 @@
         :pagination="{ pageSize: 10 }">
       <template #bodyCell="{ column, text, record }">
         <template v-if="column.dataIndex === 'action'">
-          <a type="link">
-            <EditOutlined/>
-          </a>
-          <div class="ant-divider ant-divider-vertical"></div>
-          <a type="link">
-            <DeleteOutlined/>
-          </a>
+          <div class="table-action">
+            <div class="action-item-table bg-gray-500" @click="onEdit(record.id)">
+              <i class="far fa-pencil"></i>
+            </div>
+            <div class="action-item-table bg-red-500">
+              <a-popconfirm
+                  title="Are you sure delete this item?"
+                  ok-text="Yes"
+                  cancel-text="No"
+                  @confirm="onDelete(record.id)"
+              >
+                <a href="#">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+              </a-popconfirm>
+            </div>
+          </div>
         </template>
       </template>
     </a-table>
@@ -41,13 +51,16 @@ import {useRouter} from "vue-router";
 import officeUsecase from "@/usecases/officeUsecase";
 
 const {
-  onCreate
+  onCreate,
+  onEdit,
+  onDelete,
 } = officeUsecase;
 
 const router = useRouter();
 const data = [...Array(100)].map((_, i) => ({
   key: i,
   index: `${i + 1}`,
+  id: i + 1,
   title: `xxxx xxxx xxxx`,
   description: `xxxx xxxx xxxxx`,
 }));

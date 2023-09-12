@@ -14,13 +14,21 @@
 
             <a-breadcrumb-item v-if="$route.meta.name === 'Operator Info'" style="cursor: pointer">
                 <a-tag color="processing">
-                   <span class="text-sm">Home</span>
+                   <span class="text-sm">
+                     <router-link :to="{name:'operator.index'}">
+                       Home
+                     </router-link>
+                   </span>
                 </a-tag>
           </a-breadcrumb-item>
 
               <a-breadcrumb-item v-if="$route.meta.name === 'List Of Route Voice'" style="cursor: pointer">
                 <a-tag color="processing">
-                   <span class="text-sm">Home</span>
+                   <span class="text-sm">
+                     <router-link :to="{name:'listRouteVoice.index'}">
+                       Home
+                     </router-link>
+                   </span>
                 </a-tag>
           </a-breadcrumb-item>
           <a-breadcrumb-item v-if="$route.meta.name === 'List Of Route SMS'" style="cursor: pointer">

@@ -22,6 +22,16 @@ const moduleRouter = {
                 layout: "admin",
             }
         },
+        {
+            component: () => import(/* webpackChunkName: "Office Create" */ '@/views/pages/system/office/TabItems/manage.vue'),
+            path: 'update/:id',
+            name: 'office.edit',
+            meta: {
+                title: "Office Info",
+                name: "Office Info",
+                layout: "admin",
+            }
+        },
     ],
 }
 

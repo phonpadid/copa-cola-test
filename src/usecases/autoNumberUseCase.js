@@ -1,5 +1,6 @@
 import {reactive, ref, toRefs} from "vue";
 import router from "@/router"
+import {notificationSuccess} from "@/utils/message";
 
 const data = reactive({
     isEdit: false,
@@ -17,9 +18,31 @@ const refForm = ref(null);
 const rules = {}
 
 function onCreate() {
+    data.isEdit = false;
     router.push({
         name: "autoNumber.create"
     }).catch(() => {
+    })
+}
+
+function onEdit(id) {
+    router.push({
+        name: "autoNumber.edit",
+        params: {
+            id: id
+        },
+        query: {
+            edit: "true"
+        }
+    }).catch(() => {
+    })
+}
+
+function onDelete(id) {
+    notificationSuccess({
+        title: "Delete Success",
+        description: "delete data successfully...",
+        position: "topRight"
     })
 }
 
@@ -27,6 +50,8 @@ export default {
     ...toRefs(data),
     layout,
     onCreate,
+    onEdit,
+    onDelete,
     rules,
     refForm,
 }
