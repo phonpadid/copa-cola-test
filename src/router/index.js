@@ -6,10 +6,10 @@ createApp(vueRouter);
 const routes = [
     {
         path: '/',
-        component: () => import(/* webpackChunkName: "Login" */'@/views/pages/common/Login.vue'),
+        component: () => import(/* webpackChunkName: "Login" */'@/views/pages/system/Login.vue'),
         children: [
             {
-                component: () => import(/* webpackChunkName: "Login Index" */ '@/views/pages/common/Login.vue'),
+                component: () => import(/* webpackChunkName: "Login Index" */ '@/views/pages/system/Login.vue'),
                 path: '',
                 name: 'login.index',
                 meta: {

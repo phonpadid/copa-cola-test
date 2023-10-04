@@ -1,14 +1,19 @@
 import Base from "./Base";
-export default function User() {
+export default function UserModel() {
     Base.call(this);
     this.id = null;
-    this.credential = null;
     this.password = null;
+    this.email = null;
+    this.name = null;
+    this.phone = null;
 
-    this.fromJSON = (json) => {
-        this.id = json.id;
-        this.credential = json.credential;
-        this.password = json.password;
+    this.fromJSON = (state, json) => {
+        state.id = json.id;
+        state.password = json.password;
+        state.email = json.email;
+        state.name = json.name;
+        state.phone = json.phone;
+
     };
 }
 
