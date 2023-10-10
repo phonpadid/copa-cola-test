@@ -8,7 +8,7 @@
 
 </template>
 <script setup>
-import DefaultLayout from "@/views/Layout/DefaultLayout.vue";
+import DefaultLayout from "@/views/layout/DefaultLayout.vue";
 </script>
 <style scoped>
 </style>
