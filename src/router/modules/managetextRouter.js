@@ -7,7 +7,7 @@ const moduleRouter = {
             path: '',
             name: 'managetext.index',
             meta: {
-                title: "ຈັດການທີມ",
+                title: "ສະແດງລາຍການຈັດການທີມ",
                 name: "ManageText Info",
                 layout: "admin",
             }
@@ -17,7 +17,7 @@ const moduleRouter = {
             path: 'create',
             name: 'managetext.create',
             meta: {
-                title: "ManageText Info",
+                title: "ເພີມຂໍ້ມູນຈັດການທີມ",
                 name: "ManageText Info",
                 layout: "admin",
             }
@@ -27,7 +27,7 @@ const moduleRouter = {
             path: 'update/:id',
             name: 'managetext.edit',
             meta: {
-                title: "ManageText Info",
+                title: "ອັບເດດຂໍ້ມູນທີມ",
                 name: "ManageText Info",
                 layout: "admin",
             }

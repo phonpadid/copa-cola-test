@@ -1,36 +1,16 @@
 import {reactive , toRefs, ref} from "vue"
-import {getAllMatch, getMatch,createMatch,updateMatch,deleteMatch } from "@/Repository/MatchRepository"
-import MatchModel from "@/store/models/Matches"
+import {getAllPostFacebook, getPostFacebook,createPost,updatePost,deletePost,getFacebookPost } from "@/Repository/PostRepository"
+import ManagePost from "@/store/models/ManagePost"
 import {notificationSuccess, notificationWarning} from "@/hooks/message";
 import router from "@/router";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 
 const data = reactive({
     isEdit: false,
-    matches: [],
-    form: new MatchModel(), 
+    postFacebook: [],
+    form: new ManagePost(),
     messageError: {},
     isServerError: false,
-    rules:{
-        team_a:[
-            {
-            required: true,
-            message:['ກະລຸນາປ້ອນເລືອກທີມກ່ອນ']
-        }
-    ],
-        team_b:[{
-            required: true,
-            message:['ກະລຖນາເລືອກທີມກ່ອນ'],
-        }],
-        match_time:[{
-            required: true,
-            message:['ກະລຸນາເລືອກວັນທີກ່ອນ'],
-        }],
-        match_end_activity_time:[{
-            required: true,
-            message:['ກະລຸນາເລືອກວັນທີກ່ອນ'],
-        }]
-    }
 })
 const layout = {
     labelCol: {
@@ -45,31 +25,30 @@ const refForm = ref(null);
 
 async function resetForm() {
     // refForm.value.resetFields();
-    data.form.team_a = null;
-    data.form.team_b = null;
-    data.form.match_time = null;
-    data.form.match_end_activity_time = null;
+    data.form.facebook_post_id = null;
+    data.form.title = null;
+    data.form.body = null;
+    data.form.match = null;
     data.form.is_enable = null;
 }
-async function submitForm(id){
-
+async function submitForm(){
     if(!data.isEdit){
         try{
-            const res = await createMatch (data.form);
+            const res = await createPost (data.form);
             if(res){ 
                 notificationSuccess({
                     title: "ບັນທຶກຂໍ້ມູນສຳເລັດ",
                     description: "ບັນທຶກຂໍ້ມູນສຳເລັດແລ້ວ",
                     position: "topRight"
                 })
-                router.push({name: "match.index"}).catch(() => {
+                router.push({name: "manageposts.index"}).catch(() => {
                 })
                 await resetForm();
             }
         }catch(firstErrorBag){
             data.isLoading = false;
             data.isServerError = true;
-            data.messageError = Object.values(firstErrorBag.response.data.errors).join('<br>'+' -');
+            // data.messageError = Object.values(firstErrorBag.response.data.errors).join('<br>'+' -');
             notificationWarning({
                 title: "ເກີດຂໍ້ຜິດພາດ...",
                 description: "ກະລຸນາກວດສອບຂໍ້ມູນ",
@@ -79,7 +58,7 @@ async function submitForm(id){
     }
     if (data.isEdit) {
         try {
-            const res = await updateMatch(id,data.form);
+            const res = await updatePost(data.form);
             if (res) {
                 notificationSuccess({
                     title: "ອັບເດດຂໍ້ມູນສຳເລັດ",
@@ -87,13 +66,13 @@ async function submitForm(id){
                     position: "topRight"
                 })
                 await resetForm();
-                router.push({name: "match.index"}).catch(() => {
+                router.push({name: "manageposts.index"}).catch(() => {
                 })
             }
         } catch (firstErrorBag) {  
             console.log(firstErrorBag)
             data.isServerError = true;
-            data.messageError = Object.values(firstErrorBag.response.data.errors).join('<br/>' + '  -');
+            // data.messageError = Object.values(firstErrorBag.response.data.errors).join('<br/>' + '  -');
             notificationWarning({
                 title: "ເກີດຂໍ້ຜິດພາດ...",
                 description: "ກະລຸນາກວດສອບຂໍ້ມູນ",
@@ -103,41 +82,47 @@ async function submitForm(id){
     }
 }
 
-async function loadAllMatch() {
+async function loadAllPost() {
     try {
-        const res = await getAllMatch();
-        // console.log(res);
+        const res = await getAllPostFacebook();
         if (res) {
-            // Format datetime 
-            data.matches = res.results.map((match) => ({...match ,match_time:dayjs(match.match_time).format("YYYY-MM-DD HH:mm:ss"),match_end_activity_time:dayjs(match.match_end_activity_time).format("YYYY-MM-DD HH:mm:ss"),          }));
-            // console.log(data.matches)
+            data.postFacebook = res.results;
         }
     } catch (error) {
 
     }
 }
 
-async function loadMatch(id) {
+// Facebook Post API
+async function onGetFacebookPost(){ 
+    const TOKEN_DEFAULT_VALUE = "EAAFLdEq08iYBO3FiadSDniOcU0B2ZAV4EKjZAZCzWA0om8xCcq1552xNDqhqsFZAAb3th1ArWf23ixPZBlQ73wvPnpCJmsGf9az0OFgE2nrB0RMHEHOii2lmbwnO2FAWYzLWDM0he00f4bd9thtnPZBKkiBLzzHBezIAHcnFpRBSu9xotjL74QC8hEOYV5AVEZD"
+    const filters = {
+        fields:"id,message,created_time,comments.limit(0).summary(true),attachments{type}",
+        access_token:TOKEN_DEFAULT_VALUE
+    }
+    const response = await getFacebookPost(filters)
+    // console.log(response)
+}
+
+async function loadPost(id) {
     try {
-        const res = await getMatch(id);
+        const res = await getPostFacebook(id);
+        // const response = await getFacebookPost(filters)
         if (res) {
-            //res.data.event_date_time = dayjs(res.data.event_date_time);
-           res.match_time = dayjs(res.match_time)
-           res.match_end_activity_time = dayjs(res.match_end_activity_time)
-           res.team_a =  res.team_a.id
-           res.team_b = res.team_b.id
+        //    res.match_time = dayjs(res.match_time)
+        //    res.match_end_activity_time = dayjs(res.match_end_activity_time)
+           res.match = res.id; 
            data.form.fromJSON(data.form, res); 
-           
         }
     } catch (error) {
         console.log(error)
     }
 }
 
-async function handleSubmit(id){
+async function handleSubmit(){
     refForm.value.validate()
       .then(() =>{
-        submitForm(id);
+        submitForm();
       })
 }
 
@@ -145,7 +130,7 @@ async function onCreate() {
     await resetForm();
     data.isEdit = false;
     router.push({
-        name: "match.create"
+        name: "manageposts.create"
     }).catch(() => {
     })
 }
@@ -153,7 +138,7 @@ async function onCreate() {
 function onEdit(id) {
     data.isEdit = true;
     router.push({
-        name: "match.edit",
+        name: "manageposts.edit",
         params: {
             id: id
         },
@@ -168,7 +153,7 @@ function onEdit(id) {
 // Delete
 async function onDelete(id) {
     try {
-        const res = await deleteMatch(id);
+        const res = await deletePost(id);
         if (res) {
             notificationSuccess({
                 title: "ລຶບຂໍ້ມູນສຳເລັດ...",
@@ -176,7 +161,7 @@ async function onDelete(id) {
                 position: "topRight"
             })
         }
-        await loadAllMatch();
+        await loadAllPost();
     } catch (firstErrorBag) {
         data.isLoading = false;
         notificationWarning({
@@ -186,7 +171,6 @@ async function onDelete(id) {
         })
     }
 }
-
 export default {
     ...toRefs(data),
     onCreate,
@@ -194,7 +178,8 @@ export default {
     onEdit,
     refForm,
     handleSubmit,
-    loadMatch,
-    loadAllMatch,
+    loadPost,
+    loadAllPost,
     layout,
+    onGetFacebookPost
 }

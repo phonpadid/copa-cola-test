@@ -21,10 +21,22 @@ const layout = {
 };
 //validate
 const refForm = ref(null);
+const rules = {
+    name: [
+        { required: true, message: "ກະລູນາປ້ອນຂໍ້ມູນກ່ອນ", trigger: "red" },
+    ],
+    code: [
+        { required: true, message: "ກະລູນາປ້ອນຂໍ້ມູນກ່ອນ", trigger: "red" },
+    ],
+   
+};
+
 
 async function resetForm() {
-    refForm.value.resetFields();
+    data.form.name = null;
+    data.form.code = null;
 }
+
 async function submitForm(){
     if(!data.isEdit){
         try{
@@ -37,6 +49,7 @@ async function submitForm(){
                 })
                 router.push({name: "managetext.index"}).catch(() => {
                 })
+                await resetForm();
             }
         }catch(firstErrorBag){
             data.isLoading = false;
@@ -58,6 +71,7 @@ async function submitForm(){
                     description: "ອັບເດດຂໍ້ມູນສຳເລັດແລ້ວ...",
                     position: "topRight"
                 })
+                await resetForm();
                 router.push({name: "managetext.index"}).catch(() => {
                 })
             }
@@ -103,6 +117,7 @@ async function handleSubmit(){
 }
 
 async function onCreate() {
+    await resetForm();
     data.isEdit = false;
     router.push({
         name: "managetext.create"
@@ -156,5 +171,6 @@ export default {
     handleSubmit,
     loadTeam,
     loadAllTeam,
-    layout
+    layout,
+    rules
 }

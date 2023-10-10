@@ -5,33 +5,29 @@
       <a-form v-bind="layout" :rules="rules" ref="refForm" :model="form">
         <a-form-item label=" ">
           <h1 class="text-xl base-title-form font-bold">
-            <span><i class="fal fa-edit font-bold"></i></span>
-            {{ isEdit === true ? "ແກ້ໄຂ້ຂໍ້ມູນແມັດResult" : "ເພີ່ມຂໍ້ມູນແມັດResult" }}
+            <span><i class="fal fa-edit"></i></span>
+            {{
+              isEdit === true
+                ? "ແກ້ຂໍ້ມູນໂພສ  ແລະ ຈັບຄູ່ແມັດ "
+                : "ເພີ່ມຂໍ້ມູນໂພສ  ແລະ ຈັບຄູ່ແມັດ"
+            }}
           </h1>
         </a-form-item>
-
-        <a-form-item label="ແມັດ" name="match">
-          <a-select :options="matchTeam" v-model:value="form.match" />
+        <a-form-item label="Post_id" name="facebook_post_id">
+          <a-select v-model:value="form.facebook_post_id" :options="facebookPost" />
         </a-form-item>
-        <a-form-item label="ຄະແນນທີມA" name="team_a_score">
-          <a-input-number
-            :min="1"
-            :max="100000"
-            v-model:value="form.team_a_score"
-            style="width: 200px"
-          />
+        <a-form-item label="Title">
+          <a-input v-model:value="form.title" />
         </a-form-item>
-        <a-form-item label="ຄະແນນທີມB" name="team_b_score">
-          <a-input-number
-            :min="1"
-            :max="100000"
-            v-model:value="form.team_b_score"
-            style="width: 200px"
-          />
+        <a-form-item label="Body">
+          <a-input v-model:value="form.body" />
         </a-form-item>
-        <a-form-item label="ສະຖານະ">
-          <a-checkbox v-model:checked="form.is_publish">
-            <p>{{ form.is_publish ? "ເປີດໂຫວດ" : "ປິດໂຫວດ" }}</p>
+        <a-form-item label="Match" name="match">
+          <a-select v-model:value="form.match" :options="matchTeam" />
+        </a-form-item>
+        <a-form-item label="is_enable">
+          <a-checkbox v-model:checked="form.is_enable">
+            <p>{{ form.is_enable ? "ເປີດໂຫວດ" : "ປິດໂຫວດ" }}</p>
           </a-checkbox>
         </a-form-item>
         <a-form-item label="">
@@ -45,26 +41,12 @@
 </template>
 
 <script setup>
-import {
-  onMounted,
-  ref,
-  onBeforeMount,
-  defineProps,
-  defineEmits,
-  toRefs,
-  computed,
-} from "vue";
+import { onMounted, ref, onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
-import MatchResultUaseCase from "@/usecases/matchResult/matchResultUaseCase";
+import ManagePostUasecase from "@/usecases/managePost/managePostUasecase";
 import { getAllMatch } from "@/Repository/MatchRepository";
+import { getFacebookPost } from "@/Repository/PostRepository";
 const route = useRoute();
-
-const checked = ref(false);
-
-// const id = computed(() => (route.name === "matchresult.edit" ? route.params.id : null));
-
-// const switchText = computed(() => (checked.value ? "ເປີດ" : "ປິດ"));
-
 const {
   layout,
   form,
@@ -74,10 +56,14 @@ const {
   handleSubmit,
   messageError,
   isServerError,
-  loadMatchResult,
-} = MatchResultUaseCase;
+  loadPost,
+} = ManagePostUasecase;
 
-const team = ref();
+const checked = ref(false);
+onBeforeMount(() => {
+  isServerError.value = false;
+});
+
 const matchTeam = ref();
 async function loadMatchTeam() {
   try {
@@ -95,18 +81,38 @@ async function loadMatchTeam() {
   }
 }
 
-onBeforeMount(() => {
-  isServerError.value = false;
-});
+const facebookPost = ref();
+async function loadFacebookPost() {
+  try {
+    const TOKEN_DEFAULT_VALUE =
+      "EAAFLdEq08iYBO3FiadSDniOcU0B2ZAV4EKjZAZCzWA0om8xCcq1552xNDqhqsFZAAb3th1ArWf23ixPZBlQ73wvPnpCJmsGf9az0OFgE2nrB0RMHEHOii2lmbwnO2FAWYzLWDM0he00f4bd9thtnPZBKkiBLzzHBezIAHcnFpRBSu9xotjL74QC8hEOYV5AVEZD";
+    const filters = {
+      fields: "id,message,created_time,comments.limit(0).summary(true),attachments{type}",
+      access_token: TOKEN_DEFAULT_VALUE,
+    };
+    const res = await getFacebookPost(filters);
+    // console.log(res.data, 9999);
+    if (res) {
+      facebookPost.value = res.data.map((item) => ({
+        value: item.id,
+        label: ` ${item.message} - (${item.id})`,
+      }));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 onMounted(async () => {
   const id = route.params.id;
   if (id) {
     isEdit.value = true;
-    await loadMatchResult(id);
+    await loadPost(id);
   }
   loadMatchTeam();
+  loadFacebookPost();
 });
+// Varidate Form
 </script>
 
 <style scoped>

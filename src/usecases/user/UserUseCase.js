@@ -9,8 +9,38 @@ const data = reactive({
     user: [],
     form: new UserModel(),
     messageError: {},
+    rules: {
+        password: [
+            {
+                required: true,
+                message: ["ກະລຸນາປ້ອນລະຫັດຜ່ານ"]
+            }
+        ],
+        email: [
+            {
+                required: true,
+                message: ["ກະລຸນາປ້ອນອີເມວກ່ອນ"]
+            }
+        ],
+        name: [
+            {
+                required: true,
+                message: ["ກະລຸນາປ້ອນຊື່ກ່ອນ"]
+            }
+        ],
+        phone: [
+            {
+                required: true,
+                message: ["ກະລຸນາປ້ອນເບີໂທກ່ອນ"],
+                trigger: "blur",
+            },
+              
+        ]
+    },
+    
     isServerError: false,
 })
+
 const layout = {
     labelCol: {
         span: 4,
@@ -23,7 +53,10 @@ const layout = {
 const refForm = ref(null);
 
 async function resetForm() {
-    refForm.value.resetFields();
+    // refForm.value.resetFields();
+    data.form.name = null;
+    data.form.email = null;
+    data.form.phone = null;
 }
 async function submitForm(){
     if(!data.isEdit){
@@ -37,6 +70,7 @@ async function submitForm(){
                 })
                 router.push({name: "user.index"}).catch(() => {
                 })
+                await resetForm();
             }
         }catch(firstErrorBag){
             data.isLoading = false;
@@ -51,7 +85,6 @@ async function submitForm(){
     }
     if (data.isEdit) {
         try {
-            
             const res = await updateUser(data.form);
             if (res) {
                 notificationSuccess({
@@ -61,6 +94,7 @@ async function submitForm(){
                 })
                 router.push({name: "user.index"}).catch(() => {
                 })
+                await resetForm();
             }
         } catch (firstErrorBag) {  
             console.log(firstErrorBag)
@@ -104,6 +138,7 @@ async function handleSubmit(){
 }
 
 async function onCreate() {
+    await resetForm();
     data.isEdit = false;
     router.push({
         name: "user.create"
@@ -126,6 +161,17 @@ function onEdit(id) {
     })
 }
 
+// Facebook Post API
+// async function onGetFacebookUser(){ 
+//     const TOKEN_DEFAULT_VALUE = "EAAFLdEq08iYBO3FiadSDniOcU0B2ZAV4EKjZAZCzWA0om8xCcq1552xNDqhqsFZAAb3th1ArWf23ixPZBlQ73wvPnpCJmsGf9az0OFgE2nrB0RMHEHOii2lmbwnO2FAWYzLWDM0he00f4bd9thtnPZBKkiBLzzHBezIAHcnFpRBSu9xotjL74QC8hEOYV5AVEZD"
+//     const filters = {
+//         fields:"id,message,created_time,comments.limit(0).summary(true),attachments{type}",
+//         access_token:TOKEN_DEFAULT_VALUE
+//     }
+//     const response = await getFacebookUser(filters)
+//     console.log(response)
+// }
+
 // Delete
 async function onDelete(id) {
     try {
@@ -147,7 +193,6 @@ async function onDelete(id) {
         })
     }
 }
-
 export default {
     ...toRefs(data),
     onCreate,
@@ -157,5 +202,5 @@ export default {
     handleSubmit,
     loadUser,
     loadAllUser,
-    layout
+    layout,
 }

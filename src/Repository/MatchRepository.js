@@ -1,6 +1,7 @@
 // ... CRUD FUNCTION OR ETC
 // export const createUser(){...}
 import store from "@/store"
+import dayjs from "dayjs"
 
 const url = "matches/"
 
@@ -18,13 +19,13 @@ export async function getMatch(id){
     })
 } 
 
-// Create Team
+// Create Match
 export function createMatch(req){
     const data = {
         team_a: req.team_a,
         team_b: req.team_b,
-        match_time:req.match_time,
-        match_end_activity_time:req.match_end_activity_time,
+        match_time:dayjs(req.match_time).format("YYYY-MM-DD HH:mm:ss"),
+        match_end_activity_time:dayjs(req.match_end_activity_time).format("YYYY-MM-DD HH:mm:ss"),
         is_enable:req.is_enable
     }
     const body = {
@@ -36,18 +37,18 @@ export function createMatch(req){
     return store.dispatch("data-resources/manage", body)
 }
 // Update Match
-export function updateMatch(req){
+export function updateMatch(id,req){
     const data = {
         team_a: req.team_a,
         team_b: req.team_b,
-        match_time:req.match_time,
-        match_end_activity_time:req.match_end_activity_time,
+        match_time:dayjs(req.match_time).format("YYYY-MM-DD HH:mm:ss"),
+        match_end_activity_time:dayjs(req.match_end_activity_time).format("YYYY-MM-DD HH:mm:ss"),
         is_enable:req.is_enable
     }
     const body = {
         method: 'put',
         formData:false,
-        actionUri: `matches/${req.id}/`,
+        actionUri: `matches/${id}/`,
         ...data
     }
     return store.dispatch("data-resources/manage",body)

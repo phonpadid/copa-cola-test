@@ -1,7 +1,7 @@
 <template>
   <div class="base-form">
     <div class="form-content">
-      <!-- <AlertMessage v-if="isServerError" :messageError="messageError" /> -->
+      <AlertMessage v-if="isServerError" :messageError="messageError" />
       <a-form v-bind="layout" :rules="rules" ref="refForm" :model="form">
         <a-form-item label=" ">
           <h1 class="text-xl base-title-form">
@@ -9,10 +9,10 @@
             {{ isEdit === true ? "ແກ້ຂໍ້ມູນທີມ" : "ເພີ່ມຂໍ້ມູນທີມ" }}
           </h1>
         </a-form-item>
-        <a-form-item label="ຊື່ທີມ">
+        <a-form-item label="ຊື່ທີມ" name="name">
           <a-input v-model:value="form.name" />
         </a-form-item>
-        <a-form-item label="CODE">
+        <a-form-item label="CODE" name="code">
           <a-input type="code" v-model:value="form.code" />
         </a-form-item>
         <!-- <a-form-item v-if="!isEdit" label="ຍືນຍັນລະຫັດຜ່ານ">
@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, onBeforeMount } from "vue";
+import { onMounted, ref, onBeforeMount, reactive } from "vue";
 import { useRoute } from "vue-router";
 // import ContactPersonalInformation from "@/components/system/contactPersonalInformation.vue";
 import ManageTextUsecase from "@/usecases/manageText/manageTextUsecase";
@@ -58,6 +58,8 @@ onMounted(async () => {
     await loadTeam(id);
   }
 });
+
+// Varidate Form
 </script>
 
 <style scoped>

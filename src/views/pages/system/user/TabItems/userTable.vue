@@ -2,7 +2,7 @@
   <div class="base-menu-table">
     <!--    Table Action Header-->
     <TableActionMenu>
-      <template v-slot:searchTable>
+      <!-- <template v-slot:searchTable>
         <a-row class="mb-4">
           <a-col :sm="12" :md="8" :lg="8">
             <label>ຄົ້ນຫາຂໍ້ມູນ</label>
@@ -17,7 +17,7 @@
             </a-button>
           </a-col>
         </a-row>
-      </template>
+      </template> -->
       <template v-slot:actionButton>
         <a-button class="bg-blue-500 font-light" type="primary" @click="onCreate">
           ເພີ່ມຂໍ້ມູນ
@@ -26,13 +26,13 @@
     </TableActionMenu>
     <!--    Table body-->
     <a-table
-        class="base-table"
-        :columns="columns"
-        :data-source="user"
-        :pagination="{ pageSize: 10 }"
-    > 
-    <pre>{{ user }}</pre>
-      <template #bodyCell="{ column, text, record,index }">
+      class="base-table"
+      :columns="columns"
+      :data-source="user"
+      :pagination="{ pageSize: 10 }"
+    >
+      <pre>{{ user }}</pre>
+      <template #bodyCell="{ column, text, record, index }">
         <template v-if="column.dataIndex === 'index'">
           {{ index + 1 }}
         </template>
@@ -49,10 +49,10 @@
             </div>
             <div class="action-item-table bg-red-500">
               <a-popconfirm
-                  title="ຕ້ອງການລົົົບຜູ້ໃຊ້ບໍ່?"
-                  ok-text="Yes"
-                  cancel-text="No"
-                  @confirm="onDelete(record.id)"
+                title="ຕ້ອງການລົົົບຜູ້ໃຊ້ບໍ່?"
+                ok-text="Yes"
+                cancel-text="No"
+                @confirm="onDelete(record.id)"
               >
                 <a href="#">
                   <i class="fas fa-trash-alt"></i>
@@ -63,50 +63,41 @@
         </template>
       </template>
     </a-table>
-
   </div>
 </template>
 
 <script setup>
 import UserUseCase from "@/usecases/user/UserUseCase";
-import {onMounted} from "vue";
+import { onMounted } from "vue";
 import helpers from "@/hooks/helpers";
 
-const {
-  loadAllUser,
-  onCreate,
-  onDelete,
-  onEdit,
-  user
-} = UserUseCase;
+const { loadAllUser, onCreate, onDelete, onEdit, user } = UserUseCase;
 
 const columns = [
   {
     title: "ລຳດັບ",
-    dataIndex: "index"
+    dataIndex: "index",
   },
   {
     title: "ຊື່ຜູ້ໃຊ້",
-    dataIndex: "name"
+    dataIndex: "name",
   },
   {
     title: "ອີເມວ",
-    dataIndex: "email"
+    dataIndex: "email",
   },
   {
     title: "ເບີໂທ",
-    dataIndex: "phone"
+    dataIndex: "phone",
   },
   {
     title: "Action",
-    dataIndex: "action"
+    dataIndex: "action",
   },
-]
+];
 onMounted(() => {
   loadAllUser();
-})
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

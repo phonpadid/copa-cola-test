@@ -19,13 +19,7 @@ export async function getMatchResult(id){
 } 
 
 // Create MatchResult
-export function createMatchResult(req){
-    const data = {
-        match_id: req.match_id,
-        team_a_score: req.team_a_score,
-        team_b_score:req.team_b_score,
-        is_publish:req.is_publish,
-    }
+export function createMatchResult(data){
     const body = {
         _method:'post',
         formData: true,
@@ -36,15 +30,16 @@ export function createMatchResult(req){
 }
 // Update MatchResult
 export function updateMatchResult(req){
+    // console.log(req.id,9999);
     const data = {
-        match_id: req.match_id,
+        match: req.match,
         team_a_score: req.team_a_score,
-        team_b_score:req.team_b_score,
-        is_publish:req.is_publish,
-    }
+        team_b_score: req.team_b_score,
+        is_publish: req.is_publish,
+            }
     const body = {
         method: 'put',
-        formData:true,
+        formData:false,
         actionUri: `matcheresults/${req.id}/`,
         ...data
     }

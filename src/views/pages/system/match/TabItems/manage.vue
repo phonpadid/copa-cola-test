@@ -9,16 +9,16 @@
             {{ isEdit === true ? "ແກ້ໄຂ້ຂໍ້ມູນແມັດ" : "ເພີ່ມຂໍ້ມູນແມັດ" }}
           </h1>
         </a-form-item>
-        <a-form-item label="ຊືທີມA">
+        <a-form-item label="ຊືທີມA" name="team_a">
           <a-select type="team_a" :options="team" v-model:value="form.team_a" />
         </a-form-item>
-        <a-form-item label="ຊືທີມB">
+        <a-form-item label="ຊືທີມB" name="team_b">
           <a-select type="team_b" :options="team" v-model:value="form.team_b" />
         </a-form-item>
-        <a-form-item label="ເວລາແຂ່ງ">
+        <a-form-item label="ເວລາແຂ່ງ" name="match_time">
           <a-date-picker type="match_time" v-model:value="form.match_time" show-time />
         </a-form-item>
-        <a-form-item label="ວັນສິ້ນສຸດ">
+        <a-form-item label="ວັນສິ້ນສຸດ" name="match_end_activity_time">
           <a-date-picker
             type="match_end_activity_time"
             v-model:value="form.match_end_activity_time"
@@ -26,17 +26,16 @@
           />
         </a-form-item>
         <a-form-item label="ສະຖານະ">
-          <a-checkbox
-            type="checkbox"
-            v-model:value="form.is_enable"
-            v-model:checked="checked"
-          />
+          <a-checkbox type="checkbox" v-model:checked="form.is_enable">
+            <P>{{ form.is_enable ? "ເປີດໂຫວດ" : "ປິດໂຫວດ" }}</P>
+          </a-checkbox>
+          <!-- <P>{{ form.is_enable ? "ເປີດໂຫວດ" : "ປິດໂຫວດ" }}</P> -->
         </a-form-item>
         <!-- <a-form-item v-if="!isEdit" label="ຍືນຍັນລະຫັດຜ່ານ">
       <a-input-password v-model:value="form.password_confirmation"/>
     </a-form-item> -->
         <a-form-item label="">
-          <a-button class="bg-blue-500 btn" type="primary" @click="handleSubmit">
+          <a-button class="bg-blue-500 btn" type="primary" @click="handleSubmit(id)">
             {{ isEdit === true ? "ແກ້ໄຂຂໍ້ມູນ" : "ບັນທຶກຂໍ້ມູນ" }}
           </a-button>
         </a-form-item>
@@ -46,15 +45,16 @@
 </template>
 
 <script setup>
-import { onMounted, ref, onBeforeMount } from "vue";
+import { onMounted, ref, onBeforeMount, computed } from "vue";
 import { useRoute } from "vue-router";
 // import ContactPersonalInformation from "@/components/system/contactPersonalInformation.vue";
 import MatchUseCase from "@/usecases/match/matchUaseCase";
 import { getAllTeam } from "../../../../../Repository/TeamRepository";
 
 const checked = ref(false);
-
 const route = useRoute();
+const id = computed(() => (route.name === "match.edit" ? route.params.id : null));
+
 const {
   layout,
   form,
@@ -68,7 +68,6 @@ const {
 } = MatchUseCase;
 
 const team = ref();
-
 async function loadAllTeam() {
   try {
     const res = await getAllTeam();

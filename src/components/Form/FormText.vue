@@ -2,8 +2,6 @@
   <!-- class="card" -->
   <div class="container">
     <div class="card">
-      <!-- {{ inputValueContent }} -->
-
       <nav>
         <div class="textarea-box">
           <textarea
@@ -16,18 +14,6 @@
           />
         </div>
         <p v-if="error" class="error-message">{{ error }}</p>
-        <!-- Emoji -->
-        <!-- <ul class="menu">
-          <li>
-            
-            <ul class="menu-popup">
-              <li class="li-emoji">
-                <a href="#" class="a-emoji"> </a>
-              </li>
-            </ul>
-          </li>
-        </ul> -->
-        <!-- icon emoji for open emoji plat -->
         <div class="emojo-open">
           <a href="#" @click="onShowClose"
             ><i class="bi bi-emoji-laughing-fill cursor-pointer"></i
@@ -39,38 +25,6 @@
           @select="onSelectEmoji"
         />
       </nav>
-      <!-- Btn -->
-      <button
-        class="btn_a m-2 w-20 h-6 bg-blue-500 cursor-pointer text-white hover:text-gray-900 hover:bg-red-400"
-        @click="showFirstName"
-      >
-        $firstName
-      </button>
-      <button
-        class="btn_a m-2 w-20 h-6 bg-yellow-500 cursor-pointer text-white hover:text-gray-900 hover:bg-red-400"
-        @click="showTeam_A"
-      >
-        $teamA
-      </button>
-      <button
-        class="btn_b m-2 w-20 h-6 bg-pink-500 cursor-pointer text-white hover:text-gray-900 hover:bg-yellow-500"
-        @click="showTeam_B"
-      >
-        $teamB
-      </button>
-
-      <button
-        class="btn_b m-2 w-20 h-6 bg-pink-900 cursor-pointer text-white hover:text-gray-900 hover:bg-red-600"
-        @click="showTeam_Datetime"
-      >
-        $dateTime
-      </button>
-      <button
-        class="btn_b m-2 w-20 h-6 bg-pink-600 cursor-pointer text-white hover:text-gray-900 hover:bg-red-900"
-        @click="show_Team"
-      >
-        $team
-      </button>
     </div>
   </div>
 </template>
@@ -79,6 +33,8 @@
 import { ref } from "vue";
 
 // import { count } from "console";
+import EmojiPicker from "vue3-emoji-picker";
+
 const props = defineProps({
   label: {
     type: String,
@@ -105,27 +61,6 @@ function onShowClose() {
 
 const inputValueContent = ref("");
 
-function showFirstName() {
-  const dataFirstname = "$firstname ";
-  onChangeReplaceCurrentCursorFocus(dataFirstname);
-}
-function showTeam_A() {
-  const dataTeam_A = "$team_a vs ";
-  onChangeReplaceCurrentCursorFocus(dataTeam_A);
-}
-function showTeam_B() {
-  const dataTeam_B = "$team_b ";
-  onChangeReplaceCurrentCursorFocus(dataTeam_B);
-}
-function showTeam_Datetime() {
-  const data_datetime = "$datetime ";
-  onChangeReplaceCurrentCursorFocus(data_datetime);
-}
-function show_Team() {
-  const data_team = "$team ";
-  onChangeReplaceCurrentCursorFocus(data_team);
-}
-
 // Add other button click handlers as needed
 
 // function addDatetimeToTextarea() {
@@ -133,11 +68,6 @@ function show_Team() {
 //   const formattedDatetime = currentDate.toLocaleString();
 //   inputValueContent.value += formattedDatetime + "\n";
 // }
-
-function Clear_Data() {
-  inputValueContent.value = "";
-}
-
 function onSelectEmoji(emoji) {
   const emoji_icon = emoji.i;
   onChangeReplaceCurrentCursorFocus(emoji_icon);

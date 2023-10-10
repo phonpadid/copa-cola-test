@@ -19,11 +19,11 @@ export async function getTeam (id){
 } 
 
 // Create Team
-export function createTeam(req){
-    const data = {
-        name: req.name,
-        code: req.code,
-    }
+export function createTeam(data){
+    // const data = {
+    //     name: req.name,
+    //     code: req.code,
+    // }
     const body = {
         _method:'post',
         formData: true,
@@ -33,15 +33,15 @@ export function createTeam(req){
     return store.dispatch("data-resources/manage", body)
 }
 // Update Team
-export function updateTeam(req){
-    const data = {
-        name: req.name,
-        code: req.code,
-    }
+export function updateTeam(data){
+    // const data = {
+    //     name: req.name,
+    //     code: req.code,
+    // }
     const body = {
         method: 'put',
         formData:true,
-        actionUri: `teams/${req.id}/`,
+        actionUri: `teams/${data.id}/`,
         ...data
     }
     return store.dispatch("data-resources/manage",body)

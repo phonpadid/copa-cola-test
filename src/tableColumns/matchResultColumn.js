@@ -4,8 +4,8 @@ export const columns = [
         dataIndex: "index"
     },
     {
-        title: "Match_id",
-        dataIndex: "match_id"
+        title: "ແມັດການແຂ່ງຂັນ",
+        dataIndex: "match"
     },
     {
         title: "Team_a_score",

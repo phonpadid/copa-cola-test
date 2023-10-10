@@ -2,7 +2,7 @@
   <div class="base-menu-table">
     <!--    Table Action Header-->
     <TableActionMenu>
-      <template v-slot:searchTable>
+      <!-- <template v-slot:searchTable>
         <a-row class="mb-4">
           <a-col :sm="12" :md="8" :lg="8">
             <label>ຄົ້ນຫາຂໍ້ມູນ</label>
@@ -14,7 +14,7 @@
             </a-button>
           </a-col>
         </a-row>
-      </template>
+      </template> -->
       <template v-slot:actionButton>
         <a-button class="bg-blue-500 font-light" type="primary" @click="onCreate">
           ເພີ່ມຂໍ້ມູນ
@@ -40,7 +40,6 @@
         <template v-if="column.dataIndex === 'team_b'">
           {{ record.team_b.name }}
         </template>
-
         <template v-if="column.dataIndex === 'created_at'">
           {{ helpers.dateFormat(text) }}
         </template>
@@ -99,9 +98,13 @@ const columns = [
     dataIndex: "match_end_activity_time",
   },
   {
-    title: "Is_enable",
-    dataIndex: "is_enable",
+    title: "ສະຖານະ",
+    dataIndex: "",
   },
+  // {
+  //   title: "Is_enable",
+  //   dataIndex: "is_enable",
+  // },
   {
     title: "Action",
     dataIndex: "action",

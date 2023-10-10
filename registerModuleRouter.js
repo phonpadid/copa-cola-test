@@ -5,6 +5,8 @@ import match from "@/views/pages/system/match/router";
 import matchResultRouter from "@/views/pages/system/matchResult/router";
 import userRouter from "@/views/pages/system/user/router";
 import textRouter from "@/views/pages/system/Text/router";
+import postRouter from "@/views/pages/system/managePost/router";
+import textSucceedRouter from "@/views/pages/system/TextSucceed/router";
 // import Dashboard from "@/views/pages/system/Dashboard/router";
 
 registerModules({
@@ -13,7 +15,9 @@ registerModules({
     match,
     matchResultRouter,
     userRouter,
-    textRouter
+    textRouter,
+    postRouter,
+    textSucceedRouter
     // Dashboard
 
 })

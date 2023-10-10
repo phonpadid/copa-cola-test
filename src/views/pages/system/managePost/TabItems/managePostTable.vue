@@ -25,10 +25,10 @@
     <a-table
       class="base-table"
       :columns="columns"
-      :data-source="teams"
+      :data-source="postFacebook"
       :pagination="{ pageSize: 10 }"
     >
-      <pre>{{ teams }}</pre>
+      <pre>{{ postFacebook }}</pre>
       <template #bodyCell="{ column, text, record, index }">
         <template v-if="column.dataIndex === 'index'">
           {{ index + 1 }}
@@ -36,6 +36,9 @@
         <template v-if="column.dataIndex === 'created_at'">
           {{ helpers.dateFormat(text) }}
         </template>
+        <!-- <template v-if="column.dataIndex === 'match'">
+          {{ record.match.name }}
+        </template> -->
         <template v-if="column.dataIndex === 'updated_at'">
           {{ helpers.dateFormat(text) }}
         </template>
@@ -64,24 +67,37 @@
 </template>
 
 <script setup>
-import ManageTextUsecase from "@/usecases/manageText/manageTextUsecase";
+import ManagePostUasecase from "@/usecases/managePost/managePostUasecase";
 import { onMounted } from "vue";
 import helpers from "@/hooks/helpers";
-
-const { loadAllTeam, onCreate, onDelete, onEdit, teams } = ManageTextUsecase;
-
+const {
+  loadAllPost,
+  onCreate,
+  onDelete,
+  onEdit,
+  postFacebook,
+  onGetFacebookPost,
+} = ManagePostUasecase;
 const columns = [
   {
     title: "ລຳດັບ",
     dataIndex: "index",
   },
   {
-    title: "ຊື່ທີມ",
-    dataIndex: "name",
+    title: "ແມັດແຂ່ງຂັນ",
+    dataIndex: "match",
   },
   {
-    title: "ລະຫັດທີມ",
-    dataIndex: "code",
+    title: "ໂພສ",
+    dataIndex: "facebook_post_id",
+  },
+  {
+    title: "Title",
+    dataIndex: "title",
+  },
+  {
+    title: "Body",
+    dataIndex: "body",
   },
   {
     title: "Action",
@@ -89,7 +105,8 @@ const columns = [
   },
 ];
 onMounted(() => {
-  loadAllTeam();
+  loadAllPost();
+  onGetFacebookPost();
 });
 </script>
 

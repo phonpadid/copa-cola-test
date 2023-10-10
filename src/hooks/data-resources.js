@@ -26,13 +26,24 @@ export default function create() {
                                 rejected(createHandler(err.response));
                             });
                     } else {
-                        axios.get(`${apiUrl}/${payload.actionUri}?${query}`, config.addTokenHeader(rootGetters['auth/token']))
+                        if(payload.newUrlApi){
+                            axios.get(`${payload.newUrlApi}?${query}`, config.addTokenHeader(rootGetters['auth/token']))
                             .then((res) => {
                                 resolve(res.data)
                             })
                             .catch((err) => {
                                 rejected(createHandler(err.response));
                             });
+                        }else{
+                            axios.get(`${apiUrl}/${payload.actionUri}?${query}`, config.addTokenHeader(rootGetters['auth/token']))
+                            .then((res) => {
+                                resolve(res.data)
+                            })
+                            .catch((err) => {
+                                rejected(createHandler(err.response));
+                            });
+                        }
+                        
                     }
                 });
             },
@@ -81,6 +92,46 @@ export default function create() {
                         });
                 });
             },
+            // Manage Post Facebook
+            newManage({ rootGetters, dispatch }, payload) {
+                return new Promise((resolve, rejected) => {
+                  let apiCall = axios.post;
+                  let apiAction;
+                  if (payload.method) {
+                    apiCall = axios[payload.method];
+                  }
+                  if (payload.method === "delete") {
+                    apiAction = apiCall(
+                      `${apiUrl}/${payload.actionUri}`,
+                      config.addTokenHeader(rootGetters["auth/token"]),
+                    );
+                  } else {
+                    let data;
+                    if (payload.formData) {
+                      const formData = new FormData();
+                      helpers.addDataFormProductVaraiton(formData, payload);
+                      data = formData;
+                    } else {
+                      data = payload;
+                    }
+                    apiAction = apiCall(
+                      `${apiUrl}/${payload.actionUri}`,
+                      data,
+                      config.addTokenHeader(rootGetters["auth/token"], payload.formData),
+                    );
+                  }
+                  apiAction
+                    .then((res) => {
+                      resolve(res.data);
+                    })
+                    .catch((err) => {
+                      if (err) {
+                        dispatch("auth/unauthorized", err.response, { root: true });
+                      }
+                      rejected(createHandler(err.response));
+                    });
+                });
+              },
         }
     }
 }

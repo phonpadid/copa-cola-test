@@ -6,31 +6,27 @@
         <a-form-item label=" ">
           <h1 class="text-xl base-title-form">
             <span><i class="fal fa-edit"></i></span>
-            {{ isEdit === true ? "ແກ້ຂໍ້ມູນຜູ້ໃຊ້ລະບົບ" :"ເພີ່ມຂໍ້ມູນຜູ້ໃຊ້ລະບົບ" }}
+            {{ isEdit === true ? "ແກ້ຂໍ້ມູນຜູ້ໃຊ້ລະບົບ" : "ເພີ່ມຂໍ້ມູນຜູ້ໃຊ້ລະບົບ" }}
           </h1>
         </a-form-item>
-        <a-form-item label="ຊື່ຜູ້ໃຊ້ລະບົບ">
+        <a-form-item label="ຊື່ຜູ້ໃຊ້ລະບົບ" name="name">
           <a-input v-model:value="form.name" />
         </a-form-item>
-        <a-form-item label="ອີເມວ">
+        <a-form-item label="ອີເມວ" name="email">
           <a-input type="email" v-model:value="form.email" />
         </a-form-item>
-        <a-form-item label="ເບີໂທລະສັບ">
+        <a-form-item label="ເບີໂທລະສັບ" name="phone">
           <a-input v-model:value="form.phone" />
         </a-form-item>
-        <a-form-item label="ລະຫັດຜ່ານ" v-if="!isEdit">
-          <a-input-password v-model:value="form.password"/>
+        <a-form-item label="ລະຫັດຜ່ານ" v-if="!isEdit" name="password">
+          <a-input-password v-model:value="form.password" />
         </a-form-item>
         <!-- <a-form-item v-if="!isEdit" label="ຍືນຍັນລະຫັດຜ່ານ">
       <a-input-password v-model:value="form.password_confirmation"/>
     </a-form-item> -->
         <a-form-item label="">
-          <a-button
-            class="bg-blue-500 btn"
-            type="primary"
-            @click="handleSubmit"
-          >
-          {{ isEdit === true ? "ແກ້ໄຂຂໍ້ມູນ" :"ບັນທຶກຂໍ້ມູນ" }}  
+          <a-button class="bg-blue-500 btn" type="primary" @click="handleSubmit">
+            {{ isEdit === true ? "ແກ້ໄຂຂໍ້ມູນ" : "ບັນທຶກຂໍ້ມູນ" }}
           </a-button>
         </a-form-item>
       </a-form>
@@ -41,6 +37,7 @@
 <script setup>
 import { onMounted, ref, onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
+// import { useField, useForm } from "vee-validate";
 // import ContactPersonalInformation from "@/components/system/contactPersonalInformation.vue";
 import UserUseCase from "@/usecases/user/UserUseCase";
 
@@ -56,7 +53,6 @@ const {
   isServerError,
   loadUser,
 } = UserUseCase;
-
 
 onBeforeMount(() => {
   isServerError.value = false;

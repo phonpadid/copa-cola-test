@@ -63,4 +63,26 @@ export default {
                 }
             });
     },
+    addDataFormProductVaraiton(formData = new FormData(), data = {}) {
+        Object.keys(data).forEach((keyVal) => {
+          if (data[keyVal] == null || typeof data[keyVal] === "undefined") {
+            // eslint-disable-next-line no-param-reassign
+            data[keyVal] = "";
+          }
+          if (typeof data[keyVal] !== "function") {
+            const checkTypeProperty = Object.prototype.toString.call(data[keyVal]);
+            if (
+              checkTypeProperty == "[object Object]"
+              || checkTypeProperty === "[object Array]"
+            ) {
+              formData.append(keyVal, JSON.stringify(data[keyVal]));
+            } else if (
+              checkTypeProperty != "[object Object]"
+              || checkTypeProperty != "[object Array]"
+            ) {
+              formData.append(keyVal, data[keyVal]);
+            }
+          }
+        });
+      },
 };

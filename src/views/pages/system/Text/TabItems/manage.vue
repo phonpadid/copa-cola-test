@@ -98,127 +98,68 @@
     <a-button label="Save" @click="onHandleSave" class="m-2" type="primary"
       >Save</a-button
     >
+    <a-button label="Update" @click="onHandleSave" class="m-2" type="primary"
+      >update</a-button
+    >
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, nextTick, watchEffect, reactive, toRefs } from "vue";
+import { saveMessage } from "@/usecases/Messages/MessagesTemplateUseCase";
 // import { count } from 'console'
-import FormManageText from "@/components/Form/FormManageText.vue";
+
+// import FormManageText from "@/components/Form/FormManageText.vue";
 const formTextRef = ref();
 function onHandleSave() {
   for (let i = 0; i < formTextRef.value.length; i++) {
     formTextRef.value[i].onSuccessSendMessage();
-    console.log(onHandleSave);
   }
-  // for (const message in state.messages) {
-  // }
-  //
+
+  console.log(state.messages);
+  const result = state.messages.map((message) => ({
+    condition: message.condition,
+    value: message.message,
+    is_enable: message.is_enable,
+  }));
+  saveMessage(result);
 }
 const state = reactive({
   messages: [
-    { self: 0, message: "", label: "ຂໍ້ຄວາມເມື່ອລູກເພຈ ຄອມເມັ້ນເຊຍທີມ" },
-    { self: 1, message: "", label: "ຂໍ້ຄວາມເມື່ອລູກເພຈ ຄອມເມັ້ນເຊຍທີມອີກຮອບ" },
-    { self: 2, message: "", label: "ຂໍ້ຄວາມເມື່ອປະກາດຜົນການແຂ່ງຂັນ" },
-    { self: 3, message: "", label: "ຂໍ້ຄວາມເມື່ອລູກເພຈຄອມເມ້ນມາຕອນປິດໂຫວດແລ້ວ" },
     {
-      self: 4,
+      self: 0,
       message: "",
-      label: "ຂໍ້ຄວາມສຳເລັດຮູບ ເພື່ອເລືອກສົ່ງຫາກຸ່ມຜູ້ຮ່ວມກິດຈະກຳ",
+      label: "ຂໍ້ຄວາມເມື່ອລູກເພຈ ຄອມເມັ້ນເຊຍທີມ",
+      is_enable: true,
+      condition: "condition_one",
+    },
+    {
+      self: 1,
+      message: "",
+      condition: "condition_two",
+      label: "ຂໍ້ຄວາມເມື່ອລູກເພຈ ຄອມເມັ້ນເຊຍທີມອີກຮອບ",
+      is_enable: true,
+    },
+    {
+      self: 2,
+      message: "",
+      label: "ຂໍ້ຄວາມເມື່ອປະກາດຜົນການແຂ່ງຂັນ",
+      condition: "condition_three",
+      is_enable: true,
+    },
+    {
+      self: 3,
+      message: "",
+      label: "ຂໍ້ຄວາມເມື່ອລູກເພຈຄອມເມ້ນມາຕອນປິດໂຫວດແລ້ວ",
+      is_enable: true,
+      condition: "condition_four",
     },
   ],
 });
-type SendMessageI = {
-  self: number;
-  message: string;
-};
-function onSuccessSendMessage(e: SendMessageI) {
+
+function onSuccessSendMessage(e) {
   state.messages[e.self].message = e.message;
 }
-// import Textarea from 'primevue/textarea';
-// Define your data properties
-// const textInputRef = ref<HTMLTextAreaElement>()
-// const showEimoji = ref(false)
-// const error = ref('')
-
-// function onShowClose() {
-//   showEimoji.value = !showEimoji.value
-// }
-
-// const inputValueContent = ref('ຂໍ້ຄວາມເມື່ອລູກເພຈ ຄອມເມັ້ນເຊີຍທີມ👉 ')
-
-// const showFirstName = () => {
-//   const dataFirstname = '$FirstName '
-//   onChangeReplaceCurrentCursorFocus(dataFirstname)
-// }
-// const showTeam_A = () => {
-//   const dataToShow = 'TeamA VS '
-//   onChangeReplaceCurrentCursorFocus(dataToShow)
-// }
-// const showTeam_B = () => {
-//   const dataToAdd = 'Team_B '
-//   onChangeReplaceCurrentCursorFocus(dataToAdd)
-// }
-// DateTime
-// const addDatetimeToTextarea = () => {
-//   const currentDate = new Date()
-// const formattedDatetime = currentDate.toLocaleString()
-// Format as desired
-// inputValueContent.value += formattedDatetime + '\n'
-// Add datetime to textarea
-// }
-// Clear
-// const Clear_Data = () => {
-//   inputValueContent.value = ''
-// }
-
-// function onSelectEmoji(emoji: any) {
-//   const emoji_icon: string = emoji.i as string
-//   onChangeReplaceCurrentCursorFocus(emoji_icon)
-// }
-// const rememberCursorPoistion = ref(0)
-// const isHaveEvented = ref(false)
-// function onTextAreaFocus() {
-//   rememberCursorPoistion.value = textInputRef.value.selectionStart
-//   isHaveEvented.value = false
-// }
-// function onChangeReplaceCurrentCursorFocus(_key_replace: string) {
-//   let cursor_cuurent_position = textInputRef.value.selectionStart
-//   if (isHaveEvented.value) {
-//     cursor_cuurent_position = rememberCursorPoistion.value
-//   }
-
-//   const speacial_content = inputValueContent.value[cursor_cuurent_position]
-//     ? inputValueContent.value[cursor_cuurent_position]
-//     : ''
-//   inputValueContent.value =
-//     inputValueContent.value.substring(0, cursor_cuurent_position) +
-//     _key_replace +
-//     speacial_content +
-//     inputValueContent.value.substring(cursor_cuurent_position + 1)
-//   if (!isHaveEvented.value) {
-//     rememberCursorPoistion.value = cursor_cuurent_position + _key_replace.length
-//   } else {
-//     rememberCursorPoistion.value = rememberCursorPoistion.value + _key_replace.length
-//   }
-//   isHaveEvented.value = true
-// }
-
-// varidate
-// const varidateText = () => {
-//   const content = inputValueContent.value
-//   if (content.trim() === '') {
-//     error.value = 'ກະລຸນາປ້ອນຂໍ້ຄວາມກ່ອນ'
-//   } else {
-//     error.value = ''
-//   }
-// }
-
-// const showPopup = ref(false)
-
-// const closePopup = () => {
-//   showPopup.value = false
-// }
 const { messages } = toRefs(state);
 </script>
 <style scoped lang="scss">

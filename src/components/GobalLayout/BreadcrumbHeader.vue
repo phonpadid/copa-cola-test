@@ -62,6 +62,29 @@
             </a-tag>
           </a-breadcrumb-item>
 
+          <!-- Manage Post -->
+          <a-breadcrumb-item
+            v-if="$route.meta.name === 'Manageposts Info'"
+            style="cursor: pointer"
+          >
+            <a-tag color="processing">
+              <span class="text-sm">
+                <router-link :to="{ name: 'manageposts.index' }"> Home </router-link>
+              </span>
+            </a-tag>
+          </a-breadcrumb-item>
+          <!-- TextSucceed -->
+          <a-breadcrumb-item
+            v-if="$route.meta.name === 'TextSucceed Info'"
+            style="cursor: pointer"
+          >
+            <a-tag color="processing">
+              <span class="text-sm">
+                <router-link :to="{ name: 'textsucceed.index' }"> Home </router-link>
+              </span>
+            </a-tag>
+          </a-breadcrumb-item>
+
           <a-breadcrumb-item
             v-if="$route.meta.name === 'List Of Route Voice'"
             style="cursor: pointer"
