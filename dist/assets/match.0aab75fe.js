@@ -1,0 +1,1 @@
+import{_ as o,c as t,o as c,d as n,f as r}from"./index.5d8a84cb.js";const s={name:"MatchResult"};function a(_,p,l,m,u,d){const e=t("router-view");return c(),n("div",null,[r(e)])}const i=o(s,[["render",a]]);export{i as default};

@@ -4,7 +4,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --port 4173"
+    "preview": "vite preview --port 8080",
+    "submit": "gcloud builds submit --config=cloudbuild.yaml .",
+    "deploy": "gcloud run deploy nest-cola-frontend --image gcr.io/kaiymuan/nest-cola-frontend --platform managed --allow-unauthenticated --region=asia-southeast1",
+    "build-and-deploy": "bun run submit && bun run deploy && git push origin deployment"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
