@@ -89,6 +89,7 @@ function onSuccessSendMessage() {
     self: props.self,
     message: inputValueContent.value,
   });
+  
 }
 
 function onShowClose() {
@@ -155,6 +156,7 @@ function onChangeReplaceCurrentCursorFocus(_key_replace) {
   } else {
     rememberCursorPosition.value += _key_replace.length;
   }
+
   isHaveEvented.value = true;
 }
 
