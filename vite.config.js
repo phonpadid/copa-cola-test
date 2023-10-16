@@ -46,4 +46,10 @@ export default defineConfig({
             '.vue'
         ],
     },
+    build: {
+        chunkSizeWarningLimit: 4096
+    },
+    server: {
+        host: '0.0.0.0'
+    }
 })

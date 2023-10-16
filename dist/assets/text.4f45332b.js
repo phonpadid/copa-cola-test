@@ -1,0 +1,1 @@
+import{_ as o,c as t,o as n,d as r,f as c}from"./index.5d8a84cb.js";const s={name:"Text"};function a(_,p,d,f,i,l){const e=t("router-view");return n(),r("div",null,[c(e)])}const u=o(s,[["render",a]]);export{u as default};

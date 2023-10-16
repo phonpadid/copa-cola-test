@@ -50,7 +50,7 @@ declare module '@vue/runtime-core' {
     TextTable: typeof import('./src/views/pages/system/Text/TabItems/textTable.vue')['default']
     TheMenu: typeof import('./src/components/GobalLayout/TheMenu.vue')['default']
     UploadImage: typeof import('./src/components/GobalLayout/UploadImage.vue')['default']
-    User: typeof import('./src/views/pages/system/user/index.vue')['default']
+    User: typeof import('./src/views/pages/system/user/User.vue')['default']
     UserTable: typeof import('./src/views/pages/system/user/TabItems/userTable.vue')['default']
   }
 }

@@ -1,0 +1,1 @@
+import{_ as o,c as t,o as n,d as r,f as s}from"./index.5d8a84cb.js";const c={name:"Post"};function a(_,p,d,f,i,l){const e=t("router-view");return n(),r("div",null,[s(e)])}const u=o(c,[["render",a]]);export{u as default};
