@@ -1,0 +1,1 @@
+import{_ as o,c as t,o as c,d as n,f as r}from"./index.5d8a84cb.js";const s={name:"office"};function a(_,f,p,i,d,l){const e=t("router-view");return c(),n("div",null,[r(e)])}const u=o(s,[["render",a]]);export{u as default};

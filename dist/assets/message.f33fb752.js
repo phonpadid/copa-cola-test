@@ -1,0 +1,1 @@
+import{m as t,n}from"./index.5d8a84cb.js";const r=i=>t.error(i),s=i=>n.warning({message:`${i.title}`,description:`${i.description}`,placement:`${i.position}`,duration:1}),e=i=>n.success({message:`${i.title}`,description:`${i.description}`,placement:`${i.position}`,duration:1});export{s as a,r as m,e as n};
