@@ -33,19 +33,20 @@
         </template>
         <a-radio-group v-model:value="selectedOption">
           <a-radio value="all_participants">ສົົ່ງໃຫ້ທຸກຄົນ</a-radio>
-          <a-radio value="winning_participants">ສົົ່ງຫາຊະເພາະຜູ້ທີ່ເຄີຍທວຍຖືກ</a-radio>
-          <a-radio value="voted_participants">voted_participants</a-radio>
-        </a-radio-group>
+          <a-radio value="winning_participants">ສົົ່ງຫາສະະເພາະຜູ້ທີ່ເຄີຍທວຍຖືກ</a-radio>
+          <a-radio value="voted_participants">voted_participants</a-radio> </a-radio-group
+        ><br /><br />
+        <!-- <p>ເລືອກເເມັດ</p> -->
         <a-select
-          class="w-[300px]"
+          class="w-[400px]"
           v-show="selectedOption === 'winning_participants'"
-          :options="matchOptions"
-          placeholder="Select winning_participants "
+          :options="matchResultOptions"
+          placeholder="Select winning_participants"
         />
         <a-select
-          class="w-[300px]"
+          class="w-[400px]"
           v-show="selectedOption === 'voted_participants'"
-          :options="matchResultOptions"
+          :options="matchOptions"
           placeholder="Select voted_participants"
         />
         <br /><br />
@@ -58,11 +59,52 @@
 </template>
 
 <script setup>
-import { ref, reactive, toRefs } from "vue";
+import { ref, reactive, toRefs, onMounted } from "vue";
 import { saveMessageSucceed } from "@/usecases/MessagesSucceed/MessagesSuccedUseCases";
+import { getAllMatchResult } from "@/Repository/MatchResultRepository";
+import { getAllMatch } from "@/Repository/MatchRepository";
 
 const showTextModal = ref(false);
 const selectedOption = ref(1);
+
+const matchOptions = ref();
+const matchResultOptions = ref();
+
+// Load MatchResult
+async function loadMatchTeam() {
+  try {
+    const res = await getAllMatchResult();
+    // console.log(res);
+    if (res) {
+      matchResultOptions.value = res.results.map((item) => ({
+        value: item.id,
+        label: `${item.match.team_a} VS ${item.match.team_b}`,
+        ...item,
+      }));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+// Load Team
+async function LoadTeam() {
+  try {
+    const res = await getAllMatch();
+    // console.log(res);
+    if (res) {
+      matchOptions.value = res.results.map((item) => ({
+        value: item.id,
+        label: `${item.team_a.name}(${item.team_a.code}) VS ${item.team_b.name}(${item.team_b.code})`,
+        ...item,
+      }));
+    }
+  } catch (e) {}
+}
+
+onMounted(async () => {
+  await loadMatchTeam();
+  await LoadTeam();
+});
 
 function showModal() {
   showTextModal.value = !showTextModal.value;
@@ -90,8 +132,8 @@ function onHandleSave() {
   saveMessageSucceed(result);
 }
 const state = reactive({
-  matchOptions: [],
-  matchResultOptions: [],
+  // matchOptions: [],
+  // matchResultOptions: [],
   messages: [
     {
       self: 0,
@@ -106,27 +148,7 @@ const state = reactive({
 function onSuccessSendMessage(e) {
   state.messages[e.self].message = e.message;
 }
-const { messages, matchOptions, matchResultOptions } = toRefs(state);
-
-function sendSelectedOption() {
-  if (selectedOption.value === 1) {
-    console.log("Joe");
-    // You can implement this logic
-  } else if (selectedOption.value === 2) {
-    console.log("Nome");
-    // Send to "ສະເພາະຄົນທີທ້ວຍຖືກ"
-    // You can implement this logic
-  }
-}
-// function sendText() {
-//   if (value.value === 1) {
-//     // Send message to "ທຸກຄົົນ"
-//     console.log("Sending to ທຸກຄົົນ");
-//   } else if (value.value === 2) {
-//     // Send message to "ສະເພາະຄົນທີທ້ວຍຖືກ"
-//     console.log("Sending to ສະເພາະຄົນທີທ້ວຍຖືກ");
-//   }
-// }
+const { messages } = toRefs(state);
 </script>
 <style scoped lang="scss">
 .icon_close_add {

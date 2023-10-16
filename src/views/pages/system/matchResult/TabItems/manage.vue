@@ -77,7 +77,6 @@ const {
   loadMatchResult,
 } = MatchResultUaseCase;
 
-const team = ref();
 const matchTeam = ref();
 async function loadMatchTeam() {
   try {
