@@ -1,5 +1,5 @@
 import { createMessages,getAllMessages,getMessages , updateMessages } from "../../Repository/MessageTemplateRepository";
-import {notificationSuccess, notificationWarning} from "@/hooks/message";
+import {notificationSuccess, notificationWarning , messageInfo} from "@/hooks/message";
 import { reactive, toRefs, ref } from "vue";
 
 const data = reactive({
@@ -8,10 +8,11 @@ const data = reactive({
 
 // Save messages
  async function saveMessage(bodyData){
+  messageInfo("Loading")
     const response = await createMessages({
         messages:bodyData
     })
-    console.log(response)
+    
     notificationSuccess({
         title: "ບັນທຶກຂໍ້ມູນສຳເລັດ...",
         description: "ບັນທຶກຂໍ້ມູນສຳເລັດແລ້ວ...",
@@ -20,16 +21,20 @@ const data = reactive({
 }
 
  async function EditMessage(bodyData){
-  console.log(bodyData)
+  messageInfo("Loading")
+ 
     const response = await updateMessages({
         messages:bodyData
     })
-    console.log(response)
-    // notificationSuccess({
-    //     title: "ແກ້ໄຂ້ຂໍ້ມູນສຳເລັດ...",
-    //     description: "ແກ້ໄຂ້ຂໍ້ມູນສຳເລັດແລ້ວ...",
-    //     position: "topRight"
-    // })
+  
+    if(response.length){
+      notificationSuccess({
+          title: "ແກ້ໄຂ້ຂໍ້ມູນສຳເລັດ...",
+          description: "ແກ້ໄຂ້ຂໍ້ມູນສຳເລັດແລ້ວ...",
+          position: "topRight"
+      })
+
+    }
 }
 async function loadAllMessages() {
     try {
