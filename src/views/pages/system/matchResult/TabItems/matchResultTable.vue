@@ -34,10 +34,10 @@
           {{ index + 1 }}
         </template>
         <template v-if="column.dataIndex === 'match'">
-          {{ record.match.team_a }} VS
+          {{ `${record.match.team_a} (${record.match.code})` }} VS
         </template>
         <template v-if="column.dataIndex === 'match'">
-          {{ record.match.team_b }}
+          {{ `${record.match.team_b} (${record.match.code})` }}
         </template>
         <template v-if="column.dataIndex === 'created_at'">
           {{ helpers.dateFormat(text) }}
@@ -99,10 +99,10 @@ const columns = [
     title: "ຄະແນນທີມB",
     dataIndex: "team_b_score",
   },
-  // {
-  //   title: "Is_publish",
-  //   dataIndex: "is_publish",
-  // },
+  {
+    title: "ຜົົນການແຂງຂັນທີມຊະນະ",
+    dataIndex: "win_team",
+  },
   {
     title: "Action",
     dataIndex: "action",

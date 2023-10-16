@@ -36,9 +36,10 @@
         <template v-if="column.dataIndex === 'created_at'">
           {{ helpers.dateFormat(text) }}
         </template>
-        <!-- <template v-if="column.dataIndex === 'match'">
-          {{ record.match.name }}
+        <!-- <template v-if="column.dataIndex === 'facebook_post_id'">
+          {{ record.facebook_post_id.message }}
         </template> -->
+
         <template v-if="column.dataIndex === 'updated_at'">
           {{ helpers.dateFormat(text) }}
         </template>
@@ -85,7 +86,7 @@ const columns = [
   },
   {
     title: "ແມັດແຂ່ງຂັນ",
-    dataIndex: "match",
+    dataIndex: "match_two_team",
   },
   {
     title: "ໂພສ",

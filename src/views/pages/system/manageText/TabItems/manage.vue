@@ -43,6 +43,7 @@ const {
   isEdit,
   handleSubmit,
   messageError,
+  loadAllTeam,
   isServerError,
   loadTeam,
 } = ManageTextUsecase;
@@ -55,7 +56,8 @@ onMounted(async () => {
   const id = route.params.id;
   if (id) {
     isEdit.value = true;
-    await loadTeam(id);
+    // await loadTeam(id);
+    loadAllTeam();
   }
 });
 

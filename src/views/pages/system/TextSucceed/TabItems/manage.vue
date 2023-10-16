@@ -8,6 +8,7 @@
         :key="`form-text-${index}`"
         @onSuccess="onSuccessSendMessage"
         :label="message.label"
+        v-model="message.message"
       />
     </div>
     <!-- Show Modal -->
@@ -30,21 +31,39 @@
             </button>
           </div>
         </template>
-        <a-button type="primary" class="mx-4 hover:bg-red-500">ສົົ່ງຫາທຸກຄົົນ</a-button>
-        <a-button type="primary" class="mx-4">ສົົ່ງຫາຊະເພາະຜູ້ທີ່ເຄີຍທວຍຖືກ</a-button>
-        <a-radio v-model:checked="checked">Radio</a-radio>
+        <a-radio-group v-model:value="selectedOption">
+          <a-radio value="all_participants">ສົົ່ງໃຫ້ທຸກຄົນ</a-radio>
+          <a-radio value="winning_participants">ສົົ່ງຫາຊະເພາະຜູ້ທີ່ເຄີຍທວຍຖືກ</a-radio>
+          <a-radio value="voted_participants">voted_participants</a-radio>
+        </a-radio-group>
+        <a-select
+          class="w-[300px]"
+          v-show="selectedOption === 'winning_participants'"
+          :options="matchOptions"
+          placeholder="Select winning_participants "
+        />
+        <a-select
+          class="w-[300px]"
+          v-show="selectedOption === 'voted_participants'"
+          :options="matchResultOptions"
+          placeholder="Select voted_participants"
+        />
+        <br /><br />
+        <a-button type="primary" class="mx-4 hover:bg-red-500" @click="sendSelectedOption"
+          >ສົົ່ງຂໍ້ມູນ</a-button
+        >
       </a-modal>
     </div>
-    <!-- <a-button label="Save" @click="" class="m-2" type="primary">ສົ່ງ</a-button> -->
   </div>
 </template>
 
 <script setup>
 import { ref, reactive, toRefs } from "vue";
-import { saveMessage } from "@/usecases/Messages/MessagesTemplateUseCase";
-// import { count } from 'console'
+import { saveMessageSucceed } from "@/usecases/MessagesSucceed/MessagesSuccedUseCases";
 
 const showTextModal = ref(false);
+const selectedOption = ref(1);
+
 function showModal() {
   showTextModal.value = !showTextModal.value;
 }
@@ -57,22 +76,22 @@ function Close() {
   showTextModal.value = false;
 }
 
-const checked = ref(false);
 const formTextRef = ref();
 function onHandleSave() {
   for (let i = 0; i < formTextRef.value.length; i++) {
     formTextRef.value[i].onSuccessSendMessage();
   }
-
   console.log(state.messages);
   const result = state.messages.map((message) => ({
     condition: message.condition,
     value: message.message,
     is_enable: message.is_enable,
   }));
-  saveMessage(result);
+  saveMessageSucceed(result);
 }
 const state = reactive({
+  matchOptions: [],
+  matchResultOptions: [],
   messages: [
     {
       self: 0,
@@ -87,10 +106,27 @@ const state = reactive({
 function onSuccessSendMessage(e) {
   state.messages[e.self].message = e.message;
 }
-const { messages } = toRefs(state);
+const { messages, matchOptions, matchResultOptions } = toRefs(state);
 
-// left: 900px;
-// top: 65px;
+function sendSelectedOption() {
+  if (selectedOption.value === 1) {
+    console.log("Joe");
+    // You can implement this logic
+  } else if (selectedOption.value === 2) {
+    console.log("Nome");
+    // Send to "ສະເພາະຄົນທີທ້ວຍຖືກ"
+    // You can implement this logic
+  }
+}
+// function sendText() {
+//   if (value.value === 1) {
+//     // Send message to "ທຸກຄົົນ"
+//     console.log("Sending to ທຸກຄົົນ");
+//   } else if (value.value === 2) {
+//     // Send message to "ສະເພາະຄົນທີທ້ວຍຖືກ"
+//     console.log("Sending to ສະເພາະຄົນທີທ້ວຍຖືກ");
+//   }
+// }
 </script>
 <style scoped lang="scss">
 .icon_close_add {

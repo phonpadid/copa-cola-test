@@ -1,26 +1,30 @@
 <template>
-  <div class="container">
-    <h2 class="font-bold text-5xl">COCA COLA</h2>
-    <form action="" method="POST" @submit.prevent="login(form)">
-      <div class="form-group">
-        <label for="email">ອີເມວ:</label>
-        <a-input v-model:value="form.email" />
+  <Suspense>
+    <template #default>
+      <div class="container">
+        <h2 class="font-bold text-5xl">COCA COLA</h2>
+        <form action="" method="POST" @submit.prevent="login(form)">
+          <div class="form-group">
+            <label for="email">ອີເມວ:</label>
+            <a-input v-model:value="form.email" />
+          </div>
+          <div class="form-group">
+            <label for="password">ລະຫັດຜ່ານ:</label>
+            <a-input v-model:value="form.password" type="password" />
+          </div>
+          <div class="form-group">
+            <a-button :loading="isLoading" type="primary" block @click="login(form)"
+              >ເຂົ້າສູ່ລະບົບ</a-button
+            >
+          </div>
+          <!-- <div class="message">
+            <p v-if="messageError" class="text-red-500">{{ messageError }}</p>
+          </div> -->
+        </form>
       </div>
-      <div class="form-group">
-        <label for="password">ລະຫັດຜ່ານ:</label>
-        <a-input v-model:value="form.password" type="password" />
-      </div>
-      <div class="form-group">
-        <a-button :loading="isLoading" @click="login(form)" type="primary" block
-          >Login</a-button
-        >
-      </div>
-      <div class="message">
-        <!-- {{ messageError }} -->
-        <!-- Display error message here if login fails -->
-      </div>
-    </form>
-  </div>
+    </template>
+    <template #fallback> <div class="alert">Loading...</div> </template>
+  </Suspense>
 </template>
 
 <script setup>
@@ -28,15 +32,15 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 import { useStore } from "vuex";
 const store = useStore();
-import { notificationSuccess, messageError } from "@/hooks/message";
+import { notificationSuccess, messageError, notificationWarning } from "@/hooks/message";
 import { reactive, ref } from "vue";
 import UserModel from "@/store/models/User";
 
 const form = reactive(
   new UserModel({
     form: {
-      email: "test1@gmail.com",
-      password: "passwd1234",
+      email: "",
+      password: "",
     },
   })
 );
@@ -44,6 +48,20 @@ const form = reactive(
 const isLoading = ref(false);
 
 function login(form) {
+  messageError.value = "";
+  // Validate the form
+  if (!form.email || !form.password) {
+    messageError("ກະລຸນາປ້ອນອີເມວ ແລະ ລະຫັດຜ່ານກ່ອນ.");
+    return;
+  }
+  if (!validateEmail(form.email)) {
+    messageError("ກະລຸນາປ້ອນອີເມວໃຫ້ຖືກຕ້ອງ");
+    return;
+  }
+  if (!validatePassword(form.password)) {
+    messageError("ກະລຸນາປ້ອນລະຫັດຜ່ານໃຫ້ຖືກຕ້ອງ");
+    return;
+  }
   try {
     isLoading.value = true;
     store.dispatch("auth/login", form).then((res) => {
@@ -54,17 +72,27 @@ function login(form) {
           position: "topRight",
         });
         isLoading.value = false;
-        // alert.messageError("ເກີດຂໍ້ຜິດພາດ...");
         router.push({
           name: "managetext.index",
         });
       }
     });
   } catch (e) {
-    // alert.messageError("ເກີດຂໍ້ຜິດພາດ...");
-    messageError("ເກີດຂໍ້ຜິດພາດ...");
+    messageError("Login failed.");
     isLoading.value = false;
   }
+}
+function validateEmail(email) {
+  // Define your password criteria using regular expressions
+  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
+  // Test if the password meets the criteria
+  return emailRegex.test(email);
+}
+function validatePassword(password) {
+  // Define your password criteria using regular expressions
+  const passwordRegex = /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/;
+  // Test if the password meets the criteria
+  return passwordRegex.test(password);
 }
 </script>
 

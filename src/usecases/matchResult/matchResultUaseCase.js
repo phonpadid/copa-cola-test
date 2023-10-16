@@ -49,7 +49,6 @@ const rules = {
   ],
 };
 async function resetForm() {
-  // refForm.value.resetFields();
   data.form.match = null;
   data.form.team_a_score = null;
   data.form.team_b_score = null;
@@ -71,9 +70,9 @@ async function submitForm() {
     } catch (firstErrorBag) {
       data.isLoading = false;
       data.isServerError = true;
-      data.messageError = Object.values(firstErrorBag.response.data.errors).join(
-        "<br>" + " -"
-      );
+      // data.messageError = Object.values(firstErrorBag.response.data.errors).join(
+      //   "<br>" + " -"
+      // );
       notificationWarning({
         title: "ເກີດຂໍ້ຜິດພາດ...",
         description: "ກະລຸນາກວດສອບຂໍ້ມູນ",
@@ -118,11 +117,12 @@ async function loadAllMatchResult() {
 
 async function loadMatchResult(id) {
   try {
-    // console.log("test");
     const res = await getMatchResult(id);
+    // console.log(res);
     if (res) {
+      //  res.match = res.match.id; ເຫດຜົນທີໃຊ້ແມັດຊ້ອນກັນກາຍ້ອນວ່າມັນ match ມັນຊ້ອນໂຕຂໍ້ມູນ
       // ຖ້າໃໍຊ້ select ໃຫ້ເຮົາໃຊ້ຕົົວເລືອກເປັນ ໄອເດີເລີຍ ມັນຈະຮູ້ເອງເລີຍວ່າເປັນ ໂຕໄອດີ
-      res.match = res.id;    //res.data.event_date_time = dayjs(res.data.event_date_time);
+      res.match = res.match.id;    //res.data.event_date_time = dayjs(res.data.event_date_time);
       data.form.fromJSON(data.form, res);
     }
   } catch (error) {

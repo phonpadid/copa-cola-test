@@ -13,11 +13,11 @@ export async function getAllPostFacebook (filters){
     })
 } 
 export async function getPostFacebook(id){
-    return await store.dispatch("data-resources/listing",{
+    return  await store.dispatch("data-resources/listing",{
         method:"GET",
-        actionUri:`facebookposts/${id}`
+        actionUri:`facebookposts/${id}/`
     })
-} 
+}
 // Facebook Post
 export async function getFacebookPost(filters) {
     return await store.dispatch("data-resources/listing", {
@@ -28,7 +28,7 @@ export async function getFacebookPost(filters) {
   }
 
 
-// Create MatchResult
+// Create Post
 export function createPost(req){
     const data = {
         facebook_post_id: req.facebook_post_id,
@@ -45,7 +45,7 @@ export function createPost(req){
     }
     return store.dispatch("data-resources/manage", body)
 }
-// Update MatchResult
+// Update Posts
 export function updatePost(req){
     const data = {
         facebook_post_id: req.facebook_post_id,

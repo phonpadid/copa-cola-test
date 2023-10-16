@@ -1,14 +1,14 @@
-import { createMessages,getAllMessages,getMessages } from "../../Repository/MessageTemplateRepository";
+import { createMessagesSueeccd,getAllMessagesSueeccd } from "../../Repository/MessageSueeccdRepository";
 import {notificationSuccess, notificationWarning} from "@/hooks/message";
 import { reactive, toRefs, ref } from "vue";
 
 const data = reactive({
-    messages: []
+    messagessucceed: []
 })
 
 // Save messages
-export async function saveMessage(bodyData){
-    const response = await createMessages({
+export async function saveMessageSucceed(bodyData){
+    const response = await createMessagesSueeccd({
         messages:bodyData
     })
     console.log(response)
@@ -19,25 +19,23 @@ export async function saveMessage(bodyData){
     })
 }
 
-export async function EditMessage(bodyData){
-    const response = await getMessages({
-        messages:bodyData
-    })
-    console.log(response)
-    notificationSuccess({
-        title: "ແກ້ໄຂ້ຂໍ້ມູນສຳເລັດ...",
-        description: "ແກ້ໄຂ້ຂໍ້ມູນສຳເລັດແລ້ວ...",
-        position: "topRight"
-    })
-}
-async function loadAllMessages() {
+// export async function EditMessage(bodyData){
+//     const response = await getMessages({
+//         messages:bodyData
+//     })
+//     console.log(response)
+//     notificationSuccess({
+//         title: "ແກ້ໄຂ້ຂໍ້ມູນສຳເລັດ...",
+//         description: "ແກ້ໄຂ້ຂໍ້ມູນສຳເລັດແລ້ວ...",
+//         position: "topRight"
+//     })
+// }
+async function loadAllMessagesSueeccd() {
     try {
-      const res = await getAllMessages();
-      // console.log(res);
+      const res = await getAllMessagesSueeccd();
+    //   console.log(res);
       if (res) {
-        if(res.results.length === 5){
-          return res.results;
-        }
+        data.messagessucceed = res.results;
       }
     } catch (error) {}
   }
@@ -59,7 +57,7 @@ async function loadMessages(id) {
 
   export default {
     ...toRefs(data),
-    loadAllMessages,
+    loadAllMessagesSueeccd,
     loadMessages
   };
   

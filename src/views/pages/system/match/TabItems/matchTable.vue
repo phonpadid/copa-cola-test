@@ -35,10 +35,10 @@
         </template>
 
         <template v-if="column.dataIndex === 'team_a'">
-          {{ record.team_a.name }}
+          {{ `${record.team_a.name} (${record.team_a.code})` }}
         </template>
         <template v-if="column.dataIndex === 'team_b'">
-          {{ record.team_b.name }}
+          {{ `${record.team_b.name} (${record.team_b.code})` }}
         </template>
         <template v-if="column.dataIndex === 'created_at'">
           {{ helpers.dateFormat(text) }}

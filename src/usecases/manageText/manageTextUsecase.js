@@ -28,7 +28,6 @@ const rules = {
     code: [
         { required: true, message: "ກະລູນາປ້ອນຂໍ້ມູນກ່ອນ", trigger: "red" },
     ],
-   
 };
 
 
@@ -92,6 +91,7 @@ async function loadAllTeam() {
     try {
         const res = await getAllTeam();
         if (res) {
+            console.log(res)
             data.teams = res.results;
         }
     } catch (error) {

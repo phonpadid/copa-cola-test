@@ -7,7 +7,6 @@ export default function Register() {
     this.password = null;
     this.password_confirmation = null;
 
-
     this.fromJSON = (json) => {
         this.id = json.id;
         this.email = json.email;

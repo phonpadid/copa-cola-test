@@ -1,6 +1,7 @@
 import Base from "./Base";
 export default function ManagePost() {
     Base.call(this);
+    this.id = null;
     this.facebook_post_id = null;
     this.title = null;
     this.body = null;
@@ -8,6 +9,7 @@ export default function ManagePost() {
     this.is_enable = false;
 
     this.fromJSON = (state, json) => {
+        state.id = json.id;
         state.facebook_post_id = json.facebook_post_id;
         state.title = json.title;
         state.body = json.body;

@@ -1,9 +1,6 @@
 <template>
-  <!-- class="card" -->
   <div class="container">
     <div class="card">
-      <!-- {{ inputValueContent }} -->
-
       <nav>
         <div class="textarea-box">
           <textarea
@@ -16,18 +13,6 @@
           />
         </div>
         <p v-if="error" class="error-message">{{ error }}</p>
-        <!-- Emoji -->
-        <!-- <ul class="menu">
-          <li>
-            
-            <ul class="menu-popup">
-              <li class="li-emoji">
-                <a href="#" class="a-emoji"> </a>
-              </li>
-            </ul>
-          </li>
-        </ul> -->
-        <!-- icon emoji for open emoji plat -->
         <div class="emojo-open">
           <a href="#" @click="onShowClose"
             ><i class="bi bi-emoji-laughing-fill cursor-pointer"></i
@@ -76,9 +61,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-
-// import { count } from "console";
+import { ref, watch } from "vue";
 const props = defineProps({
   label: {
     type: String,
@@ -86,7 +69,16 @@ const props = defineProps({
   self: {
     type: Number,
   },
+  message: {
+    type: String,
+  },
 });
+watch(
+  () => props.message,
+  (newVl) => {
+    inputValueContent.value = newVl;
+  }
+);
 const textInputRef = ref();
 const showEimoji = ref(false);
 const error = ref("");
@@ -125,14 +117,6 @@ function show_Team() {
   const data_team = "$team ";
   onChangeReplaceCurrentCursorFocus(data_team);
 }
-
-// Add other button click handlers as needed
-
-// function addDatetimeToTextarea() {
-//   const currentDate = new Date();
-//   const formattedDatetime = currentDate.toLocaleString();
-//   inputValueContent.value += formattedDatetime + "\n";
-// }
 
 function Clear_Data() {
   inputValueContent.value = "";
@@ -184,10 +168,6 @@ const varidateText = () => {
   }
 };
 
-// const showPopup = ref(false)
-// const closePopup = () => {
-//   showPopup.value = false
-// }
 defineExpose({
   onSuccessSendMessage,
 });

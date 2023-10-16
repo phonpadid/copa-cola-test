@@ -56,7 +56,7 @@ export default function create() {
                 return new Promise((resolve, reject) => {
                     axios.get(`${apiUrl}/${payload.actionUri}?${query}`, config.addTokenHeader(rootGetters['auth/token']))
                         .then((res) => {
-                            resolve(res.data)
+                            resolve(res.data);
                         })
                 })
             },

@@ -2,24 +2,19 @@
 // export const createUser(){...}
 import store from "@/store"
 
-const url = "messagetemplates/"
+const url = "send-facebook-messages/"
 
-export async function getAllMessages (filters){
+export async function getAllMessagesSueeccd (filters){
     return await store.dispatch("data-resources/listing",{
         options_request:filters,
         method:"GET",
         actionUri:url
     })
 } 
-export async function getMessages(id){
-    return await store.dispatch("data-resources/listing",{
-        method:"GET",
-        actionUri:`messagetemplates/${id}`
-    })
-} 
+
 
 // Create Message 
-export function createMessages(data){
+export function createMessagesSueeccd(data){
     const body = {
         _method:'post',
         formData: false,
