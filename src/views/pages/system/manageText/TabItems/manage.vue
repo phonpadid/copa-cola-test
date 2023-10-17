@@ -56,7 +56,7 @@ onMounted(async () => {
   const id = route.params.id;
   if (id) {
     isEdit.value = true;
-    // await loadTeam(id);
+    await loadTeam(id);
     loadAllTeam();
   }
 });

@@ -84,6 +84,17 @@
               </span>
             </a-tag>
           </a-breadcrumb-item>
+          <!-- Export -->
+          <a-breadcrumb-item
+            v-if="$route.meta.name === 'Export Info'"
+            style="cursor: pointer"
+          >
+            <a-tag color="processing">
+              <span class="text-sm">
+                <router-link :to="{ name: 'export.index' }"> Home </router-link>
+              </span>
+            </a-tag>
+          </a-breadcrumb-item>
 
           <a-breadcrumb-item
             v-if="$route.meta.name === 'List Of Route Voice'"

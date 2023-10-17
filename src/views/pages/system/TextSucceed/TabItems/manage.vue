@@ -2,13 +2,14 @@
   <div class="card mt-4">
     <div class="mt-2" v-for="(message, index) in messages" :key="index">
       <span class="text-xl">* {{ message.label }}</span>
-      <FormText
+      <FormManageText
+        :mode="false"
         ref="formTextRef"
-        :self="message.self"
+        :self="1"
         :key="`form-text-${index}`"
         @onSuccess="onSuccessSendMessage"
         :label="message.label"
-        v-model="message.message"
+        :message="message"
       />
     </div>
     <!-- Show Modal -->
@@ -33,23 +34,31 @@
         </template>
         <a-radio-group v-model:value="selectedOption">
           <a-radio value="all_participants">ສົົ່ງໃຫ້ທຸກຄົນ</a-radio>
-          <a-radio value="winning_participants">ສົົ່ງຫາຊະເພາະຜູ້ທີ່ເຄີຍທວຍຖືກ</a-radio>
-          <a-radio value="voted_participants">voted_participants</a-radio>
-        </a-radio-group>
+          <a-radio value="winning_participants">ສົົ່ງຫາສະະເພາະຜູ້ທີ່ເຄີຍທວຍຖືກ</a-radio>
+          <a-radio value="voted_participants"
+            >ສົ່ງຫາສະເພາະຄົນຮ່ວມເຊຍແມັດໃດໜຶ່ງ</a-radio
+          > </a-radio-group
+        ><br /><br />
+        <!-- <p>ເລືອກເເມັດ</p> -->
         <a-select
-          class="w-[300px]"
+          class="w-[400px]"
+          v-model:value="match_result_id"
           v-show="selectedOption === 'winning_participants'"
-          :options="matchOptions"
-          placeholder="Select winning_participants "
-        />
-        <a-select
-          class="w-[300px]"
-          v-show="selectedOption === 'voted_participants'"
           :options="matchResultOptions"
+          placeholder="Select winning_participants"
+          v-model="selectedMatchResult"
+        />
+
+        <a-select
+          class="w-[400px]"
+          v-model:value="match_id"
+          v-show="selectedOption === 'voted_participants'"
+          :options="matchOptions"
           placeholder="Select voted_participants"
+          v-model="selectedMatch"
         />
         <br /><br />
-        <a-button type="primary" class="mx-4 hover:bg-red-500" @click="sendSelectedOption"
+        <a-button type="primary" class="mx-4 hover:bg-red-500" @click="onHandleSave"
           >ສົົ່ງຂໍ້ມູນ</a-button
         >
       </a-modal>
@@ -58,11 +67,56 @@
 </template>
 
 <script setup>
-import { ref, reactive, toRefs } from "vue";
+import { ref, reactive, toRefs, onMounted } from "vue";
 import { saveMessageSucceed } from "@/usecases/MessagesSucceed/MessagesSuccedUseCases";
+import { getAllMatchResult } from "@/Repository/MatchResultRepository";
+import { getAllMatch } from "@/Repository/MatchRepository";
 
 const showTextModal = ref(false);
-const selectedOption = ref(1);
+const selectedOption = ref("all_participants");
+// const selectedWinningParticipant = ref(null);
+// const selectedVotedParticipant = ref(null);
+
+const matchOptions = ref();
+const matchResultOptions = ref();
+const selectedMatchResult = ref(null); // Add a variable to store the selected match result
+const selectedMatch = ref(null);
+
+// Load MatchResult
+async function loadMatchTeam() {
+  try {
+    const res = await getAllMatchResult();
+    // console.log(res);
+    if (res) {
+      matchResultOptions.value = res.results.map((item) => ({
+        value: item.id,
+        label: `${item.match.team_a} VS ${item.match.team_b}`,
+        ...item,
+      }));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+// Load Team
+async function LoadTeam() {
+  try {
+    const res = await getAllMatch();
+    // console.log(res);
+    if (res) {
+      matchOptions.value = res.results.map((item) => ({
+        value: item.id,
+        label: `${item.team_a.name}(${item.team_a.code}) VS ${item.team_b.name}(${item.team_b.code})`,
+        ...item,
+      }));
+    }
+  } catch (e) {}
+}
+
+onMounted(async () => {
+  await loadMatchTeam();
+  await LoadTeam();
+});
 
 function showModal() {
   showTextModal.value = !showTextModal.value;
@@ -76,58 +130,48 @@ function Close() {
   showTextModal.value = false;
 }
 
-const formTextRef = ref();
-function onHandleSave() {
-  for (let i = 0; i < formTextRef.value.length; i++) {
-    formTextRef.value[i].onSuccessSendMessage();
+const formTextRef = ref(null);
+async function onHandleSave() {
+  formTextRef.value[0].onSuccessSendMessage();
+  const messageData = {
+    condition: selectedOption.value,
+    message: state.message,
+    match_result_id: state.match_result_id,
+    match_id: state.match_id,
+  };
+  try {
+    await saveMessageSucceed(messageData);
+    console.log("Message sent successfully");
+  } catch (error) {
+    console.error("Error sending message:", error);
   }
-  console.log(state.messages);
-  const result = state.messages.map((message) => ({
-    condition: message.condition,
-    value: message.message,
-    is_enable: message.is_enable,
-  }));
-  saveMessageSucceed(result);
 }
+
 const state = reactive({
-  matchOptions: [],
-  matchResultOptions: [],
+  match_id: null,
+  match_result_id: null,
+  message: "",
   messages: [
     {
       self: 0,
       message: "",
-      condition: "condition_one",
-      is_enable: true,
+      condition: "",
       label: "ຂໍ້ຄວາມສຳເລັດຮູບ ເພື່ອເລືອກສົ່ງຫາກຸ່ມຜູ້ຮ່ວມກິດຈະກຳ",
+      match_result_id: null,
+      match_id: null,
     },
   ],
+  selectedOption: "all_participants",
+  matchResultOptions: [],
+  matchOptions: [],
 });
 
 function onSuccessSendMessage(e) {
-  state.messages[e.self].message = e.message;
+  state.message = e.message;
 }
-const { messages, matchOptions, matchResultOptions } = toRefs(state);
-
-function sendSelectedOption() {
-  if (selectedOption.value === 1) {
-    console.log("Joe");
-    // You can implement this logic
-  } else if (selectedOption.value === 2) {
-    console.log("Nome");
-    // Send to "ສະເພາະຄົນທີທ້ວຍຖືກ"
-    // You can implement this logic
-  }
-}
-// function sendText() {
-//   if (value.value === 1) {
-//     // Send message to "ທຸກຄົົນ"
-//     console.log("Sending to ທຸກຄົົນ");
-//   } else if (value.value === 2) {
-//     // Send message to "ສະເພາະຄົນທີທ້ວຍຖືກ"
-//     console.log("Sending to ສະເພາະຄົນທີທ້ວຍຖືກ");
-//   }
-// }
+const { messages, match_id, match_result_id, message } = toRefs(state);
 </script>
+
 <style scoped lang="scss">
 .icon_close_add {
   position: absolute;
