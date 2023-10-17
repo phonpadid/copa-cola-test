@@ -2,13 +2,14 @@
   <div class="card mt-4">
     <div class="mt-2" v-for="(message, index) in messages" :key="index">
       <span class="text-xl">* {{ message.label }}</span>
-      <FormText
+      <FormManageText
+        :mode="false"
         ref="formTextRef"
         :self="1"
         :key="`form-text-${index}`"
         @onSuccess="onSuccessSendMessage"
         :label="message.label"
-        v-model="message.message"
+        :message="message"
       />
     </div>
     <!-- Show Modal -->
@@ -131,11 +132,12 @@ function Close() {
 
 const formTextRef = ref(null);
 async function onHandleSave() {
+  formTextRef.value[0].onSuccessSendMessage();
   const messageData = {
     condition: selectedOption.value,
-    message: state.messages[0].message,
-    match_result_id: state.messages[0].match_result_id,
-    match_id: state.messages.match_id,
+    message: state.message,
+    match_result_id: state.match_result_id,
+    match_id: state.match_id,
   };
   try {
     await saveMessageSucceed(messageData);

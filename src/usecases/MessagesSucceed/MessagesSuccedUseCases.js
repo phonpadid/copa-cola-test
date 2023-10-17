@@ -10,7 +10,7 @@ const data = reactive({
 export async function saveMessageSucceed(bodyData){
   console.log(bodyData);
     const response = await createMessagesSueeccd(bodyData)
-    console.log(response)
+    // console.log(response)
     notificationSuccess({
         title: "ບັນທຶກຂໍ້ມູນສຳເລັດ...",
         description: "ບັນທຶກຂໍ້ມູນສຳເລັດແລ້ວ...",
@@ -27,8 +27,6 @@ async function loadAllMessagesSueeccd() {
       }
     } catch (error) {}
   }
-  
-
 
   export default {
     ...toRefs(data),

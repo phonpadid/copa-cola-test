@@ -116,27 +116,6 @@ async function loadFacebookPost() {
   }
 }
 
-// async function loadMessageFacebookPost() {
-//   const TOKEN_DEFAULT_VALUE_FACEBOOK =
-//     "EAAFLdEq08iYBO3FiadSDniOcU0B2ZAV4EKjZAZCzWA0om8xCcq1552xNDqhqsFZAAb3th1ArWf23ixPZBlQ73wvPnpCJmsGf9az0OFgE2nrB0RMHEHOii2lmbwnO2FAWYzLWDM0he00f4bd9thtnPZBKkiBLzzHBezIAHcnFpRBSu9xotjL74QC8hEOYV5AVEZD";
-//   const filters = {
-//     fields: "id,message,created_time,comments.limit(0).summary(true),attachments{type}",
-//     access_token: TOKEN_DEFAULT_VALUE_FACEBOOK,
-//   };
-//   try {
-//     const res = await getFacebookPost(filters);
-//     // console.log(res.data, 9999);
-//     if (res) {
-//       messageFacebookPost.value = res.data.map((item) => ({
-//         value: item.id,
-//         label: `${item.message}`,
-//       }));
-//     }
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
-
 onMounted(async () => {
   const id = route.params.id;
   // console.log(id);

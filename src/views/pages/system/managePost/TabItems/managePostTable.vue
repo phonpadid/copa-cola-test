@@ -90,7 +90,8 @@ const columns = [
   },
   {
     title: "ໂພສ",
-    dataIndex: "facebook_post_id",
+    dataIndex: "title",
+    // facebook_post_id
   },
   {
     title: "Title",
