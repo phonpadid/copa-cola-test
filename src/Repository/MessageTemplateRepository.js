@@ -28,6 +28,16 @@ export function createMessages(data){
     }
     return store.dispatch("data-resources/newManage", body)
 }
+export function updateMessages(data){
+    const body = {
+        _method:'patch',
+        method:"patch",
+        formData: false,
+        actionUri: `${url}batch_update/`,
+        ...data,
+    }
+    return store.dispatch("data-resources/newManage", body)
+}
 // export function updateUser(req){
 //     const data = {
 //         name: req.name,

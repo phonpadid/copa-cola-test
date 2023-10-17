@@ -1,5 +1,5 @@
-import { createMessages,getAllMessages,getMessages } from "../../Repository/MessageTemplateRepository";
-import {notificationSuccess, notificationWarning} from "@/hooks/message";
+import { createMessages,getAllMessages,getMessages , updateMessages } from "../../Repository/MessageTemplateRepository";
+import {notificationSuccess, notificationWarning , messageInfo} from "@/hooks/message";
 import { reactive, toRefs, ref } from "vue";
 
 const data = reactive({
@@ -7,11 +7,12 @@ const data = reactive({
 })
 
 // Save messages
-export async function saveMessage(bodyData){
+ async function saveMessage(bodyData){
+  messageInfo("Loading")
     const response = await createMessages({
         messages:bodyData
     })
-    console.log(response)
+    
     notificationSuccess({
         title: "ບັນທຶກຂໍ້ມູນສຳເລັດ...",
         description: "ບັນທຶກຂໍ້ມູນສຳເລັດແລ້ວ...",
@@ -19,24 +20,31 @@ export async function saveMessage(bodyData){
     })
 }
 
-export async function EditMessage(bodyData){
-    const response = await getMessages({
+ async function EditMessage(bodyData){
+  messageInfo("Loading")
+ 
+    const response = await updateMessages({
         messages:bodyData
     })
-    console.log(response)
-    notificationSuccess({
-        title: "ແກ້ໄຂ້ຂໍ້ມູນສຳເລັດ...",
-        description: "ແກ້ໄຂ້ຂໍ້ມູນສຳເລັດແລ້ວ...",
-        position: "topRight"
-    })
+  
+    if(response.length){
+      notificationSuccess({
+          title: "ແກ້ໄຂ້ຂໍ້ມູນສຳເລັດ...",
+          description: "ແກ້ໄຂ້ຂໍ້ມູນສຳເລັດແລ້ວ...",
+          position: "topRight"
+      })
+
+    }
 }
 async function loadAllMessages() {
     try {
       const res = await getAllMessages();
       // console.log(res);
       if (res) {
-        if(res.results.length === 5){
-          return res.results;
+        if(res.results.length >= 5){
+          return res.results.sort((a,b) => a.id - b.id);
+        }else{
+          return []
         }
       }
     } catch (error) {}
@@ -60,6 +68,7 @@ async function loadMessages(id) {
   export default {
     ...toRefs(data),
     loadAllMessages,
-    loadMessages
+    loadMessages,
+    EditMessage 
   };
   
