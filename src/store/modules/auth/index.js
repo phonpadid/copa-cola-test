@@ -40,10 +40,11 @@ export default function create() {
                 state.credential = new Credential();
             },
         },
+        // Login
         actions: {
             login(context, user) {
                 return new Promise(((resolve, reject) => {
-                    axios.post(`${apiUrl}/token/`, user).then((res) => {
+                    axios.post(`${apiUrl}/account/login/`, user).then((res) => {
                         if (res) {
                             const token = res.data.access;
                             context.commit("setCredential", token)
@@ -54,9 +55,9 @@ export default function create() {
                     })
                 }))
             },
-
+            // Logout
             logout(context, payload) {
-                axios.post(`${apiUrl}/auth/logout`, {}, config.addTokenHeader(context.getters.token))
+                axios.post(`${apiUrl}/account/logout/`, {}, config.addTokenHeader(context.getters.token))
                     .then(() => {
                         context.commit('removeCredential', { path });
                     })

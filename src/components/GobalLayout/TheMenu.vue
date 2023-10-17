@@ -84,7 +84,7 @@ const MenuList = reactive([
     id: 30,
     name: "ລາຍງານ",
     icon: "far fa-file-export",
-    route: "user.index",
+    route: "export.index",
   },
 ]);
 

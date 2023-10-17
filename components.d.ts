@@ -13,6 +13,8 @@ declare module '@vue/runtime-core' {
     ContactPersonalInformation: typeof import('./src/components/system/contactPersonalInformation.vue')['default']
     Dashboard: typeof import('./src/views/pages/system/Dashboard/dashboard.vue')['default']
     DefaultLayout: typeof import('./src/views/layout/DefaultLayout.vue')['default']
+    Export: typeof import('./src/views/pages/system/export/export.vue')['default']
+    ExportTable: typeof import('./src/views/pages/system/export/TabItems/exportTable.vue')['default']
     FormManageText: typeof import('./src/components/Form/FormManageText.vue')['default']
     FormText: typeof import('./src/components/Form/FormText.vue')['default']
     HomeView: typeof import('./src/views/HomeView.vue')['default']

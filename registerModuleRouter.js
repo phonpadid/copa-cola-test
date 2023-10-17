@@ -7,6 +7,7 @@ import userRouter from "@/views/pages/system/user/router";
 import textRouter from "@/views/pages/system/Text/router";
 import postRouter from "@/views/pages/system/managePost/router";
 import textSucceedRouter from "@/views/pages/system/TextSucceed/router";
+import exportRouter from "@/views/pages/system/export/router";
 // import Dashboard from "@/views/pages/system/Dashboard/router";
 
 registerModules({
@@ -17,7 +18,8 @@ registerModules({
     userRouter,
     textRouter,
     postRouter,
-    textSucceedRouter
+    textSucceedRouter,
+    exportRouter
     // Dashboard
 
 })
