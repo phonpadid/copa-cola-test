@@ -23,18 +23,3 @@ export function createMessagesSueeccd(data){
     }
     return store.dispatch("data-resources/newManage", body)
 }
-// export function updateUser(req){
-//     const data = {
-//         name: req.name,
-//         email: req.email,
-//         phone: req.phone,
-//         password: req.password,
-//     }
-//     const body = {
-//         method: 'put',
-//         formData:false,
-//         actionUri: `accounts/${req.id}/`,
-//         ...data
-//     }
-//     return store.dispatch("data-resources/manage",body)
-// }

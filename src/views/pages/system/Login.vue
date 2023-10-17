@@ -1,6 +1,6 @@
 <template>
-  <Suspense>
-    <template #default>
+  <div class="card grid grid-cols-1 mt-4">
+    <Suspense>
       <div class="container">
         <h2 class="font-bold text-5xl">COCA COLA</h2>
         <form action="" method="POST" @submit.prevent="login(form)">
@@ -22,9 +22,15 @@
           </div> -->
         </form>
       </div>
-    </template>
-    <template #fallback> <div class="alert">Loading...</div> </template>
-  </Suspense>
+      <template #fallback>
+        <div class="flex items-center justify-center h-screen">
+          <div
+            class="w-16 h-16 border-t-4 border-gray-400 border-solid rounded-full animate-spin"
+          ></div>
+        </div>
+      </template>
+    </Suspense>
+  </div>
 </template>
 
 <script setup>
