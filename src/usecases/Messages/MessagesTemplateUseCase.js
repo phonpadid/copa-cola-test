@@ -39,9 +39,8 @@ const data = reactive({
 async function loadAllMessages() {
     try {
       const res = await getAllMessages();
-      // console.log(res);
       if (res) {
-        if(res.results.length >= 5){
+        if(res.results.length >= 4){
           return res.results.sort((a,b) => a.id - b.id);
         }else{
           return []
@@ -69,6 +68,7 @@ async function loadMessages(id) {
     ...toRefs(data),
     loadAllMessages,
     loadMessages,
-    EditMessage 
+    EditMessage ,
+    saveMessage
   };
   

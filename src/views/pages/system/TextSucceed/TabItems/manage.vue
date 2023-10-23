@@ -90,7 +90,7 @@ async function loadMatchTeam() {
     if (res) {
       matchResultOptions.value = res.results.map((item) => ({
         value: item.id,
-        label: `${item.match.team_a} VS ${item.match.team_b}`,
+        label: `${item.match.team_a.name}(${item.match.team_a.code}) VS ${item.match.team_b.name}(${item.match.team_b.code})`,
         ...item,
       }));
     }

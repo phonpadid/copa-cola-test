@@ -13,8 +13,6 @@ export default function MatchModel() {
         state.team_b = json.team_b;
         state.match_time = json.match_time;
         state.match_end_activity_time = json.match_end_activity_time;
-        // state.match_time = DateTime.fromISO(json.match_time).toJSDate();
-        // state.match_end_activity_time = DateTime.fromISO(json.match_end_activity_time).toJSDate();
         state.is_enable = json.is_enable;
     };
 }

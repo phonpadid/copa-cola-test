@@ -1,35 +1,27 @@
 <template>
   <div class="card grid grid-cols-1 mt-4">
-    <Suspense>
-      <div class="container">
-        <h2 class="font-bold text-5xl">COCA COLA</h2>
-        <form action="" method="POST" @submit.prevent="login(form)">
-          <div class="form-group">
-            <label for="email">ອີເມວ:</label>
-            <a-input v-model:value="form.email" />
-          </div>
-          <div class="form-group">
-            <label for="password">ລະຫັດຜ່ານ:</label>
-            <a-input v-model:value="form.password" type="password" />
-          </div>
-          <div class="form-group">
-            <a-button :loading="isLoading" type="primary" block @click="login(form)"
-              >ເຂົ້າສູ່ລະບົບ</a-button
-            >
-          </div>
-          <!-- <div class="message">
-            <p v-if="messageError" class="text-red-500">{{ messageError }}</p>
-          </div> -->
-        </form>
-      </div>
-      <template #fallback>
-        <div class="flex items-center justify-center h-screen">
-          <div
-            class="w-16 h-16 border-t-4 border-gray-400 border-solid rounded-full animate-spin"
-          ></div>
+    <div class="container">
+      <h2 class="font-bold text-5xl">COCA COLA</h2>
+      <form action="" method="POST" @submit.prevent="login(form)">
+        <div class="form-group">
+          <label for="email">ອີເມວ:</label>
+          <a-input v-model:value="form.email" />
         </div>
-      </template>
-    </Suspense>
+        <div class="form-group">
+          <label for="password">ລະຫັດຜ່ານ:</label>
+          <a-input v-model:value="form.password" type="password" />
+        </div>
+        <div class="form-group">
+          <a-button :loading="isLoading" type="primary" block @click="login(form)"
+            >ເຂົ້າສູ່ລະບົບ</a-button
+          >
+        </div>
+        <!-- <div class="message">
+          <p v-if="messageError" class="text-red-500">{{ messageError }}</p>
+        </div> -->
+        <!-- <FormError :show="showErrorAlert" :message="messageError" /> -->
+      </form>
+    </div>
   </div>
 </template>
 
@@ -41,6 +33,7 @@ const store = useStore();
 import { notificationSuccess, messageError, notificationWarning } from "@/hooks/message";
 import { reactive, ref } from "vue";
 import UserModel from "@/store/models/User";
+// import FormError from "../../../components/Form/FormError.vue";
 
 const form = reactive(
   new UserModel({
@@ -88,6 +81,7 @@ function login(form) {
     isLoading.value = false;
   }
 }
+
 function validateEmail(email) {
   // Define your password criteria using regular expressions
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
