@@ -21,13 +21,13 @@
         <a-form-item label="ວັນສິ້ນສຸດ" name="match_end_activity_time">
           <a-date-picker
             type="match_end_activity_time"
-            v-model:value="form.match_end_activity_time"
             show-time
+            v-model:value="form.match_end_activity_time"
           />
         </a-form-item>
         <a-form-item label="ສະຖານະ">
           <a-checkbox type="checkbox" v-model:checked="form.is_enable">
-            <P>{{ form.is_enable ? "ເປີດໂຫວດ" : "ປິດໂຫວດ" }}</P>
+            <p>{{ form.is_enable ? "ເປີດໂຫວດ" : "ປິດໂຫວດ" }}</p>
           </a-checkbox>
           <!-- <P>{{ form.is_enable ? "ເປີດໂຫວດ" : "ປິດໂຫວດ" }}</P> -->
         </a-form-item>
@@ -47,7 +47,6 @@
 <script setup>
 import { onMounted, ref, onBeforeMount, computed } from "vue";
 import { useRoute } from "vue-router";
-// import ContactPersonalInformation from "@/components/system/contactPersonalInformation.vue";
 import MatchUseCase from "@/usecases/match/matchUaseCase";
 import { getAllTeam } from "../../../../../Repository/TeamRepository";
 

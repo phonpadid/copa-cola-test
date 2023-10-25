@@ -36,6 +36,8 @@ export function createUser(req) {
     email: req.email,
     phone: req.phone,
     password: req.password,
+    is_active:req.is_active,
+    is_staff: req.is_staff,
   };
   const body = {
     _method: "post",
@@ -52,6 +54,8 @@ export function updateUser(req) {
     email: req.email,
     phone: req.phone,
     password: req.password,
+    is_active:req.is_active,
+    is_staff: req.is_staff,
   };
   const body = {
     method: "put",

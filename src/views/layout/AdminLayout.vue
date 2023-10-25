@@ -25,9 +25,6 @@
         <!--      menu sidebar-->
         <TheMenu />
         <!--    end  menu sidebar-->
-
-        <!-- Logout -->
-        <LogoutOutlined class="w-full mt-[450px]" />
       </div>
 
       <!--      footer sidebar-->
@@ -69,7 +66,7 @@
 </template>
 
 <script setup>
-import { UnorderedListOutlined, LogoutOutlined } from "@ant-design/icons-vue";
+import { UnorderedListOutlined } from "@ant-design/icons-vue";
 import { ref } from "vue";
 import TheMenu from "@/components/GobalLayout/TheMenu.vue";
 import BreadcrumbHeader from "@/components/GobalLayout/BreadcrumbHeader.vue";

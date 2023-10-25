@@ -100,7 +100,7 @@ async function loadAllPost() {
     const res = await getAllPostFacebook();
     if (res) {
       data.postFacebook = res.results.map((post) => ({
-        match_two_team: `${post.match.team_a}(${post.match.code}) vs ${post.match.team_b}(${post.match.code})`,
+        match_two_team: `${post.match.team_a.name}(${post.match.team_a.code}) vs ${post.match.team_b.name}(${post.match.team_b.code})`,
         ...post,
       }));
       // console.log("before:",res.results )

@@ -6,6 +6,8 @@ export default function UserModel() {
     this.email = null;
     this.name = null;
     this.phone = null;
+    this.is_active = true;
+    this.is_staff = false;
 
     this.fromJSON = (state, json) => {
         state.id = json.id;
@@ -13,6 +15,9 @@ export default function UserModel() {
         state.email = json.email;
         state.name = json.name;
         state.phone = json.phone;
+        state.is_active = json.is_active;
+        state.is_staff = json.is_staff;
+        
 
     };
 }

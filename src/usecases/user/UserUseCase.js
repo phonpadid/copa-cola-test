@@ -57,6 +57,8 @@ async function resetForm() {
     data.form.name = null;
     data.form.email = null;
     data.form.phone = null;
+    data.form.is_active = null;
+    data.form.is_staff = null;
 }
 async function submitForm(){
     if(!data.isEdit){

@@ -61,6 +61,27 @@
       >
         $team
       </button>
+      <button
+        v-show="props.mode"
+        class="btn_b m-2 w-35 h-6 bg-red-600 cursor-pointer text-white hover:text-gray-900 hover:bg-red-400"
+        @click="show_Team_a_score"
+      >
+        $team_a_score
+      </button>
+      <button
+        v-show="props.mode"
+        class="btn_b m-2 w-35 h-6 bg-orange-500 cursor-pointer text-white hover:text-gray-900 hover:bg-blue-400"
+        @click="show_Team_b_score"
+      >
+        $team_b_score
+      </button>
+      <button
+        v-show="props.mode"
+        class="btn_b m-2 w-25 h-6 bg-amber-600 cursor-pointer text-white hover:text-gray-900 hover:bg-red-900"
+        @click="Team_win"
+      >
+        $team_win
+      </button>
     </div>
   </div>
 </template>
@@ -122,6 +143,18 @@ function showTeam_Datetime() {
 function show_Team() {
   const data_team = "$team ";
   onChangeReplaceCurrentCursorFocus(data_team);
+}
+function show_Team_a_score() {
+  const data_team_a_score = "$team_a_score vs ";
+  onChangeReplaceCurrentCursorFocus(data_team_a_score);
+}
+function show_Team_b_score() {
+  const data_team_b_score = "$team_b_score ";
+  onChangeReplaceCurrentCursorFocus(data_team_b_score);
+}
+function Team_win() {
+  const data_team_win = "$team_win ";
+  onChangeReplaceCurrentCursorFocus(data_team_win);
 }
 
 function Clear_Data() {

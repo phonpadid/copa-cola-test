@@ -93,10 +93,10 @@ const columns = [
     dataIndex: "title",
     // facebook_post_id
   },
-  {
-    title: "Title",
-    dataIndex: "title",
-  },
+  // {
+  //   title: "Title",
+  //   dataIndex: "title",
+  // },
   {
     title: "Body",
     dataIndex: "body",

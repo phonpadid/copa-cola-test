@@ -35,10 +35,14 @@
         </template>
 
         <template v-if="column.dataIndex === 'team_a'">
-          {{ `${record.team_a.name} (${record.team_a.code})` }}
+          <div>
+            {{ `${record.team_a.name}` }}
+            <span class="font-bold text-red-600">{{ `(${record.team_a.code})` }}</span>
+          </div>
         </template>
         <template v-if="column.dataIndex === 'team_b'">
-          {{ `${record.team_b.name} (${record.team_b.code})` }}
+          {{ `${record.team_b.name}` }}
+          <span class="font-bold text-red-600">{{ `(${record.team_b.code})` }}</span>
         </template>
         <template v-if="column.dataIndex === 'created_at'">
           {{ helpers.dateFormat(text) }}
@@ -46,6 +50,7 @@
         <template v-if="column.dataIndex === 'updated_at'">
           {{ helpers.dateFormat(text) }}
         </template>
+
         <template v-if="column.dataIndex === 'action'">
           <div class="table-action">
             <div class="action-item-table bg-gray-500" @click="onEdit(record.id)">
@@ -72,10 +77,9 @@
 
 <script setup>
 import MatchUasecase from "@/usecases/match/matchUaseCase";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import helpers from "@/hooks/helpers";
-
-const { loadAllMatch, onCreate, onDelete, onEdit, matches } = MatchUasecase;
+const { loadAllMatch, onCreate, onDelete, onEdit, matches, form } = MatchUasecase;
 const columns = [
   {
     title: "ລຳດັບ",
@@ -97,10 +101,10 @@ const columns = [
     title: "ເວລາສິ້ນສຸດການແຂ່ງ",
     dataIndex: "match_end_activity_time",
   },
-  {
-    title: "ສະຖານະ",
-    dataIndex: "",
-  },
+  // {
+  //   title: "ສະຖານະ",
+  //   dataIndex: "is_enable",
+  // },
   // {
   //   title: "Is_enable",
   //   dataIndex: "is_enable",

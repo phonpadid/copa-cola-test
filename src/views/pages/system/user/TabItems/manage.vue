@@ -21,6 +21,16 @@
         <a-form-item label="ລະຫັດຜ່ານ" v-if="!isEdit" name="password">
           <a-input-password v-model:value="form.password" />
         </a-form-item>
+        <a-form-item label="Is active">
+          <a-checkbox v-model:checked="form.is_active">
+            <P>{{ form.is_active ? "ເປີດ(ຈັດການຂໍ້ມູນທົ່ວໄປ)" : "ປິດ" }}</P>
+          </a-checkbox>
+        </a-form-item>
+        <a-form-item label="Is staff">
+          <a-checkbox v-model:checked="form.is_staff">
+            <P>{{ form.is_staff ? "ເປີດ(ສາມາດຈັດການຜູ້ໃຊ້ໄດ້)" : "ປິດ" }}</P>
+          </a-checkbox>
+        </a-form-item>
         <!-- <a-form-item v-if="!isEdit" label="ຍືນຍັນລະຫັດຜ່ານ">
       <a-input-password v-model:value="form.password_confirmation"/>
     </a-form-item> -->
@@ -37,9 +47,9 @@
 <script setup>
 import { onMounted, ref, onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
-// import { useField, useForm } from "vee-validate";
-// import ContactPersonalInformation from "@/components/system/contactPersonalInformation.vue";
 import UserUseCase from "@/usecases/user/UserUseCase";
+
+const checked = ref(true);
 
 const route = useRoute();
 const {

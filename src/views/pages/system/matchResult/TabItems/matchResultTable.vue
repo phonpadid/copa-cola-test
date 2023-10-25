@@ -34,10 +34,17 @@
           {{ index + 1 }}
         </template>
         <template v-if="column.dataIndex === 'match'">
-          {{ `${record.match.team_a} (${record.match.code})` }} VS
+          {{ `${record.match.team_a.name}` }}
+          <span class="font-bold text-red-600">{{
+            `(${record.match.team_a.code})`
+          }}</span>
+          VS
         </template>
         <template v-if="column.dataIndex === 'match'">
-          {{ `${record.match.team_b} (${record.match.code})` }}
+          {{ `${record.match.team_b.name}` }}
+          <span class="font-bold text-red-600">{{
+            `(${record.match.team_b.code})`
+          }}</span>
         </template>
         <template v-if="column.dataIndex === 'created_at'">
           {{ helpers.dateFormat(text) }}
