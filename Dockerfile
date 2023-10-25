@@ -12,8 +12,8 @@ RUN npm install
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
-ENV VITE_APP_BASE_URL=https://sengxingstxhaltech.pythonanywhere.com/
-ENV VITE_APP_BASE_API_URL=https://sengxingstxhaltech.pythonanywhere.com/api
+ENV VITE_APP_BASE_URL=https://backend-production-c017.up.railway.app/
+ENV VITE_APP_BASE_API_URL=https://backend-production-c017.up.railway.app/api
 
 # build app for production with minification
 RUN npm run build
