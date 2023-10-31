@@ -1,7 +1,7 @@
 <template>
   <div class="base-form">
     <div class="form-content">
-      <!-- <AlertMessage v-if="isServerError" :messageError="messageError" /> -->
+      <AlertMessage v-if="isServerError" :messageError="messageError" />
       <a-form v-bind="layout" :rules="rules" ref="refForm" :model="form">
         <a-form-item label=" ">
           <h1 class="text-xl base-title-form">

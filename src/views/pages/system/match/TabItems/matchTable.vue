@@ -33,22 +33,38 @@
         <template v-if="column.dataIndex === 'index'">
           {{ index + 1 }}
         </template>
-
+        <!-- Team_A -->
         <template v-if="column.dataIndex === 'team_a'">
-          <div>
-            {{ `${record.team_a.name}` }}
-            <span class="font-bold text-red-600">{{ `(${record.team_a.code})` }}</span>
-          </div>
+          <span class="font-bold mx-2">{{ `${record.team_a.name}` }}</span>
+          <a-avatar class="bg-yellow-500">
+            <template #icon>
+              <div>
+                <span class="font-code">{{ `${record.team_a.code}` }}</span>
+              </div>
+            </template>
+          </a-avatar>
         </template>
+        <!-- Team_B -->
         <template v-if="column.dataIndex === 'team_b'">
-          {{ `${record.team_b.name}` }}
-          <span class="font-bold text-red-600">{{ `(${record.team_b.code})` }}</span>
+          <span class="font-bold mx-2">{{ `${record.team_b.name}` }}</span>
+          <a-avatar class="bg-red-600">
+            <template #icon>
+              <div>
+                <span class="font-code">{{ `${record.team_b.code}` }}</span>
+              </div>
+            </template>
+          </a-avatar>
         </template>
         <template v-if="column.dataIndex === 'created_at'">
           {{ helpers.dateFormat(text) }}
         </template>
         <template v-if="column.dataIndex === 'updated_at'">
           {{ helpers.dateFormat(text) }}
+        </template>
+        <template v-if="column.dataIndex === 'is_enable'">
+          <span :style="{ color: record.is_enable === true ? 'blue' : 'red' }">
+            {{ record.is_enable === true ? "ເປີດໂຫວດ" : "ປິດໂຫວດ" }}
+          </span>
         </template>
 
         <template v-if="column.dataIndex === 'action'">
@@ -101,10 +117,10 @@ const columns = [
     title: "ເວລາສິ້ນສຸດການແຂ່ງ",
     dataIndex: "match_end_activity_time",
   },
-  // {
-  //   title: "ສະຖານະ",
-  //   dataIndex: "is_enable",
-  // },
+  {
+    title: "ສະຖານະ",
+    dataIndex: "is_enable",
+  },
   // {
   //   title: "Is_enable",
   //   dataIndex: "is_enable",
@@ -119,4 +135,8 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.font-code {
+  font-size: 12px;
+}
+</style>

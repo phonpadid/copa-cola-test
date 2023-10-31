@@ -86,10 +86,23 @@ async function submitForm(){
         }
     }
 }
-
-async function loadAllTeam() {
+// Search
+function isFilters(filterObject){
+    // console.log()
+    const result ={}
+    for(const [key , value] of Object.entries(filterObject)){
+        if(value){
+            result[key] = value
+        }
+    }
+    // console.log(result)
+    return result
+}
+async function loadAllTeam(filters) {
     try {
-        const res = await getAllTeam();
+        const filterChecked = isFilters(filters)
+        // console.log(filterChecked)
+        const res = await getAllTeam(filterChecked);
         if (res) {
             // console.log(res)
             data.teams = res.results;

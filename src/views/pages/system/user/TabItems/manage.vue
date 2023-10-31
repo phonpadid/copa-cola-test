@@ -1,7 +1,7 @@
 <template>
   <div class="base-form">
     <div class="form-content">
-      <!-- <AlertMessage v-if="isServerError" :messageError="messageError" /> -->
+      <AlertMessage v-if="isServerError" :messageError="messageError" />
       <a-form v-bind="layout" :rules="rules" ref="refForm" :model="form">
         <a-form-item label=" ">
           <h1 class="text-xl base-title-form">
@@ -23,12 +23,12 @@
         </a-form-item>
         <a-form-item label="Is active">
           <a-checkbox v-model:checked="form.is_active">
-            <P>{{ form.is_active ? "ເປີດ(ຈັດການຂໍ້ມູນທົ່ວໄປ)" : "ປິດ" }}</P>
+            <p>{{ form.is_active ? "ເປີດ(ຈັດການຂໍ້ມູນທົ່ວໄປ)" : "ປິດ" }}</p>
           </a-checkbox>
         </a-form-item>
         <a-form-item label="Is staff">
           <a-checkbox v-model:checked="form.is_staff">
-            <P>{{ form.is_staff ? "ເປີດ(ສາມາດຈັດການຜູ້ໃຊ້ໄດ້)" : "ປິດ" }}</P>
+            <p>{{ form.is_staff ? "ເປີດ(ສາມາດຈັດການຜູ້ໃຊ້ໄດ້)" : "ປິດ" }}</p>
           </a-checkbox>
         </a-form-item>
         <!-- <a-form-item v-if="!isEdit" label="ຍືນຍັນລະຫັດຜ່ານ">

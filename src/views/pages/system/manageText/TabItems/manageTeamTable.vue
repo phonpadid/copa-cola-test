@@ -2,19 +2,17 @@
   <div class="base-menu-table">
     <!--    Table Action Header-->
     <TableActionMenu>
-      <!-- <template v-slot:searchTable>
+      <template v-slot:searchTable>
         <a-row class="mb-4">
-          <a-col :sm="12" :md="8" :lg="8">
-            <label>ຄົ້ນຫາຂໍ້ມູນ</label>
-            <a-input-search class="w-full text-xs" placeholder="input search text" />
-          </a-col>
-          <a-col :sm="24" :md="2" :lg="2" class="ml-3">
-            <a-button class="mt-5" type="primary" shape="circle">
-              <i class="fas fa-search"></i>
-            </a-button>
-          </a-col>
+          <a-input-search
+            placeholder="ຄົ້ນຫາ"
+            enter-button
+            @keypress.enter="onSearch"
+            @search="onSearch"
+            v-model:value="searchQuery"
+          />
         </a-row>
-      </template> -->
+      </template>
       <template v-slot:actionButton>
         <a-button class="bg-blue-500 font-light" type="primary" @click="onCreate">
           ເພີ່ມຂໍ້ມູນ
@@ -67,9 +65,13 @@
 import ManageTextUsecase from "@/usecases/manageText/manageTextUsecase";
 import { onMounted } from "vue";
 import helpers from "@/hooks/helpers";
+import { ref } from "vue";
+
+import { message } from "ant-design-vue";
 
 const { loadAllTeam, onCreate, onDelete, onEdit, teams } = ManageTextUsecase;
-
+const searchQuery = ref("");
+const searchCode = ref("");
 const columns = [
   {
     title: "ລຳດັບ",
@@ -88,9 +90,64 @@ const columns = [
     dataIndex: "action",
   },
 ];
+
+// const onSearch = async (searchText) => {
+//   try {
+//     const response = await fetch(
+//       `${API_URL}?name__icontains=${searchText}&code__icontains=${searchText}`
+//     );
+//     console.log(response);
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch data");
+//     }
+//     const data = await response.json();
+//     teams.value = data.results;
+//   } catch (error) {
+//     message.error(`An error occurred: ${error.message}`);
+//   }
+// };
+
+const onSearch = async () => {
+  const filters = {
+    name__icontains: searchQuery.value,
+    code__icontains: searchCode.value,
+  };
+  loadAllTeam(filters);
+};
 onMounted(() => {
-  loadAllTeam();
+  onSearch();
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.search-button i {
+  margin-right: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+</style>

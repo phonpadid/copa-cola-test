@@ -1,26 +1,58 @@
 <template>
-  <div class="card grid grid-cols-1 mt-4">
-    <div class="container">
-      <h2 class="font-bold text-5xl">COCA COLA</h2>
-      <form action="" method="POST" @submit.prevent="login(form)">
-        <div class="form-group">
-          <label for="email">ອີເມວ:</label>
-          <a-input v-model:value="form.email" />
-        </div>
-        <div class="form-group">
-          <label for="password">ລະຫັດຜ່ານ:</label>
-          <a-input v-model:value="form.password" type="password" />
-        </div>
-        <div class="form-group">
-          <a-button :loading="isLoading" type="primary" block @click="login(form)"
-            >ເຂົ້າສູ່ລະບົບ</a-button
+  <!-- <AlertMessageLogin v-if="isServerError" :messageError="messageError" /> -->
+  <div class="w-full h-screen flex justify-center bg-gray-100 items-center">
+    <div class="w-[1200px] h-[600px] bg-white shadow">
+      <a-row>
+        <a-col :sm="24" :md="12" :lg="12">
+          <div
+            class="w-full h-[600px] bg-red-600 flex flex-col items-center justify-center"
           >
-        </div>
-        <!-- <div class="message">
-          <p v-if="messageError" class="text-red-500">{{ messageError }}</p>
-        </div> -->
-        <!-- <FormError :show="showErrorAlert" :message="messageError" /> -->
-      </form>
+            <div class="w-[140px] h-[140px] bg-white rounded-full overflow-hidden">
+              <img class="w-full h-full object-contain" :src="logo" alt="" />
+            </div>
+            <div class="text-center mt-6">
+              <h1 class="text-xl text-white">COCA COLA</h1>
+              <h2 class="text-base text-white">COPA COCA COLA</h2>
+            </div>
+          </div>
+        </a-col>
+        <a-col :sm="24" :md="12" :lg="12">
+          <div class="w-full h-[600px] flex flex-col justify-center p-10">
+            <h1 class="text-2xl mb-4">ເຂົ້າສູ່ລະບົບ</h1>
+            <a-form :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }">
+              <a-form-item
+                ><label class="mx-2"
+                  >ອີເມວ:
+                  <i
+                    class="fas fa-envelope"
+                    style="font-size: 14px; margin-right: 8px"
+                  ></i>
+                </label>
+                <a-input v-model:value="form.email" size="large" />
+              </a-form-item>
+              <a-form-item label="">
+                <label class="mx-2"
+                  >ລະຫັດຜ່ານ:
+                  <i class="fas fa-lock" style="font-size: 14px; margin-right: 8px"></i>
+                </label>
+                <a-input-password v-model:value="form.password" size="large" />
+              </a-form-item>
+              <a-form-item>
+                <a-button
+                  :loading="isLoading"
+                  type="primary"
+                  size="large"
+                  class="w-full bg-blue-500 text-white"
+                  @click="login(form)"
+                >
+                  ເຂົ້າສູ່ລະບົບ
+                  <span class="ml-4"><i class="far fa-long-arrow-right"></i></span>
+                </a-button>
+              </a-form-item>
+            </a-form>
+          </div>
+        </a-col>
+      </a-row>
     </div>
   </div>
 </template>
@@ -30,26 +62,17 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 import { useStore } from "vuex";
 const store = useStore();
-import { notificationSuccess, messageError, notificationWarning } from "@/hooks/message";
-import { reactive, ref } from "vue";
+import { notificationSuccess, messageError } from "@/hooks/message";
+import { reactive, ref, onBeforeMount } from "vue";
 import UserModel from "@/store/models/User";
-// import FormError from "../../../components/Form/FormError.vue";
+import logo from "@/assets/image/coca-cola-bottle-cap5138.logowik.com.webp";
 
-const form = reactive(
-  new UserModel({
-    form: {
-      email: "",
-      password: "",
-    },
-  })
-);
-
+const form = reactive(new UserModel());
 const isLoading = ref(false);
 
-function login(form) {
-  messageError.value = "";
+async function login(form) {
   // Validate the form
-  if (!form.email || !form.password) {
+  if (!form.email && !form.password) {
     messageError("ກະລຸນາປ້ອນອີເມວ ແລະ ລະຫັດຜ່ານກ່ອນ.");
     return;
   }
@@ -63,7 +86,7 @@ function login(form) {
   }
   try {
     isLoading.value = true;
-    store.dispatch("auth/login", form).then((res) => {
+    await store.dispatch("auth/login", form).then((res) => {
       if (res) {
         notificationSuccess({
           title: "ເຂົ້າສູ່ລະບົບສຳເລັດ",
@@ -77,7 +100,7 @@ function login(form) {
       }
     });
   } catch (e) {
-    messageError("Login failed.");
+    messageError("ກະລຸນາກວດສອບຂໍ້ມູນ....");
     isLoading.value = false;
   }
 }
@@ -96,53 +119,4 @@ function validatePassword(password) {
 }
 </script>
 
-<style scoped>
-.container {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  max-width: 500px; /* Set a max-width for responsiveness */
-  margin: 0 auto; /* Center the form horizontally */
-  margin-top: 100px; /* Adjust margin-top as needed */
-}
-
-.container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-.form-group input[type="submit"] {
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.form-group input[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
-.message {
-  text-align: center;
-  margin-top: 10px;
-  color: #ff0000;
-}
-</style>
+<style scoped></style>

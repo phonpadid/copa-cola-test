@@ -20,32 +20,6 @@ const layout = {
 const refForm = ref(null);
 const rules = {}
 
-// function onCreate() {
-//     router.push({
-//         name: "managetext.create"
-//     }).catch(() => {
-//     })
-// }
-// function onEdit(id) {
-//     router.push({
-//         name: "managetext.edit",
-//         params:{
-//             id:id
-//         },
-//         query:{
-//             edit:"true"
-//         }
-//     }).catch(() => {
-//     })
-// }
-// function onDelete(id){
-//     notificationSuccess({
-//         title: "Delete Success",
-//         description: "delete data successfully...",
-//         position: "topRight"
-//     })
-// }
-
 export default {
     ...toRefs(data),
     layout,
