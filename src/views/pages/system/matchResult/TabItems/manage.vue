@@ -1,7 +1,7 @@
 <template>
   <div class="base-form">
     <div class="form-content">
-      <!-- <AlertMessage v-if="isServerError" :messageError="messageError" /> -->
+      <AlertMessage v-if="isServerError" :messageError="messageError" />
       <a-form v-bind="layout" :rules="rules" ref="refForm" :model="form">
         <a-form-item label=" ">
           <h1 class="text-xl base-title-form font-bold">
@@ -15,7 +15,7 @@
         </a-form-item>
         <a-form-item label="ຄະແນນທີມA" name="team_a_score">
           <a-input-number
-            :min="1"
+            :min="0"
             :max="100000"
             v-model:value="form.team_a_score"
             style="width: 200px"
@@ -23,7 +23,7 @@
         </a-form-item>
         <a-form-item label="ຄະແນນທີມB" name="team_b_score">
           <a-input-number
-            :min="1"
+            :min="0"
             :max="100000"
             v-model:value="form.team_b_score"
             style="width: 200px"
@@ -31,7 +31,7 @@
         </a-form-item>
         <a-form-item label="ສະຖານະ">
           <a-checkbox v-model:checked="form.is_publish">
-            <p>{{ form.is_publish ? "ເປີດໂຫວດ" : "ປິດໂຫວດ" }}</p>
+            <p>{{ form.is_publish ? "ເປີດໃຊ້ງານ" : "ປິດໃຊ້ງານ" }}</p>
           </a-checkbox>
         </a-form-item>
         <a-form-item label="">

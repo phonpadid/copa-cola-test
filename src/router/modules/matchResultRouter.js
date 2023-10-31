@@ -7,7 +7,7 @@ const moduleRouter = {
             path: '',
             name: 'matchresult.index',
             meta: {
-                title: "ຈັດການແມັດResult",
+                title: "ຈັດການຜົນການແຂ່ງຂັນ",
                 name: "MatchResult Info",
                 layout: "admin",
             }

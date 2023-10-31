@@ -51,22 +51,23 @@ const MenuList = reactive([
     route: "match.index",
   },
   {
+    id: 14,
+    name: "ເລືອກໂພສ ແລະ ຈັບຄູ່ແມັດ",
+    icon: "fab fa-facebook-square",
+    route: "manageposts.index",
+  },
+  {
     id: 12,
-    name: "ຈັດການແມັດResult",
+    name: "ຈັດການຜົົນການແຂ່ງຂັນ",
     icon: "fab fa-shopware",
     route: "matchresult.index",
   },
+
   {
     id: 13,
     name: "ຈັດການຊຸດຂໍ້ຄວາມ",
     icon: "fab fa-readme",
     route: "text.index",
-  },
-  {
-    id: 14,
-    name: "ເລືອກໂພສ ແລະ ຈັບຄູ່ແມັດ",
-    icon: "fab fa-facebook-square",
-    route: "manageposts.index",
   },
   {
     id: 15,

@@ -45,7 +45,7 @@
           v-model:value="match_result_id"
           v-show="selectedOption === 'winning_participants'"
           :options="matchResultOptions"
-          placeholder="Select winning_participants"
+          placeholder="ສົົ່ງຫາສະະເພາະຜູ້ທີ່ເຄີຍທວຍຖືກໃນແມັດ"
           v-model="selectedMatchResult"
         />
 
@@ -54,7 +54,7 @@
           v-model:value="match_id"
           v-show="selectedOption === 'voted_participants'"
           :options="matchOptions"
-          placeholder="Select voted_participants"
+          placeholder="ສົ່ງຫາສະເພາະຄົນຮ່ວມເຊຍແມັດໃດໜຶ່ງ"
           v-model="selectedMatch"
         />
         <br /><br />

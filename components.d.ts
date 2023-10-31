@@ -8,6 +8,8 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AdminLayout: typeof import('./src/views/layout/AdminLayout.vue')['default']
+    AlertMessage: typeof import('./src/components/GobalLayout/AlertMessage.vue')['default']
+    AlertMessageLogin: typeof import('./src/components/GobalLayout/AlertMessageLogin.vue')['default']
     App: typeof import('./src/App.vue')['default']
     BreadcrumbHeader: typeof import('./src/components/GobalLayout/BreadcrumbHeader.vue')['default']
     ContactPersonalInformation: typeof import('./src/components/system/contactPersonalInformation.vue')['default']

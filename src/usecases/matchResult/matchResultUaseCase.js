@@ -93,9 +93,9 @@ async function submitForm() {
         await resetForm();
       }
     } catch (firstErrorBag) {
-      console.log(firstErrorBag);
+      // console.log(firstErrorBag);
       data.isServerError = true;
-    
+
       notificationWarning({
         title: "ເກີດຂໍ້ຜິດພາດ...",
         description: "ກະລຸນາກວດສອບຂໍ້ມູນ",

@@ -52,6 +52,25 @@
           class="trigger"
           @click="() => (collapsed = !collapsed)"
         />
+        <!-- User Logout  -->
+        <div
+          class="box-logout w-[30px] h-[30px] overflow-hidden rounded-full bg-gray-300 flex justify-center items-center"
+        >
+          <a-menu v-model:selectedKeys="current" mode="horizontal">
+            <a-sub-menu key="sub1">
+              <template #icon>
+                <UserOutlined class="user" />
+              </template>
+              <a-menu-item-group title="ຈັດການຜູ້ໃຊ້">
+                <a-menu-item key="setting:1"> ຂໍ້ມູນຜູ້ໃຊ້</a-menu-item>
+                <a-menu-item key="setting:2">ປ່ຽນລະຫັດຜ່ານ</a-menu-item>
+                <a-menu-item key="setting:3"
+                  ><a href="http://127.0.0.1:5173/" />ອອກຈາກລະບົບ</a-menu-item
+                >
+              </a-menu-item-group>
+            </a-sub-menu>
+          </a-menu>
+        </div>
       </a-layout-header>
       <a-layout-content>
         <div
@@ -66,12 +85,60 @@
 </template>
 
 <script setup>
-import { UnorderedListOutlined } from "@ant-design/icons-vue";
-import { ref } from "vue";
+import {
+  UnorderedListOutlined,
+  UserOutlined,
+  SettingOutlined,
+} from "@ant-design/icons-vue";
+import { ref, reactive } from "vue";
 import TheMenu from "@/components/GobalLayout/TheMenu.vue";
 import BreadcrumbHeader from "@/components/GobalLayout/BreadcrumbHeader.vue";
 import logo from "@/assets/image/coca-cola-bottle-cap5138.logowik.com.webp";
-
+// import { modulesAuth } from "@/store/modules/auth/index.js";
+import { notificationSuccess, messageError, notificationWarning } from "@/hooks/message";
 const collapsed = ref(false);
+const current = ref(["mail"]);
+import { useRouter } from "vue-router";
+const router = useRouter();
+import { useStore } from "vuex";
+const store = useStore();
+// const { logout } = modulesAuth;
+const isLoading = ref(false);
+const form = reactive({
+  // Define the form properties here
+  email: "",
+  password: "",
+});
+function logout() {
+  try {
+    isLoading.value = true;
+    store.dispatch("auth/logout", form).then((res) => {
+      if (res) {
+        notificationSuccess({
+          title: "ອອກຈາກລະບົບສຳເລັດ",
+          description: "ອອກຈາກລະບົບສຳເລັດ...",
+          position: "topRight",
+        });
+        isLoading.value = false;
+        router.push({
+          name: "export.index",
+        });
+      }
+    });
+  } catch (e) {
+    messageError("ອອກຈາກລະບົບບໍ່ສຳເລັດ.");
+    isLoading.value = false;
+  }
+}
 </script>
-<style></style>
+<style scoped>
+.box-logout {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+}
+.user {
+  position: relative;
+  left: 4px;
+}
+</style>

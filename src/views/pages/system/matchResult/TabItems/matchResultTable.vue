@@ -33,18 +33,28 @@
         <template v-if="column.dataIndex === 'index'">
           {{ index + 1 }}
         </template>
+        <!-- Team_A -->
         <template v-if="column.dataIndex === 'match'">
-          {{ `${record.match.team_a.name}` }}
-          <span class="font-bold text-red-600">{{
-            `(${record.match.team_a.code})`
-          }}</span>
+          <span class="font-bold mx-2">{{ `${record.match.team_a.name}` }}</span>
+          <a-avatar class="bg-red-600">
+            <template #icon>
+              <div>
+                <span class="font-code">{{ `${record.match.team_a.code}` }}</span>
+              </div>
+            </template>
+          </a-avatar>
           VS
         </template>
+        <!-- Team_B -->
         <template v-if="column.dataIndex === 'match'">
-          {{ `${record.match.team_b.name}` }}
-          <span class="font-bold text-red-600">{{
-            `(${record.match.team_b.code})`
-          }}</span>
+          <span class="font-bold mx-2">{{ `${record.match.team_b.name}` }}</span>
+          <a-avatar class="bg-yellow-500">
+            <template #icon>
+              <div>
+                <span class="font-code">{{ `${record.match.team_b.code}` }}</span>
+              </div>
+            </template>
+          </a-avatar>
         </template>
         <template v-if="column.dataIndex === 'created_at'">
           {{ helpers.dateFormat(text) }}
@@ -107,7 +117,7 @@ const columns = [
     dataIndex: "team_b_score",
   },
   {
-    title: "ຜົົນການແຂງຂັນທີມຊະນະ",
+    title: "ຜົົນການແຂງຂັນ",
     dataIndex: "win_team",
   },
   {
@@ -120,4 +130,8 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.font-code {
+  font-size: 12px;
+}
+</style>
