@@ -61,13 +61,6 @@ function onShowClose() {
 
 const inputValueContent = ref("");
 
-// Add other button click handlers as needed
-
-// function addDatetimeToTextarea() {
-//   const currentDate = new Date();
-//   const formattedDatetime = currentDate.toLocaleString();
-//   inputValueContent.value += formattedDatetime + "\n";
-// }
 function onSelectEmoji(emoji) {
   const emoji_icon = emoji.i;
   onChangeReplaceCurrentCursorFocus(emoji_icon);

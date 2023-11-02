@@ -115,12 +115,12 @@ async function submitForm(id) {
     }
   }
 }
-// Function Timezone
+// Function Timezone To UI Table
 function formatDateWithTimeZone(dateWithTimeZone) {
   if (typeof dateWithTimeZone !== "string") return null;
-  const formatDateWithTimeZone = dayjs(dateWithTimeZone, "YYYY-MM-DD HH:mm:ss", "UTC");
+  const formatDateWithTimeZone = dayjs(dateWithTimeZone, "YYYY-MM-DD HH:mm", "UTC");
 
-  return dayjs(formatDateWithTimeZone).format("YYYY-MM-DD HH:mm:ss");
+  return dayjs(formatDateWithTimeZone).format("YYYY-MM-DD HH:mm");
 }
 async function loadAllMatch() {
   try {
@@ -137,6 +137,7 @@ async function loadAllMatch() {
   } catch (error) {}
 }
 
+// LoadMatch To Edit 
 async function loadMatch(id) {
   try {
     const res = await getMatch(id);

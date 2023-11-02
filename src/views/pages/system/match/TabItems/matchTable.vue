@@ -62,9 +62,11 @@
           {{ helpers.dateFormat(text) }}
         </template>
         <template v-if="column.dataIndex === 'is_enable'">
-          <span :style="{ color: record.is_enable === true ? 'blue' : 'red' }">
-            {{ record.is_enable === true ? "ເປີດໂຫວດ" : "ປິດໂຫວດ" }}
-          </span>
+          <a-tag color="pink">
+            <span :style="{ color: record.is_enable === true ? 'blue' : 'red' }">
+              {{ record.is_enable === true ? "ເປີດໂຫວດ" : "ປິດໂຫວດ" }}
+            </span>
+          </a-tag>
         </template>
 
         <template v-if="column.dataIndex === 'action'">
@@ -110,11 +112,11 @@ const columns = [
     dataIndex: "team_b",
   },
   {
-    title: "ເວລາແຂ່ງ",
+    title: "ວັນທີ",
     dataIndex: "match_time",
   },
   {
-    title: "ເວລາສິ້ນສຸດການແຂ່ງ",
+    title: "ເວລາ",
     dataIndex: "match_end_activity_time",
   },
   {

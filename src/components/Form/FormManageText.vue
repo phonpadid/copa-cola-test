@@ -96,8 +96,9 @@ const props = defineProps({
     type: Number,
   },
   message: {
-    type: String,
+    type: Object,
   },
+  // String
   mode: { type: Boolean, required: false, default: true },
 });
 watch(

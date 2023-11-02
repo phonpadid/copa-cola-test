@@ -15,10 +15,10 @@
         <a-form-item label="ຊືທີມB" name="team_b">
           <a-select type="team_b" :options="team" v-model:value="form.team_b" />
         </a-form-item>
-        <a-form-item label="ເວລາແຂ່ງ" name="match_time">
+        <a-form-item label="ເວລາ" name="match_time">
           <a-date-picker type="match_time" v-model:value="form.match_time" show-time />
         </a-form-item>
-        <a-form-item label="ວັນສິ້ນສຸດ" name="match_end_activity_time">
+        <a-form-item label="ວັນທີ" name="match_end_activity_time">
           <a-date-picker
             type="match_end_activity_time"
             show-time

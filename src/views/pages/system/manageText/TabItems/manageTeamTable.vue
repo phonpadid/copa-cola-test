@@ -5,13 +5,22 @@
       <template v-slot:searchTable>
         <a-row class="mb-4">
           <a-input-search
-            placeholder="ຄົ້ນຫາ"
+            placeholder="ຄົ້ນຫາຕາມຊື"
             enter-button
             @keypress.enter="onSearch"
             @search="onSearch"
             v-model:value="searchQuery"
           />
         </a-row>
+        <!-- <a-row class="mb-4">
+          <a-input-search
+            placeholder="ຄົ້ນຫາຕາມລະຫັດ"
+            enter-button
+            @keypress.enter="onSearch"
+            @search="onSearch"
+            v-model:value="searchCode"
+          />
+        </a-row> -->
       </template>
       <template v-slot:actionButton>
         <a-button class="bg-blue-500 font-light" type="primary" @click="onCreate">
@@ -23,13 +32,20 @@
     <a-table
       class="base-table"
       :columns="columns"
+      :loading="loading"
       :data-source="teams"
-      :pagination="{ pageSize: 10 }"
+      :pagination="false"
     >
       <pre>{{ teams }}</pre>
-      <template #bodyCell="{ column, text, record, index }">
+      <template #footer>
+        <div class="flex items-center gap-x-2 justify-end">
+          <a-button @click="onPrevious" :disabled="!previous">Previous</a-button>
+          <a-button @click="onNext" :disabled="!next">Next</a-button>
+        </div>
+      </template>
+      <template #bodyCell="{ column, text, record }">
         <template v-if="column.dataIndex === 'index'">
-          {{ index + 1 }}
+          {{ record.index }}
         </template>
         <template v-if="column.dataIndex === 'created_at'">
           {{ helpers.dateFormat(text) }}
@@ -66,12 +82,33 @@ import ManageTextUsecase from "@/usecases/manageText/manageTextUsecase";
 import { onMounted } from "vue";
 import helpers from "@/hooks/helpers";
 import { ref } from "vue";
-
 import { message } from "ant-design-vue";
 
-const { loadAllTeam, onCreate, onDelete, onEdit, teams } = ManageTextUsecase;
+const {
+  loadAllTeam,
+  onCreate,
+  onDelete,
+  onEdit,
+  teams,
+  loading,
+  previous,
+  next,
+} = ManageTextUsecase;
 const searchQuery = ref("");
 const searchCode = ref("");
+
+function onNext() {
+  if (next.value && typeof next.value === "string") {
+    const page = parseInt(next.value.split("page=")[1] || 0);
+    onSearch(true, page);
+  }
+}
+function onPrevious() {
+  if (previous.value && typeof previous.value === "string") {
+    const page = parseInt(previous.value.split("page=")[1] || 0);
+    onSearch(true, page);
+  }
+}
 const columns = [
   {
     title: "ລຳດັບ",
@@ -91,27 +128,18 @@ const columns = [
   },
 ];
 
-// const onSearch = async (searchText) => {
-//   try {
-//     const response = await fetch(
-//       `${API_URL}?name__icontains=${searchText}&code__icontains=${searchText}`
-//     );
-//     console.log(response);
-//     if (!response.ok) {
-//       throw new Error("Failed to fetch data");
-//     }
-//     const data = await response.json();
-//     teams.value = data.results;
-//   } catch (error) {
-//     message.error(`An error occurred: ${error.message}`);
-//   }
-// };
+const onSearch = async (hasPage, page) => {
+  const filters = {};
+  if (hasPage) {
+    filters.page = page;
+  }
+  if (searchQuery.value) {
+    filters.name__icontains = searchQuery.value;
+  }
 
-const onSearch = async () => {
-  const filters = {
-    name__icontains: searchQuery.value,
-    code__icontains: searchCode.value,
-  };
+  if (searchCode.value) {
+    filters.code__icontains = searchCode.value;
+  }
   loadAllTeam(filters);
 };
 onMounted(() => {
