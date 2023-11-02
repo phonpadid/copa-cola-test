@@ -58,7 +58,11 @@
           v-model="selectedMatch"
         />
         <br /><br />
-        <a-button type="primary" class="mx-4 hover:bg-red-500" @click="onHandleSave"
+        <a-button
+          :loading="loading"
+          type="primary"
+          class="mx-4 hover:bg-red-500"
+          @click="onHandleSave"
           >ສົົ່ງຂໍ້ມູນ</a-button
         >
       </a-modal>
@@ -71,15 +75,13 @@ import { ref, reactive, toRefs, onMounted } from "vue";
 import { saveMessageSucceed } from "@/usecases/MessagesSucceed/MessagesSuccedUseCases";
 import { getAllMatchResult } from "@/Repository/MatchResultRepository";
 import { getAllMatch } from "@/Repository/MatchRepository";
-
+const loading = ref(false);
 const showTextModal = ref(false);
 const selectedOption = ref("all_participants");
-// const selectedWinningParticipant = ref(null);
-// const selectedVotedParticipant = ref(null);
 
 const matchOptions = ref();
 const matchResultOptions = ref();
-const selectedMatchResult = ref(null); // Add a variable to store the selected match result
+const selectedMatchResult = ref(null);
 const selectedMatch = ref(null);
 
 // Load MatchResult
@@ -121,10 +123,6 @@ onMounted(async () => {
 function showModal() {
   showTextModal.value = !showTextModal.value;
 }
-const handleOk = (e) => {
-  console.log(e);
-  visible.value = false;
-};
 
 function Close() {
   showTextModal.value = false;
@@ -132,6 +130,7 @@ function Close() {
 
 const formTextRef = ref(null);
 async function onHandleSave() {
+  loading.value = true;
   formTextRef.value[0].onSuccessSendMessage();
   const messageData = {
     condition: selectedOption.value,
@@ -140,8 +139,11 @@ async function onHandleSave() {
     match_id: state.match_id,
   };
   try {
+    // console.log(saveMessageSucceed(messageData));
     await saveMessageSucceed(messageData);
-    console.log("Message sent successfully");
+    showTextModal.value = !showTextModal.value;
+    loading.value = false;
+    // console.log("Message sent successfully");
   } catch (error) {
     console.error("Error sending message:", error);
   }

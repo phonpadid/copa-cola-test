@@ -38,12 +38,12 @@
 import { ref, reactive, toRefs, defineAsyncComponent } from "vue";
 import MessagesTemplateUseCase from "@/usecases/Messages/MessagesTemplateUseCase";
 import { onMounted } from "vue";
-// import FormManageText from "@/components/Form/FormManageText";
+
 const AsyncFormManageText = defineAsyncComponent(() => {
   return import("@/components/Form/FormManageText");
 });
 const { saveMessage, loadAllMessages, EditMessage } = MessagesTemplateUseCase;
-// import FormManageText from "@/components/Form/FormManageText.vue";
+
 const formTextRef = ref();
 function onHandleSave() {
   for (let i = 0; i < formTextRef.value.length; i++) {
@@ -88,8 +88,8 @@ const state = reactive({
       id: 2,
       message: "",
       label: "ຂໍ້ຄວາມເມື່ອປະກາດຜົນການແຂ່ງຂັນ",
-      condition: "condition_three",
       is_enable: true,
+      condition: "condition_three",
     },
     {
       id: 3,

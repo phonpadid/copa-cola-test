@@ -7,6 +7,10 @@ import router from "@/router";
 const data = reactive({
     isEdit: false,
     teams: [],
+    loading:false,
+    previous:null,
+    next:null,
+    page:0,
     form: new TeamModel(),
     messageError: {},
     isServerError: false,
@@ -30,12 +34,12 @@ const rules = {
     ],
 };
 
-
+// Reset
 async function resetForm() {
     data.form.name = null;
     data.form.code = null;
 }
-
+// SubmitTo form 
 async function submitForm(){
     if(!data.isEdit){
         try{
@@ -51,7 +55,7 @@ async function submitForm(){
                 await resetForm();
             }
         }catch(firstErrorBag){
-            data.isLoading = false;
+            data.loading = false;
             data.isServerError = true;
             data.messageError = Object.values(firstErrorBag.response.data.errors).join('<br>'+' -');
             notificationWarning({
@@ -98,17 +102,34 @@ function isFilters(filterObject){
     // console.log(result)
     return result
 }
+// LoadAllTeam and fix index perpages 
 async function loadAllTeam(filters) {
     try {
+        data.loading = true
         const filterChecked = isFilters(filters)
-        // console.log(filterChecked)
-        const res = await getAllTeam(filterChecked);
-        if (res) {
-            // console.log(res)
-            data.teams = res.results;
+        if(filters.page){
+            data.page = filters.page
+        }else{
+            data.page = 0
         }
-    } catch (error) {
-
+        const res = await getAllTeam(filterChecked);
+            if (res) {
+                const previous = res.previous 
+                const next = res.next
+                data.previous = previous
+                data.next = next;
+                const currentPage = data.page;
+                const newCurrentPerPage = currentPage ? currentPage -1  :currentPage  
+                const perPage = 15
+                data.teams = res.results.map((team,idx) => ({
+                    index:((newCurrentPerPage) * perPage) + (idx + 1),
+                    ...team
+                }));
+            }
+            data.loading = false
+        } catch (error) {
+            data.loading = false
+            
     }
 }
 
@@ -123,10 +144,12 @@ async function loadTeam(id) {
 }
 
 async function handleSubmit(){
+    data.loading=true
     refForm.value.validate()
       .then(() =>{
         submitForm();
       })
+      data.loading=false
 }
 
 async function onCreate() {
@@ -158,15 +181,18 @@ async function onDelete(id) {
     try {
         const res = await deleteTeam(id);
         if (res) {
+            data.loading = true;
             notificationSuccess({
                 title: "ລຶບຂໍ້ມູນສຳເລັດ...",
                 description: "ລຶບຂໍ້ມູນສຳເລັດແລ້ວ",
                 position: "topRight"
+                
             })
+            await loadAllTeam();
+            
         }
-        await loadAllTeam();
     } catch (firstErrorBag) {
-        data.isLoading = false;
+        data.loading = false;
         notificationWarning({
             title: "ເກີດຂໍ້ຜິດພາດ...",
             description: firstErrorBag.errors.join('\n'),

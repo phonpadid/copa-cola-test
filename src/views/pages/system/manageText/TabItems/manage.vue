@@ -12,14 +12,19 @@
         <a-form-item label="ຊື່ທີມ" name="name">
           <a-input v-model:value="form.name" />
         </a-form-item>
-        <a-form-item label="CODE" name="code">
+        <a-form-item label="ລະຫັດທີມ" name="code">
           <a-input type="code" v-model:value="form.code" />
         </a-form-item>
         <!-- <a-form-item v-if="!isEdit" label="ຍືນຍັນລະຫັດຜ່ານ">
       <a-input-password v-model:value="form.password_confirmation"/>
     </a-form-item> -->
         <a-form-item label="">
-          <a-button class="bg-blue-500 btn" type="primary" @click="handleSubmit">
+          <a-button
+            class="bg-blue-500 btn"
+            type="primary"
+            @click="handleSubmit"
+            :loading="loading"
+          >
             {{ isEdit === true ? "ແກ້ໄຂຂໍ້ມູນ" : "ບັນທຶກຂໍ້ມູນ" }}
           </a-button>
         </a-form-item>
@@ -35,6 +40,7 @@ import { useRoute } from "vue-router";
 import ManageTextUsecase from "@/usecases/manageText/manageTextUsecase";
 
 const route = useRoute();
+const loading = ref(false);
 const {
   layout,
   form,

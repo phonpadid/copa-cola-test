@@ -64,9 +64,7 @@
               <a-menu-item-group title="ຈັດການຜູ້ໃຊ້">
                 <a-menu-item key="setting:1"> ຂໍ້ມູນຜູ້ໃຊ້</a-menu-item>
                 <a-menu-item key="setting:2">ປ່ຽນລະຫັດຜ່ານ</a-menu-item>
-                <a-menu-item key="setting:3"
-                  ><a href="http://127.0.0.1:5173/" />ອອກຈາກລະບົບ</a-menu-item
-                >
+                <a-menu-item key="setting:3" @click="logout">ອອກຈາກລະບົບ</a-menu-item>
               </a-menu-item-group>
             </a-sub-menu>
           </a-menu>
@@ -109,10 +107,11 @@ const form = reactive({
   email: "",
   password: "",
 });
-function logout() {
+
+async function logout() {
   try {
     isLoading.value = true;
-    store.dispatch("auth/logout", form).then((res) => {
+    await store.dispatch("auth/logout").then((res) => {
       if (res) {
         notificationSuccess({
           title: "ອອກຈາກລະບົບສຳເລັດ",
@@ -120,14 +119,12 @@ function logout() {
           position: "topRight",
         });
         isLoading.value = false;
-        router.push({
-          name: "export.index",
-        });
       }
     });
   } catch (e) {
-    messageError("ອອກຈາກລະບົບບໍ່ສຳເລັດ.");
+    messageError("ເກີດຂໍ້ຜິດພາດ...");
     isLoading.value = false;
+    await router.push("../pages/system/Login.vue");
   }
 }
 </script>
