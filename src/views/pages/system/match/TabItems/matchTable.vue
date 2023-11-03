@@ -112,11 +112,11 @@ const columns = [
     dataIndex: "team_b",
   },
   {
-    title: "ວັນທີ",
+    title: "ເວລາແຂ່ງ",
     dataIndex: "match_time",
   },
   {
-    title: "ເວລາ",
+    title: "ເວລາສິນສຸດ",
     dataIndex: "match_end_activity_time",
   },
   {

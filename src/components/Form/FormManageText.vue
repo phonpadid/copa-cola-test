@@ -26,21 +26,18 @@
       </nav>
       <!-- Btn -->
       <button
-        v-show="props.mode"
         class="btn_a m-2 w-20 h-6 bg-blue-500 cursor-pointer text-white hover:text-gray-900 hover:bg-red-400"
         @click="showFirstName"
       >
         $firstName
       </button>
       <button
-        v-show="props.mode"
         class="btn_a m-2 w-20 h-6 bg-yellow-500 cursor-pointer text-white hover:text-gray-900 hover:bg-red-400"
         @click="showTeam_A"
       >
         $teamA
       </button>
       <button
-        v-show="props.mode"
         class="btn_b m-2 w-20 h-6 bg-pink-500 cursor-pointer text-white hover:text-gray-900 hover:bg-yellow-500"
         @click="showTeam_B"
       >
@@ -48,35 +45,30 @@
       </button>
 
       <button
-        v-show="props.mode"
         class="btn_b m-2 w-20 h-6 bg-pink-900 cursor-pointer text-white hover:text-gray-900 hover:bg-red-600"
         @click="showTeam_Datetime"
       >
         $dateTime
       </button>
       <button
-        v-show="props.mode"
         class="btn_b m-2 w-20 h-6 bg-pink-600 cursor-pointer text-white hover:text-gray-900 hover:bg-red-900"
         @click="show_Team"
       >
         $team
       </button>
       <button
-        v-show="props.mode"
         class="btn_b m-2 w-35 h-6 bg-red-600 cursor-pointer text-white hover:text-gray-900 hover:bg-red-400"
         @click="show_Team_a_score"
       >
         $team_a_score
       </button>
       <button
-        v-show="props.mode"
         class="btn_b m-2 w-35 h-6 bg-orange-500 cursor-pointer text-white hover:text-gray-900 hover:bg-blue-400"
         @click="show_Team_b_score"
       >
         $team_b_score
       </button>
       <button
-        v-show="props.mode"
         class="btn_b m-2 w-25 h-6 bg-amber-600 cursor-pointer text-white hover:text-gray-900 hover:bg-red-900"
         @click="Team_win"
       >
@@ -96,10 +88,9 @@ const props = defineProps({
     type: Number,
   },
   message: {
-    type: Object,
+    type: String,
   },
-  // String
-  mode: { type: Boolean, required: false, default: true },
+  // mode: { type: Boolean, required: false, default: true },
 });
 watch(
   () => props.message,

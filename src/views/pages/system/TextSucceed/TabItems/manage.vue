@@ -2,8 +2,8 @@
   <div class="card mt-4">
     <div class="mt-2" v-for="(message, index) in messages" :key="index">
       <span class="text-xl">* {{ message.label }}</span>
-      <FormManageText
-        :mode="false"
+      <!-- :mode="false" -->
+      <FormText
         ref="formTextRef"
         :self="1"
         :key="`form-text-${index}`"
@@ -35,8 +35,9 @@
         <a-radio-group v-model:value="selectedOption">
           <a-radio value="all_participants">ສົົ່ງໃຫ້ທຸກຄົນ</a-radio>
           <a-radio value="winning_participants">ສົົ່ງຫາສະະເພາະຜູ້ທີ່ເຄີຍທວຍຖືກ</a-radio>
-          <a-radio value="voted_participants"
-            >ສົ່ງຫາສະເພາະຄົນຮ່ວມເຊຍແມັດໃດໜຶ່ງ</a-radio
+          <a-radio value="voted_participants">ສົ່ງຫາສະເພາະຄົນຮ່ວມເຊຍແມັດໃດໜຶ່ງ</a-radio>
+          <a-radio value="participants_id"
+            >ສົ່ງຫາສະເພາະຄົນທີທວຍຖືກ</a-radio
           > </a-radio-group
         ><br /><br />
         <!-- <p>ເລືອກເເມັດ</p> -->
@@ -57,6 +58,14 @@
           placeholder="ສົ່ງຫາສະເພາະຄົນຮ່ວມເຊຍແມັດໃດໜຶ່ງ"
           v-model="selectedMatch"
         />
+        <a-select
+          class="w-[400px]"
+          v-model:value="participants_id"
+          v-show="selectedOption === 'participants_id'"
+          :options="participantsOptions"
+          placeholder="ສົ່ງຫາຄົນທີທວຍຖືກ"
+          v-model="selectedParticipants"
+        />
         <br /><br />
         <a-button
           :loading="loading"
@@ -75,6 +84,7 @@ import { ref, reactive, toRefs, onMounted } from "vue";
 import { saveMessageSucceed } from "@/usecases/MessagesSucceed/MessagesSuccedUseCases";
 import { getAllMatchResult } from "@/Repository/MatchResultRepository";
 import { getAllMatch } from "@/Repository/MatchRepository";
+import { getAllParticipants } from "@/Repository/ParticipantRepository";
 const loading = ref(false);
 const showTextModal = ref(false);
 const selectedOption = ref("all_participants");
@@ -83,6 +93,25 @@ const matchOptions = ref();
 const matchResultOptions = ref();
 const selectedMatchResult = ref(null);
 const selectedMatch = ref(null);
+const participantsOptions = ref();
+const selectedParticipants = ref(null);
+
+// Load List User name facebook
+async function loadAllParticipants() {
+  try {
+    const res = await getAllParticipants();
+    if (res) {
+      participantsOptions.value = res.results.map((item) => ({
+        value: item.id,
+        label: item.facebook_name,
+        ...item,
+      }));
+    }
+    // console.log(res);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 // Load MatchResult
 async function loadMatchTeam() {
@@ -118,6 +147,7 @@ async function LoadTeam() {
 onMounted(async () => {
   await loadMatchTeam();
   await LoadTeam();
+  await loadAllParticipants();
 });
 
 function showModal() {
@@ -137,6 +167,7 @@ async function onHandleSave() {
     message: state.message,
     match_result_id: state.match_result_id,
     match_id: state.match_id,
+    participants_id: state.participants_id,
   };
   try {
     // console.log(saveMessageSucceed(messageData));
@@ -152,6 +183,7 @@ async function onHandleSave() {
 const state = reactive({
   match_id: null,
   match_result_id: null,
+  participants_id: null,
   message: "",
   messages: [
     {
@@ -161,17 +193,19 @@ const state = reactive({
       label: "ຂໍ້ຄວາມສຳເລັດຮູບ ເພື່ອເລືອກສົ່ງຫາກຸ່ມຜູ້ຮ່ວມກິດຈະກຳ",
       match_result_id: null,
       match_id: null,
+      participants_id: null,
     },
   ],
   selectedOption: "all_participants",
   matchResultOptions: [],
   matchOptions: [],
+  participantsOptions: [],
 });
 
 function onSuccessSendMessage(e) {
   state.message = e.message;
 }
-const { messages, match_id, match_result_id, message } = toRefs(state);
+const { messages, match_id, match_result_id, message, participants_id } = toRefs(state);
 </script>
 
 <style scoped lang="scss">

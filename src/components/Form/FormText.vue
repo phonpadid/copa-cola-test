@@ -42,6 +42,9 @@ const props = defineProps({
   self: {
     type: Number,
   },
+  message: {
+    type: Object,
+  },
 });
 const textInputRef = ref();
 const showEimoji = ref(false);

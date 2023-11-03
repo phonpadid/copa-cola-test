@@ -2,7 +2,7 @@ import { axios, apiUrl, config } from "../../api/axios";
 import User from "@/store/models/User";
 import Credential from "@/store/models/auth/Credential";
 import helpers from "@/hooks/helpers";
-
+import router from "@/router"
 const CREDENTIAL = "CREDENTIAL";
 export default function create() {
   function getCredential() {
@@ -33,10 +33,19 @@ export default function create() {
         state.credential = payload;
         localStorage.setItem(CREDENTIAL, JSON.stringify(state.credential));
       },
+      // removeCredential(state, payload) {
+      //   const userCredential = getCredential();
+      //   helpers.removeItemsStorage("cert_token", userCredential);
+      //   state.credential = new Credential();
+      // },
       removeCredential(state, payload) {
+        console.log("im in ")
+
         const userCredential = getCredential();
         helpers.removeItemsStorage("cert_token", userCredential);
+        localStorage.removeItem("CREDENTIAL");
         state.credential = new Credential();
+        if (router.currentRoute.value.name != "login.index") window.location.href = "/";
       },
     },
     // Login
@@ -57,21 +66,39 @@ export default function create() {
             });
         });
       },
-      // Logout
+      // Logout 
       logout(context, payload) {
-        axios
-          .post(
-            `${apiUrl}/account/logout/`,
-            {},
-            config.addTokenHeader(context.getters.token)
-          )
-          .then(() => {
-            context.commit("removeCredential", { path });
-          })
-          .catch(() => {
-            context.commit("removeCredential", { path });
-          });
+        if (payload && !payload.call) {
+          context.commit("removeCredential");
+        } else {
+          axios
+            .post(
+              `${apiUrl}/auth/logout`,
+              {},
+              config.addTokenHeader(context.getters.token),
+            )
+            .then(() => { })
+            .catch(() => { })
+            .finally(() => {
+              context.commit("removeCredential");
+            });
+        }
       },
+      // Logout
+      // logout(context, payload) {
+      //   axios
+      //     .post(
+      //       `${apiUrl}/account/logout/`,
+      //       {},
+      //       config.addTokenHeader(context.getters.token)
+      //     )
+      //     .then(() => {
+      //       context.commit("removeCredential", { path });
+      //     })
+      //     .catch(() => {
+      //       context.commit("removeCredential", { path });
+      //     });
+      // },
 
       unauthorized({ dispatch }, payload) {
         const { status } = payload || {};

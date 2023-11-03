@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import store from "@/store"
 /**
  * clean token
  */
@@ -25,6 +25,7 @@ function getToken(tn) {
     return tn;
 }
 
+/** Adding the response interceptors */
 
 const apiUrl = import.meta.env.VITE_APP_BASE_API_URL;
 
@@ -52,6 +53,26 @@ const config = {
         "Content-Language": "la",
     }
 };
+// Set Logout 
+axios.interceptors.response.use(
+    (response) => Promise.resolve(response),
+    (error) => {
+      // Event.$emit('error', 500, error.response.data.message)
+      if (error.response.status === 403) {
+        store.dispatch("auth/logout", { call: false });
+      }
+      // if (error.response.status !== 401 && error.response.status !== 400 && error.response.status > 402) {
+      //   store.dispatch("auth/logout", { call: false });
+      // }
+      const errorMessage = error.response.data?.message;
+      error.response.data.message = errorMessage.length > 200
+        ? JSON.parse(errorMessage.split("code :").pop()).error.message.split(
+          ":",
+        )[0]
+        : errorMessage;
+  
+      return Promise.reject(error);
+    })
 
 export {
     apiUrl,

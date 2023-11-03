@@ -7,7 +7,7 @@ const moduleRouter = {
             path: '',
             name: 'match.index',
             meta: {
-                title: "ຈັດການແມັດ",
+                title: "ສະແດງລາຍການຈັດການແມັດ",
                 name: "Match Info",
                 layout: "admin",
             }
@@ -17,7 +17,7 @@ const moduleRouter = {
             path: 'create',
             name: 'match.create',
             meta: {
-                title: "Match Info",
+                title: "ເພີມຂໍ້ມູນແມັດ",
                 name: "Match Info",
                 layout: "admin",
             }
