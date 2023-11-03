@@ -63,7 +63,7 @@
               </template>
               <a-menu-item-group title="ຈັດການຜູ້ໃຊ້">
                 <a-menu-item key="setting:1"> ຂໍ້ມູນຜູ້ໃຊ້</a-menu-item>
-                <a-menu-item key="setting:2">ປ່ຽນລະຫັດຜ່ານ</a-menu-item>
+                <a-menu-item key="setting:2">ປ່ຽນລະຫັດຜ່ານ </a-menu-item>
                 <a-menu-item key="setting:3" @click="logout">ອອກຈາກລະບົບ</a-menu-item>
               </a-menu-item-group>
             </a-sub-menu>
@@ -92,7 +92,6 @@ import { ref, reactive } from "vue";
 import TheMenu from "@/components/GobalLayout/TheMenu.vue";
 import BreadcrumbHeader from "@/components/GobalLayout/BreadcrumbHeader.vue";
 import logo from "@/assets/image/coca-cola-bottle-cap5138.logowik.com.webp";
-// import { modulesAuth } from "@/store/modules/auth/index.js";
 import { notificationSuccess, messageError, notificationWarning } from "@/hooks/message";
 const collapsed = ref(false);
 const current = ref(["mail"]);
@@ -100,7 +99,6 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 import { useStore } from "vuex";
 const store = useStore();
-// const { logout } = modulesAuth;
 const isLoading = ref(false);
 const form = reactive({
   // Define the form properties here
@@ -124,7 +122,7 @@ async function logout() {
   } catch (e) {
     messageError("ເກີດຂໍ້ຜິດພາດ...");
     isLoading.value = false;
-    await router.push("../pages/system/Login.vue");
+    // await router.push("../pages/system/Login.vue");
   }
 }
 </script>

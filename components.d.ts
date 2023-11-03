@@ -17,6 +17,7 @@ declare module '@vue/runtime-core' {
     DefaultLayout: typeof import('./src/views/layout/DefaultLayout.vue')['default']
     Export: typeof import('./src/views/pages/system/export/export.vue')['default']
     ExportTable: typeof import('./src/views/pages/system/export/TabItems/exportTable.vue')['default']
+    FormChangPassword: typeof import('./src/components/Form/FormChangPassword.vue')['default']
     FormError: typeof import('./src/components/Form/FormError.vue')['default']
     FormManageText: typeof import('./src/components/Form/FormManageText.vue')['default']
     FormText: typeof import('./src/components/Form/FormText.vue')['default']

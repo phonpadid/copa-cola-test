@@ -10,15 +10,27 @@
           </h1>
         </a-form-item>
         <a-form-item label="ຊືທີມA" name="team_a">
-          <a-select type="team_a" :options="team" v-model:value="form.team_a" />
+          <a-select
+            show-search
+            type="team_a"
+            :filter-option="filterOption"
+            :options="team"
+            v-model:value="form.team_a"
+          />
         </a-form-item>
         <a-form-item label="ຊືທີມB" name="team_b">
-          <a-select type="team_b" :options="team" v-model:value="form.team_b" />
+          <a-select
+            show-search
+            :options="team"
+            type="team_b"
+            :filter-option="filterOption"
+            v-model:value="form.team_b"
+          />
         </a-form-item>
-        <a-form-item label="ເວລາ" name="match_time">
+        <a-form-item label="ເວລາແຂ່ງ" name="match_time">
           <a-date-picker type="match_time" v-model:value="form.match_time" show-time />
         </a-form-item>
-        <a-form-item label="ວັນທີ" name="match_end_activity_time">
+        <a-form-item label="ເວລາສິນສຸດ" name="match_end_activity_time">
           <a-date-picker
             type="match_end_activity_time"
             show-time
@@ -65,11 +77,17 @@ const {
   isServerError,
   loadMatch,
 } = MatchUseCase;
-
+const showTeam = ref("all");
+const condition = ref("condition");
 const team = ref();
+const filterOption = (input, option) => {
+  return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+};
 async function loadAllTeam() {
   try {
-    const res = await getAllTeam();
+    const res = await getAllTeam({
+      condition: "all",
+    });
     if (res) {
       team.value = res.results.map((item) => ({
         value: item.id,
