@@ -13,16 +13,16 @@
             }}
           </h1>
         </a-form-item>
-        <a-form-item label="Post_id" name="facebook_post_id">
+        <a-form-item label="ໂພສເຟສບຸກ" name="facebook_post_id">
           <a-select v-model:value="form.facebook_post_id" :options="facebookPost" />
         </a-form-item>
         <!-- <a-form-item label="Title" name="title">
           <a-select v-model:value="form.title" :options="messageFacebookPost" />
         </a-form-item> -->
-        <a-form-item label="Body" name="body">
+        <a-form-item label="ຄຳອະທິບາຍ" name="body">
           <a-input v-model:value="form.body" />
         </a-form-item>
-        <a-form-item label="Match" name="match">
+        <a-form-item label="ເລືອກແມັດ" name="match">
           <a-select v-model:value="form.match" :options="matchTeam" />
         </a-form-item>
         <a-form-item label="is_enable">

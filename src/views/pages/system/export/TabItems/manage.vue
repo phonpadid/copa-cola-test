@@ -26,7 +26,7 @@
             <th>ຊືຜູ້ເຂົົ້າຮ່ວມເຊຍທີມ</th>
             <th>ແມັດການແຂງຂັນ</th>
             <th>ທີມທີເຊຍ</th>
-            <th>ລະຫັດທີມ</th>
+            <th>ລະຫັດທີມທີຄອມເມັ້ນເຊຍ</th>
           </tr>
         </thead>
         <tbody>
@@ -35,7 +35,8 @@
             <td>{{ participant.participant.facebook_name }}</td>
             <td>{{ participant.match.team_a }} vs {{ participant.match.team_b }}</td>
             <td>{{ participant.team.name }}</td>
-            <td>{{ participant.facebook_post_participant.facebook_comment_value }}</td>
+            <td>{{ participant.team.code }}</td>
+            <!-- <td>{{ participant.facebook_post_participant.facebook_comment_value }}</td> -->
           </tr>
         </tbody>
       </table>

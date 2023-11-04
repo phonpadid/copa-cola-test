@@ -37,7 +37,7 @@
           <a-radio value="winning_participants">ສົົ່ງຫາສະະເພາະຜູ້ທີ່ເຄີຍທວຍຖືກ</a-radio>
           <a-radio value="voted_participants">ສົ່ງຫາສະເພາະຄົນຮ່ວມເຊຍແມັດໃດໜຶ່ງ</a-radio>
           <a-radio value="participants_id"
-            >ສົ່ງຫາສະເພາະຄົນທີທວຍຖືກ</a-radio
+            >ສົ່ງຫາສະເພາະຄົນທີທວຍຖືກເພືອຮັບລາງວັນ</a-radio
           > </a-radio-group
         ><br /><br />
         <!-- <p>ເລືອກເເມັດ</p> -->
@@ -62,8 +62,9 @@
           class="w-[400px]"
           v-model:value="participants_id"
           v-show="selectedOption === 'participants_id'"
+          mode="multiple"
           :options="participantsOptions"
-          placeholder="ສົ່ງຫາຄົນທີທວຍຖືກ"
+          placeholder="ເລືອກຄົນທີທວຍຖືກເພື່ອຮັບລາງວັນ"
           v-model="selectedParticipants"
         />
         <br /><br />
@@ -107,7 +108,6 @@ async function loadAllParticipants() {
         ...item,
       }));
     }
-    // console.log(res);
   } catch (e) {
     console.log(e);
   }
@@ -117,7 +117,6 @@ async function loadAllParticipants() {
 async function loadMatchTeam() {
   try {
     const res = await getAllMatchResult();
-    // console.log(res);
     if (res) {
       matchResultOptions.value = res.results.map((item) => ({
         value: item.id,
@@ -133,7 +132,6 @@ async function loadMatchTeam() {
 async function LoadTeam() {
   try {
     const res = await getAllMatch();
-    // console.log(res);
     if (res) {
       matchOptions.value = res.results.map((item) => ({
         value: item.id,
@@ -196,6 +194,7 @@ const state = reactive({
       participants_id: null,
     },
   ],
+
   selectedOption: "all_participants",
   matchResultOptions: [],
   matchOptions: [],
