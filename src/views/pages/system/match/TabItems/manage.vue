@@ -77,9 +77,8 @@ const {
   isServerError,
   loadMatch,
 } = MatchUseCase;
-const showTeam = ref("all");
-const condition = ref("condition");
 const team = ref();
+// Select and Search for the match
 const filterOption = (input, option) => {
   return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;
 };

@@ -3,10 +3,8 @@
 import store from "@/store"
 
 const url = "teams/"
-const condition = "all";
 
 export async function getAllTeam (filters){
-    // filters.condition = condition;
     return await store.dispatch("data-resources/listing",{
         options_request:filters,
         method:"GET",
